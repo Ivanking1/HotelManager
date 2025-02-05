@@ -6,20 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer
+namespace DataLayer.Context
 {
-    public class UserContext : IDb<User, Guid>
+    public class ReservationContext : IDb<Reservation, Guid>
     {
         private readonly HotelManagerDbContext dbContext;
-        public UserContext(HotelManagerDbContext dbContext)
+        public ReservationContext(HotelManagerDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
-        public async Task CreateAsync(User entity)
+        public async Task CreateAsync(Reservation entity)
         {
             try
             {
-                await dbContext.Users.AddAsync(entity);
+                await dbContext.Reservations.AddAsync(entity);
                 await dbContext.SaveChangesAsync();
             }
             catch (Exception)
@@ -28,13 +28,12 @@ namespace DataLayer
             }
         }
 
-        public async Task<User> ReadAsync(Guid key, bool NavigationalProperties = false, bool isReadOnly = true)
+        public async Task<Reservation> ReadAsync(Guid key, bool NavigationalProperties = false, bool isReadOnly = true)
         {
             try
             {
-                IQueryable<User> query = dbContext.Users;
+                IQueryable<Reservation> query = dbContext.Reservations;
 
-                
                 if (isReadOnly)
                 {
                     query.AsNoTrackingWithIdentityResolution();
@@ -48,11 +47,11 @@ namespace DataLayer
             }
         }
 
-        public async Task<ICollection<User>> ReadAllAsync(bool NavigationalProperties = false, bool isReadOnly = true)
+        public async Task<ICollection<Reservation>> ReadAllAsync(bool NavigationalProperties = false, bool isReadOnly = true)
         {
             try
             {
-                IQueryable<User> query = dbContext.Users;
+                IQueryable<Reservation> query = dbContext.Reservations;
 
                 if (isReadOnly)
                 {
@@ -67,18 +66,18 @@ namespace DataLayer
             }
         }
 
-        public async Task UpdateAsync(User entity, bool NavigationalProperties = false)
+        public async Task UpdateAsync(Reservation entity, bool NavigationalProperties = false)
         {
             try
             {
-                User userFromDb = await ReadAsync(entity.Id, NavigationalProperties, false);
+                Reservation reservationFromDb = await ReadAsync(entity.Id, NavigationalProperties, false);
 
-                if (userFromDb is null)
+                if (reservationFromDb is null)
                 {
-                    throw new ArgumentException("User with id = " + entity.Id + " does not exist!");
+                    throw new ArgumentException("Reservation with id = " + entity.Id + " does not exist!");
                 }
 
-                dbContext.Entry(userFromDb).CurrentValues.SetValues(entity);
+                dbContext.Entry(reservationFromDb).CurrentValues.SetValues(entity);
                 await dbContext.SaveChangesAsync();
             }
             catch (Exception)
@@ -91,14 +90,14 @@ namespace DataLayer
         {
             try
             {
-                User user = await ReadAsync(key, false, false);
+                Reservation reservation = await ReadAsync(key, false, false);
 
-                if (user is null)
+                if (reservation is null)
                 {
-                    throw new ArgumentException("User with id = " + key + " does not exist!");
+                    throw new ArgumentException("Reservation with id = " + key + " does not exist!");
                 }
 
-                dbContext.Users.Remove(user);
+                dbContext.Reservations.Remove(reservation);
                 await dbContext.SaveChangesAsync();
             }
             catch (Exception)

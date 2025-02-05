@@ -9,9 +9,9 @@ namespace DataLayer
     public interface IDb<T, K>
     {
         Task CreateAsync(T entity);
-        Task<T> ReadAsync(K key);
-        Task<ICollection<T>> ReadAllAsync();
-        Task UpdateAsync(T entity);
+        Task<T> ReadAsync(K key, bool NavigationalProperties = false, bool isReadOnly = true);
+        Task<ICollection<T>> ReadAllAsync(bool NavigationalProperties = false, bool isReadOnly = true);
+        Task UpdateAsync(T entity, bool NavigationalProperties = false);
         Task DeleteAsync(K key);
     }
 }

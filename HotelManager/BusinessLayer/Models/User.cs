@@ -35,7 +35,7 @@ namespace BusinessLayer
         public DateTime? EndOfEmployment { get; set; }
 
         [Required]
-        public bool IsAdmin { get; set; }
+        public ushort Role { get; set; }
 
         public User()
         {
@@ -45,7 +45,7 @@ namespace BusinessLayer
         public User(string userName, string password, string firstName,
             string secondName, string familyName, string socialSecurity,
             string phoneNumber, string email, DateTime startOfEmployment,
-            bool isActive, DateTime? endOfEmployment, bool isAdmin)
+            bool isActive, DateTime? endOfEmployment, ushort role)
         {
             UserName = userName;
             Password = password;
@@ -58,7 +58,7 @@ namespace BusinessLayer
             StartOfEmployment = startOfEmployment;
             IsActive = isActive;
             EndOfEmployment = endOfEmployment;
-            IsAdmin = isAdmin;
+            Role = role;
         }
     }
 }

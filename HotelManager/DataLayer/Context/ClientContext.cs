@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace DataLayer
 {
-    public class UserContext : IDb<User, Guid>
+    public class ClientContext : IDb<Client,Guid>
     {
         private readonly HotelManagerDbContext dbContext;
-        public UserContext(HotelManagerDbContext dbContext)
+        public ClientContext(HotelManagerDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
-        public async Task CreateAsync(User entity)
+        public async Task CreateAsync(Client entity)
         {
             try
             {
-                await dbContext.Users.AddAsync(entity);
+                await dbContext.Clients.AddAsync(entity);
                 await dbContext.SaveChangesAsync();
             }
             catch (Exception)
@@ -28,13 +28,12 @@ namespace DataLayer
             }
         }
 
-        public async Task<User> ReadAsync(Guid key, bool NavigationalProperties = false, bool isReadOnly = true)
+        public async Task<Client> ReadAsync(Guid key, bool NavigationalProperties = false, bool isReadOnly = true)
         {
             try
             {
-                IQueryable<User> query = dbContext.Users;
+                IQueryable<Client> query = dbContext.Clients;
 
-                
                 if (isReadOnly)
                 {
                     query.AsNoTrackingWithIdentityResolution();
@@ -48,11 +47,11 @@ namespace DataLayer
             }
         }
 
-        public async Task<ICollection<User>> ReadAllAsync(bool NavigationalProperties = false, bool isReadOnly = true)
+        public async Task<ICollection<Client>> ReadAllAsync(bool NavigationalProperties = false, bool isReadOnly = true)
         {
             try
             {
-                IQueryable<User> query = dbContext.Users;
+                IQueryable<Client> query = dbContext.Clients;
 
                 if (isReadOnly)
                 {
@@ -67,18 +66,18 @@ namespace DataLayer
             }
         }
 
-        public async Task UpdateAsync(User entity, bool NavigationalProperties = false)
+        public async Task UpdateAsync(Client entity, bool NavigationalProperties = false)
         {
             try
             {
-                User userFromDb = await ReadAsync(entity.Id, NavigationalProperties, false);
+                Client clientFromDb = await ReadAsync(entity.Id, NavigationalProperties, false);
 
-                if (userFromDb is null)
+                if (clientFromDb is null)
                 {
-                    throw new ArgumentException("User with id = " + entity.Id + " does not exist!");
+                    throw new ArgumentException("Client with id = " + entity.Id + " does not exist!");
                 }
 
-                dbContext.Entry(userFromDb).CurrentValues.SetValues(entity);
+                dbContext.Entry(clientFromDb).CurrentValues.SetValues(entity);
                 await dbContext.SaveChangesAsync();
             }
             catch (Exception)
@@ -91,14 +90,14 @@ namespace DataLayer
         {
             try
             {
-                User user = await ReadAsync(key, false, false);
+                Client client = await ReadAsync(key, false, false);
 
-                if (user is null)
+                if (client is null)
                 {
-                    throw new ArgumentException("User with id = " + key + " does not exist!");
+                    throw new ArgumentException("Client with id = " + key + " does not exist!");
                 }
 
-                dbContext.Users.Remove(user);
+                dbContext.Clients.Remove(client);
                 await dbContext.SaveChangesAsync();
             }
             catch (Exception)
