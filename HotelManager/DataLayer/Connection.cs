@@ -8,6 +8,6 @@ namespace DataLayer
 {
     public class Connection
     {
-        public const string conString = @"Server=DESKTOP-P42QA6B\SQLEXPRESS; Database=FoodStore; Integrated security = true";
+        public const string conString = @"Server=DESKTOP-P42QA6B\SQLEXPRESS; Database=HotelManager; Integrated security = true";
     }
 }
