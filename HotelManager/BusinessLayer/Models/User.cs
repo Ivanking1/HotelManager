@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace BusinessLayer
         [Required]
         public string SecondName { get; set; }
         [Required]
-        public string FamilyName { get; set; }
+        public string LastName { get; set; }
         [Required]
         public string SocialSecurity { get; set; }
         [Required]
@@ -35,7 +36,7 @@ namespace BusinessLayer
         public DateTime? EndOfEmployment { get; set; }
 
         [Required]
-        public ushort Role { get; set; }
+        public Role Role { get; set; }
 
         public User()
         {
@@ -45,13 +46,13 @@ namespace BusinessLayer
         public User(string userName, string password, string firstName,
             string secondName, string familyName, string socialSecurity,
             string phoneNumber, string email, DateTime startOfEmployment,
-            bool isActive, DateTime? endOfEmployment, ushort role)
+            bool isActive, DateTime? endOfEmployment, Role role)
         {
             UserName = userName;
             Password = password;
             FirstName = firstName;
             SecondName = secondName;
-            FamilyName = familyName;
+            LastName = familyName;
             SocialSecurity = socialSecurity;
             PhoneNumber = phoneNumber;
             Email = email;

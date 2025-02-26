@@ -21,20 +21,20 @@ namespace BusinessLayer
         [EmailAddress]
         public string Email { get; set; }
         [Required]
-        public bool IsAdult { get; set; }
+        public int Age { get; set; }
 
         public Client()
         {
 
         }
 
-        public Client(string firstName, string lastName, string phoneNumber, string email, bool isAdult)
+        public Client(string firstName, string lastName, string phoneNumber, string email, int age)
         {
             FirstName = firstName;
             LastName = lastName;
             PhoneNumber = phoneNumber;
             Email = email;
-            IsAdult = isAdult;
+            Age = age;
         }
     }
 }

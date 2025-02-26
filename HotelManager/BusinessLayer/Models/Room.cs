@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,10 +14,13 @@ namespace BusinessLayer
         public Guid Id { get; set; }
 
         [Required]
+        public int RoomNumber { get; set; }
+
+        [Required]
         public ushort Capacity { get; set; }
 
         [Required]
-        public ushort Type { get; set; }
+        public RoomEnum Type { get; set; }
 
         [Required]
         public bool IsFree { get; set; }
@@ -27,16 +31,24 @@ namespace BusinessLayer
         [Required]
         public decimal ChildPrice { get; set; }
 
-        [Required]
-        public int RoomNumber { get; set; }
+        
 
         public Room()
         {
-
+            Id = Guid.NewGuid();
         }
-        public Room(ushort capacity, ushort type, bool isFree, decimal adultPrice, decimal childPrice, int roomNumber)
+        public Room(int roomNumber, RoomEnum type, bool isFree, decimal adultPrice, decimal childPrice)
         {
-            Capacity = capacity;
+            Id = Guid.NewGuid();
+            if ((int)type == 1 || (int)type == 2)
+            {
+                Capacity = 2;
+            }
+            else if ((int)type == 3)
+            {
+                Capacity = 5;
+            }
+            Capacity = 0;
             Type = type;
             IsFree = isFree;
             AdultPrice = adultPrice;
