@@ -29,49 +29,101 @@
         private void InitializeComponent()
         {
             lbTitle = new Label();
-            bnAddClient = new Button();
-            RoomTypeScroll = new DomainUpDown();
+            bnAddReservation = new Button();
+            cmbRooms = new DomainUpDown();
+            clbClients = new CheckedListBox();
+            cmbMealsType = new ComboBox();
+            dateTimePicker1 = new DateTimePicker();
+            dateTimePicker2 = new DateTimePicker();
+            lbReservationPrice = new Label();
             SuspendLayout();
             // 
             // lbTitle
             // 
             lbTitle.AutoSize = true;
             lbTitle.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbTitle.Location = new Point(357, 63);
+            lbTitle.Location = new Point(241, 68);
             lbTitle.Name = "lbTitle";
-            lbTitle.Size = new Size(479, 81);
+            lbTitle.Size = new Size(643, 81);
             lbTitle.TabIndex = 9;
-            lbTitle.Text = "Add New Room";
+            lbTitle.Text = "Add New Reservation";
             // 
-            // bnAddClient
+            // bnAddReservation
             // 
-            bnAddClient.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnAddClient.Location = new Point(448, 578);
-            bnAddClient.Name = "bnAddClient";
-            bnAddClient.Size = new Size(302, 70);
-            bnAddClient.TabIndex = 10;
-            bnAddClient.Text = "Add Client";
-            bnAddClient.UseVisualStyleBackColor = true;
+            bnAddReservation.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnAddReservation.Location = new Point(367, 585);
+            bnAddReservation.Name = "bnAddReservation";
+            bnAddReservation.Size = new Size(431, 70);
+            bnAddReservation.TabIndex = 10;
+            bnAddReservation.Text = "Add Reservation";
+            bnAddReservation.UseVisualStyleBackColor = true;
             // 
-            // RoomTypeScroll
+            // cmbRooms
             // 
-            RoomTypeScroll.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            RoomTypeScroll.Location = new Point(184, 192);
-            RoomTypeScroll.Name = "RoomTypeScroll";
-            RoomTypeScroll.Size = new Size(252, 38);
-            RoomTypeScroll.TabIndex = 11;
-            RoomTypeScroll.Text = "TwoSingleBeds";
+            cmbRooms.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbRooms.Location = new Point(140, 375);
+            cmbRooms.Name = "cmbRooms";
+            cmbRooms.Size = new Size(260, 38);
+            cmbRooms.TabIndex = 11;
+            // 
+            // clbClients
+            // 
+            clbClients.CheckOnClick = true;
+            clbClients.FormattingEnabled = true;
+            clbClients.Location = new Point(149, 184);
+            clbClients.Name = "clbClients";
+            clbClients.Size = new Size(251, 158);
+            clbClients.TabIndex = 12;
+            // 
+            // cmbMealsType
+            // 
+            cmbMealsType.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbMealsType.FormattingEnabled = true;
+            cmbMealsType.Location = new Point(717, 207);
+            cmbMealsType.Name = "cmbMealsType";
+            cmbMealsType.Size = new Size(227, 39);
+            cmbMealsType.TabIndex = 14;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(717, 290);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(250, 27);
+            dateTimePicker1.TabIndex = 15;
+            // 
+            // dateTimePicker2
+            // 
+            dateTimePicker2.Location = new Point(717, 353);
+            dateTimePicker2.Name = "dateTimePicker2";
+            dateTimePicker2.Size = new Size(250, 27);
+            dateTimePicker2.TabIndex = 16;
+            // 
+            // lbReservationPrice
+            // 
+            lbReservationPrice.AutoSize = true;
+            lbReservationPrice.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbReservationPrice.Location = new Point(755, 445);
+            lbReservationPrice.Name = "lbReservationPrice";
+            lbReservationPrice.Size = new Size(64, 31);
+            lbReservationPrice.TabIndex = 17;
+            lbReservationPrice.Text = "Price";
             // 
             // AddNewReservation
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1179, 691);
-            Controls.Add(RoomTypeScroll);
-            Controls.Add(bnAddClient);
+            ClientSize = new Size(1150, 718);
+            Controls.Add(lbReservationPrice);
+            Controls.Add(dateTimePicker2);
+            Controls.Add(dateTimePicker1);
+            Controls.Add(cmbMealsType);
+            Controls.Add(clbClients);
+            Controls.Add(cmbRooms);
+            Controls.Add(bnAddReservation);
             Controls.Add(lbTitle);
             Name = "AddNewReservation";
             Text = "AddNewReservation";
+            Load += AddNewReservation_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -79,7 +131,12 @@
         #endregion
 
         private Label lbTitle;
-        private Button bnAddClient;
-        private DomainUpDown RoomTypeScroll;
+        private Button bnAddReservation;
+        private DomainUpDown cmbRooms;
+        private CheckedListBox clbClients;
+        private ComboBox cmbMealsType;
+        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dateTimePicker2;
+        private Label lbReservationPrice;
     }
 }

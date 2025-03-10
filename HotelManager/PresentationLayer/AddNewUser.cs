@@ -82,7 +82,7 @@ namespace PresentationLayer
                 if (isPassword) textBox.PasswordChar = '*'; // Hide password as dots
             }
         }
-        
+
 
         private void AddNewUser_Load(object sender, EventArgs e)
         {
@@ -103,6 +103,11 @@ namespace PresentationLayer
             string socialSecurity = txtSocialSecurity.Text;
             string phoneNumber = txtPhoneNumber.Text;
             string email = txtEmail.Text;
+        }
+
+        private void checkAdmin_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

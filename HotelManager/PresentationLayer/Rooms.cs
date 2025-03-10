@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PresentationLayer
 {
-    public partial class Rooms : Form
+    public partial class RoomsForm : Form
     {
-        public Rooms()
+        public RoomsForm()
         {
             InitializeComponent();
         }

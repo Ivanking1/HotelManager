@@ -38,7 +38,7 @@
             // 
             lbTitleLogin.AutoSize = true;
             lbTitleLogin.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbTitleLogin.Location = new Point(499, 27);
+            lbTitleLogin.Location = new Point(202, 70);
             lbTitleLogin.Name = "lbTitleLogin";
             lbTitleLogin.Size = new Size(193, 81);
             lbTitleLogin.TabIndex = 0;
@@ -47,7 +47,7 @@
             // txtUsername
             // 
             txtUsername.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtUsername.Location = new Point(499, 159);
+            txtUsername.Location = new Point(202, 222);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(193, 38);
             txtUsername.TabIndex = 1;
@@ -55,7 +55,7 @@
             // txtPassword
             // 
             txtPassword.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPassword.Location = new Point(499, 259);
+            txtPassword.Location = new Point(202, 346);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(193, 38);
             txtPassword.TabIndex = 2;
@@ -63,7 +63,7 @@
             // bnLogin
             // 
             bnLogin.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            bnLogin.Location = new Point(467, 474);
+            bnLogin.Location = new Point(176, 462);
             bnLogin.Name = "bnLogin";
             bnLogin.Size = new Size(248, 74);
             bnLogin.TabIndex = 3;
@@ -75,7 +75,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1161, 668);
+            ClientSize = new Size(598, 590);
             Controls.Add(bnLogin);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);

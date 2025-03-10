@@ -48,7 +48,10 @@ namespace BusinessLayer
             {
                 Capacity = 5;
             }
-            Capacity = 0;
+            else
+            {
+                Capacity = 0;
+            }
             Type = type;
             IsFree = isFree;
             AdultPrice = adultPrice;

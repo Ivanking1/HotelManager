@@ -23,6 +23,7 @@ namespace BusinessLayer
         [Required]
         public int Age { get; set; }
 
+        public string FullName => $"{FirstName} {LastName}";
         public Client()
         {
 

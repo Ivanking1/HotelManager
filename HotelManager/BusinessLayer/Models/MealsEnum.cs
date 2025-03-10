@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    public enum Role
+    public enum MealsEnum
     {
-        Administrator = 0,
-        Receptionist = 1,
-        Worker = 2
-
+        OnlyBreakfast,
+        ThreeMeals,
+        AllInclusive
     }
 }

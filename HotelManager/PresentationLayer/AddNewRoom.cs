@@ -17,12 +17,47 @@ namespace PresentationLayer
         {
             InitializeComponent();
             LoadRoomTypes();
+            InitializePlaceholders();
+        }
+        private void InitializePlaceholders()
+        {
+            // Set placeholders for multiple textboxes
+            SetPlaceholder(txtRoomNumber, "Room Number");
+            SetPlaceholder(txtChildPrice, "Price for child");
+            SetPlaceholder(txtAdultPrice, "Price for adult");
+
+            // Attach events dynamically
+            txtRoomNumber.GotFocus += (sender, e) => RemovePlaceholder(txtRoomNumber, "Room Number");
+            txtRoomNumber.LostFocus += (sender, e) => SetPlaceholder(txtRoomNumber, "Room Number");
+
+            txtChildPrice.GotFocus += (sender, e) => RemovePlaceholder(txtChildPrice, "Price for child");
+            txtChildPrice.LostFocus += (sender, e) => SetPlaceholder(txtChildPrice, "Price for child");
+
+            txtAdultPrice.GotFocus += (sender, e) => RemovePlaceholder(txtAdultPrice, "Price for adult");
+            txtAdultPrice.LostFocus += (sender, e) => SetPlaceholder(txtAdultPrice, "Price for adult");
+        }
+        private void SetPlaceholder(TextBox textBox, string placeholder)
+        {
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Text = placeholder;
+                textBox.ForeColor = Color.Gray;
+            }
+        }
+
+        private void RemovePlaceholder(TextBox textBox, string placeholder)
+        {
+            if (textBox.Text == placeholder)
+            {
+                textBox.Text = "";
+                textBox.ForeColor = Color.Black;
+            }
         }
         private void LoadRoomTypes()
         {
             cmbRoomType.Items.Add("Select Room Type");
 
-            // Add actual enum values
+            // Add enum values
             foreach (var type in Enum.GetValues(typeof(RoomEnum)))
             {
                 cmbRoomType.Items.Add(type);

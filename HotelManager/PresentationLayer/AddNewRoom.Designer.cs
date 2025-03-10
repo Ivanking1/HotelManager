@@ -56,6 +56,7 @@
             // 
             // bnAddRoom
             // 
+            bnAddRoom.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             bnAddRoom.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             bnAddRoom.Location = new Point(454, 577);
             bnAddRoom.Name = "bnAddRoom";

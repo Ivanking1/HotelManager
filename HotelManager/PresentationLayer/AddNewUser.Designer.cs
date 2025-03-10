@@ -67,73 +67,73 @@
             // txtUsername
             // 
             txtUsername.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtUsername.Location = new Point(148, 162);
+            txtUsername.Location = new Point(64, 162);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(193, 38);
+            txtUsername.Size = new Size(277, 38);
             txtUsername.TabIndex = 2;
             // 
             // txtPassword
             // 
             txtPassword.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPassword.Location = new Point(148, 265);
+            txtPassword.Location = new Point(64, 265);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(193, 38);
+            txtPassword.Size = new Size(277, 38);
             txtPassword.TabIndex = 3;
             // 
             // txtConfirmPassword
             // 
             txtConfirmPassword.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtConfirmPassword.Location = new Point(148, 346);
+            txtConfirmPassword.Location = new Point(64, 360);
             txtConfirmPassword.Name = "txtConfirmPassword";
-            txtConfirmPassword.Size = new Size(193, 38);
+            txtConfirmPassword.Size = new Size(277, 38);
             txtConfirmPassword.TabIndex = 4;
             // 
             // txtFirstName
             // 
             txtFirstName.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtFirstName.Location = new Point(461, 162);
+            txtFirstName.Location = new Point(437, 162);
             txtFirstName.Name = "txtFirstName";
-            txtFirstName.Size = new Size(193, 38);
+            txtFirstName.Size = new Size(270, 38);
             txtFirstName.TabIndex = 5;
             // 
             // txtSecondName
             // 
             txtSecondName.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSecondName.Location = new Point(461, 265);
+            txtSecondName.Location = new Point(437, 265);
             txtSecondName.Name = "txtSecondName";
-            txtSecondName.Size = new Size(193, 38);
+            txtSecondName.Size = new Size(270, 38);
             txtSecondName.TabIndex = 6;
             // 
             // txtLastName
             // 
             txtLastName.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtLastName.Location = new Point(461, 346);
+            txtLastName.Location = new Point(437, 360);
             txtLastName.Name = "txtLastName";
-            txtLastName.Size = new Size(193, 38);
+            txtLastName.Size = new Size(270, 38);
             txtLastName.TabIndex = 7;
             // 
             // txtSocialSecurity
             // 
             txtSocialSecurity.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSocialSecurity.Location = new Point(762, 162);
+            txtSocialSecurity.Location = new Point(790, 162);
             txtSocialSecurity.Name = "txtSocialSecurity";
-            txtSocialSecurity.Size = new Size(193, 38);
+            txtSocialSecurity.Size = new Size(303, 38);
             txtSocialSecurity.TabIndex = 8;
             // 
             // txtPhoneNumber
             // 
             txtPhoneNumber.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPhoneNumber.Location = new Point(762, 265);
+            txtPhoneNumber.Location = new Point(790, 265);
             txtPhoneNumber.Name = "txtPhoneNumber";
-            txtPhoneNumber.Size = new Size(193, 38);
+            txtPhoneNumber.Size = new Size(303, 38);
             txtPhoneNumber.TabIndex = 9;
             // 
             // txtEmail
             // 
             txtEmail.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtEmail.Location = new Point(762, 346);
+            txtEmail.Location = new Point(790, 360);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(193, 38);
+            txtEmail.Size = new Size(303, 38);
             txtEmail.TabIndex = 10;
             // 
             // checkAdmin
@@ -146,6 +146,7 @@
             checkAdmin.TabIndex = 12;
             checkAdmin.Text = "Administration Privileges";
             checkAdmin.UseVisualStyleBackColor = true;
+            checkAdmin.CheckedChanged += checkAdmin_CheckedChanged;
             // 
             // AddNewUserForm
             // 

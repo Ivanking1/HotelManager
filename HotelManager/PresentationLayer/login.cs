@@ -1,4 +1,6 @@
 
+using BusinessLayer;
+
 namespace PresentationLayer
 {
     public partial class LoginForm : Form
@@ -51,10 +53,34 @@ namespace PresentationLayer
         {
             string username = txtUsername.Text;
             string password = txtPassword.Text;
+
+            // Simulated users
+            List<User> users = new List<User>
+            {
+              new User("admin", "1234", "Admin", "", "User", "SSN", "123456789", "admin@email.com", DateTime.Now, true, null, Role.Administrator),
+              new User("reception", "1234", "Receptionist", "", "User", "SSN", "987654321", "reception@email.com", DateTime.Now, true, null, Role.Receptionist),
+              new User("worker", "1234", "Guest", "", "User", "SSN", "456123789", "guest@email.com", DateTime.Now, true, null, Role.Worker)
+            };
+
+            // Find user
+            User loggedInUser = users.FirstOrDefault(u => u.UserName == username && u.Password == password);
+
+            if (loggedInUser != null)
+            {
+                HomeForm homeForm = new HomeForm(loggedInUser);
+                homeForm.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Invalid username or password!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
             LoginForm.ActiveForm?.Hide();
             //new AddNewUserForm().Show();
             //new AddNewClientForm().Show();
-            new AddNewRoom().Show();
+            //new AddNewRoom().Show();
+            new AddNewReservation().Show();
         }
     }
 }

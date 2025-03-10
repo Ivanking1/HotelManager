@@ -33,7 +33,7 @@ namespace BusinessLayer
         public DateTime EndingDate { get; set; }
 
         [Required]
-        public ushort MealsIncluded { get; set; }
+        public MealsEnum MealsIncluded { get; set; }
 
         [Required]
         public decimal Price { get; set; }
@@ -44,10 +44,12 @@ namespace BusinessLayer
         }
 
         public Reservation(Room reservedRoom, User bookedUser, List<Client> clients, DateTime startingDate,
-            DateTime endingDate, ushort mealsIncluded, decimal price)
+            DateTime endingDate, MealsEnum mealsIncluded, decimal price)
         {
             ReservedRoom = reservedRoom;
+            RoomId = reservedRoom.Id;
             BookedUser = bookedUser;
+            UserId = bookedUser.Id;
             Clients = clients;
             StartingDate = startingDate;
             EndingDate = endingDate;
