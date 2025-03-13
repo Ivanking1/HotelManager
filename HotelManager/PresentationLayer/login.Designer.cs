@@ -47,25 +47,25 @@
             // txtUsername
             // 
             txtUsername.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtUsername.Location = new Point(202, 222);
+            txtUsername.Location = new Point(176, 222);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(193, 38);
+            txtUsername.Size = new Size(248, 38);
             txtUsername.TabIndex = 1;
             // 
             // txtPassword
             // 
             txtPassword.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPassword.Location = new Point(202, 346);
+            txtPassword.Location = new Point(176, 333);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(193, 38);
+            txtPassword.Size = new Size(248, 38);
             txtPassword.TabIndex = 2;
             // 
             // bnLogin
             // 
             bnLogin.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            bnLogin.Location = new Point(176, 462);
+            bnLogin.Location = new Point(166, 459);
             bnLogin.Name = "bnLogin";
-            bnLogin.Size = new Size(248, 74);
+            bnLogin.Size = new Size(272, 90);
             bnLogin.TabIndex = 3;
             bnLogin.Text = "Login";
             bnLogin.UseVisualStyleBackColor = true;

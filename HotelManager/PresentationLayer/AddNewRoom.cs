@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using BusinessLayer;
+﻿
 
 namespace PresentationLayer
 {
@@ -19,6 +10,7 @@ namespace PresentationLayer
             LoadRoomTypes();
             InitializePlaceholders();
         }
+        #region placeholders
         private void InitializePlaceholders()
         {
             // Set placeholders for multiple textboxes
@@ -53,6 +45,8 @@ namespace PresentationLayer
                 textBox.ForeColor = Color.Black;
             }
         }
+        #endregion
+
         private void LoadRoomTypes()
         {
             cmbRoomType.Items.Add("Select Room Type");

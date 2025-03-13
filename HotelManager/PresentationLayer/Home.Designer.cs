@@ -39,6 +39,7 @@
             // 
             // navigationBarMenuStrip
             // 
+            navigationBarMenuStrip.BackColor = Color.Teal;
             navigationBarMenuStrip.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             navigationBarMenuStrip.ImageScalingSize = new Size(20, 20);
             navigationBarMenuStrip.Items.AddRange(new ToolStripItem[] { homeToolStripMenuItem, reservationsToolStripMenuItem, clientsToolStripMenuItem, roomsToolStripMenuItem, usersToolStripMenuItem });
@@ -51,7 +52,7 @@
             // 
             // homeToolStripMenuItem
             // 
-            homeToolStripMenuItem.BackColor = SystemColors.Control;
+            homeToolStripMenuItem.BackColor = Color.Teal;
             homeToolStripMenuItem.Name = "homeToolStripMenuItem";
             homeToolStripMenuItem.Size = new Size(93, 35);
             homeToolStripMenuItem.Text = "Home";
@@ -89,6 +90,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(1155, 704);
             Controls.Add(navigationBarMenuStrip);
             MainMenuStrip = navigationBarMenuStrip;

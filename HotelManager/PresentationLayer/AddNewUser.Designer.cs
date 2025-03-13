@@ -39,7 +39,7 @@
             txtSocialSecurity = new TextBox();
             txtPhoneNumber = new TextBox();
             txtEmail = new TextBox();
-            checkAdmin = new CheckBox();
+            cmbUserRole = new ComboBox();
             SuspendLayout();
             // 
             // lbTitle
@@ -69,7 +69,7 @@
             txtUsername.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtUsername.Location = new Point(64, 162);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(277, 38);
+            txtUsername.Size = new Size(290, 38);
             txtUsername.TabIndex = 2;
             // 
             // txtPassword
@@ -77,7 +77,7 @@
             txtPassword.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtPassword.Location = new Point(64, 265);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(277, 38);
+            txtPassword.Size = new Size(290, 38);
             txtPassword.TabIndex = 3;
             // 
             // txtConfirmPassword
@@ -85,7 +85,7 @@
             txtConfirmPassword.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtConfirmPassword.Location = new Point(64, 360);
             txtConfirmPassword.Name = "txtConfirmPassword";
-            txtConfirmPassword.Size = new Size(277, 38);
+            txtConfirmPassword.Size = new Size(290, 38);
             txtConfirmPassword.TabIndex = 4;
             // 
             // txtFirstName
@@ -136,24 +136,21 @@
             txtEmail.Size = new Size(303, 38);
             txtEmail.TabIndex = 10;
             // 
-            // checkAdmin
+            // cmbUserRole
             // 
-            checkAdmin.AutoSize = true;
-            checkAdmin.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkAdmin.Location = new Point(762, 436);
-            checkAdmin.Name = "checkAdmin";
-            checkAdmin.Size = new Size(371, 42);
-            checkAdmin.TabIndex = 12;
-            checkAdmin.Text = "Administration Privileges";
-            checkAdmin.UseVisualStyleBackColor = true;
-            checkAdmin.CheckedChanged += checkAdmin_CheckedChanged;
+            cmbUserRole.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbUserRole.FormattingEnabled = true;
+            cmbUserRole.Location = new Point(725, 449);
+            cmbUserRole.Name = "cmbUserRole";
+            cmbUserRole.Size = new Size(368, 39);
+            cmbUserRole.TabIndex = 14;
             // 
             // AddNewUserForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1176, 682);
-            Controls.Add(checkAdmin);
+            Controls.Add(cmbUserRole);
             Controls.Add(txtEmail);
             Controls.Add(txtPhoneNumber);
             Controls.Add(txtSocialSecurity);
@@ -185,6 +182,6 @@
         private TextBox txtSocialSecurity;
         private TextBox txtPhoneNumber;
         private TextBox txtEmail;
-        private CheckBox checkAdmin;
+        private ComboBox cmbUserRole;
     }
 }

@@ -1,15 +1,4 @@
-﻿using Microsoft.VisualBasic.Logging;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using TextBox = System.Windows.Forms.TextBox;
+﻿
 
 namespace PresentationLayer
 {
@@ -20,7 +9,7 @@ namespace PresentationLayer
             InitializeComponent();
             InitializePlaceholders();
         }
-
+        #region placeholders
         private void InitializePlaceholders()
         {
             // Set placeholders for multiple textboxes
@@ -82,6 +71,37 @@ namespace PresentationLayer
                 if (isPassword) textBox.PasswordChar = '*'; // Hide password as dots
             }
         }
+        #endregion
+
+
+        private void LoadUserRoles()
+        {
+            cmbUserRole.Items.Add("Select User Role");
+
+            // Add enum values
+            foreach (var role in Enum.GetValues(typeof(Role)))
+            {
+                cmbUserRole.Items.Add(role);
+            }
+
+
+            cmbUserRole.SelectedIndex = 0;
+            cmbUserRole.ForeColor = Color.Gray;
+
+
+            cmbUserRole.SelectedIndexChanged += CmbUserRole_SelectedIndexChanged;
+        }
+        private void CmbUserRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbUserRole.SelectedIndex == 0)
+            {
+                cmbUserRole.ForeColor = Color.Gray; // Placeholder color
+            }
+            else
+            {
+                cmbUserRole.ForeColor = Color.Black; // Normal color
+            }
+        }
 
 
         private void AddNewUser_Load(object sender, EventArgs e)
@@ -105,9 +125,6 @@ namespace PresentationLayer
             string email = txtEmail.Text;
         }
 
-        private void checkAdmin_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

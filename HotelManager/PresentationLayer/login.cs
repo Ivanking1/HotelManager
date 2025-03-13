@@ -1,5 +1,4 @@
 
-using BusinessLayer;
 
 namespace PresentationLayer
 {
@@ -10,6 +9,7 @@ namespace PresentationLayer
             InitializeComponent();
             InitializePlaceholders();
         }
+        #region placeholders
         private void InitializePlaceholders()
         {
             // Set placeholders for multiple textboxes
@@ -43,6 +43,8 @@ namespace PresentationLayer
                 if (isPassword) textBox.PasswordChar = '*'; // Hide password as dots
             }
         }
+        #endregion
+
 
         private void login_Load(object sender, EventArgs e)
         {
