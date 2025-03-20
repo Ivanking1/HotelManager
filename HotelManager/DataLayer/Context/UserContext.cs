@@ -24,6 +24,8 @@ namespace DataLayer
         {
             try
             {
+                entity.Password = BCrypt.Net.BCrypt.HashPassword(entity.Password);//Hashing the password
+
                 await dbContext.Users.AddAsync(entity);
                 await dbContext.SaveChangesAsync();
             }
