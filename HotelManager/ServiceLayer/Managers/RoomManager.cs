@@ -1,11 +1,16 @@
 ﻿
 
+using DataLayer;
+
 namespace ServiceLayer
 {
     public class RoomManager
     {
         private readonly RoomContext roomContext;
-
+        public RoomManager()//constructor without parameters
+        {
+            roomContext = new RoomContext();
+        }
         public RoomManager(RoomContext roomContext)
         {
             this.roomContext = roomContext;

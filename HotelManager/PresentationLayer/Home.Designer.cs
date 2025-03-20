@@ -34,6 +34,7 @@
             clientsToolStripMenuItem = new ToolStripMenuItem();
             roomsToolStripMenuItem = new ToolStripMenuItem();
             usersToolStripMenuItem = new ToolStripMenuItem();
+            logOutToolStripMenuItem = new ToolStripMenuItem();
             navigationBarMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -42,7 +43,7 @@
             navigationBarMenuStrip.BackColor = Color.Teal;
             navigationBarMenuStrip.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             navigationBarMenuStrip.ImageScalingSize = new Size(20, 20);
-            navigationBarMenuStrip.Items.AddRange(new ToolStripItem[] { homeToolStripMenuItem, reservationsToolStripMenuItem, clientsToolStripMenuItem, roomsToolStripMenuItem, usersToolStripMenuItem });
+            navigationBarMenuStrip.Items.AddRange(new ToolStripItem[] { homeToolStripMenuItem, reservationsToolStripMenuItem, clientsToolStripMenuItem, roomsToolStripMenuItem, usersToolStripMenuItem, logOutToolStripMenuItem });
             navigationBarMenuStrip.Location = new Point(0, 0);
             navigationBarMenuStrip.Margin = new Padding(5);
             navigationBarMenuStrip.Name = "navigationBarMenuStrip";
@@ -86,6 +87,14 @@
             usersToolStripMenuItem.Text = "Users";
             usersToolStripMenuItem.Click += usersToolStripMenuItem_Click;
             // 
+            // logOutToolStripMenuItem
+            // 
+            logOutToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
+            logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
+            logOutToolStripMenuItem.Size = new Size(114, 35);
+            logOutToolStripMenuItem.Text = "Log Out";
+            logOutToolStripMenuItem.Click += logOutToolStripMenuItem_Click;
+            // 
             // HomeForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -110,5 +119,6 @@
         private ToolStripMenuItem clientsToolStripMenuItem;
         private ToolStripMenuItem roomsToolStripMenuItem;
         private ToolStripMenuItem usersToolStripMenuItem;
+        private ToolStripMenuItem logOutToolStripMenuItem;
     }
 }

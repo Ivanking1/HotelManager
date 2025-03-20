@@ -11,6 +11,10 @@ namespace DataLayer
     public class RoomContext : IDb<Room, Guid>
     {
         private readonly HotelManagerDbContext dbContext;
+        public RoomContext()//constructor without parameters
+        {
+            dbContext = new HotelManagerDbContext();
+        }
         public RoomContext(HotelManagerDbContext dbContext)
         {
             this.dbContext = dbContext;

@@ -1,6 +1,6 @@
 ﻿namespace PresentationLayer
 {
-    partial class AddNewReservation
+    partial class AddNewReservationForm
     {
         /// <summary>
         /// Required designer variable.
@@ -108,7 +108,7 @@
             lbReservationPrice.TabIndex = 17;
             lbReservationPrice.Text = "Price";
             // 
-            // AddNewReservation
+            // AddNewReservationForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -121,7 +121,7 @@
             Controls.Add(cmbRooms);
             Controls.Add(bnAddReservation);
             Controls.Add(lbTitle);
-            Name = "AddNewReservation";
+            Name = "AddNewReservationForm";
             Text = "AddNewReservation";
             Load += AddNewReservation_Load;
             ResumeLayout(false);

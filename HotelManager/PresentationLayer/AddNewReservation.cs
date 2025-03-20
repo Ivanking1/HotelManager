@@ -1,11 +1,23 @@
 ﻿
 
+using ServiceLayer;
+
 namespace PresentationLayer
 {
-    public partial class AddNewReservation : Form
+    public partial class AddNewReservationForm : Form
     {
-        public AddNewReservation()
+        private ReservationManager reservationManager;
+        public AddNewReservationForm()
         {
+            reservationManager = new ReservationManager();
+            InitializeComponent();
+            LoadClients();
+            LoadFreeRooms();
+            LoadMealsTypes();
+        }
+        public AddNewReservationForm(ReservationManager reservationManager)
+        {
+            this.reservationManager = reservationManager;
             InitializeComponent();
             LoadClients();
             LoadFreeRooms();

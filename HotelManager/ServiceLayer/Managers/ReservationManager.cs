@@ -1,11 +1,16 @@
 ﻿
 
+using DataLayer;
+
 namespace ServiceLayer
 {
     public class ReservationManager
     {
         private readonly ReservationContext reservationContext;
-
+        public ReservationManager()//constructor without parameters
+        {
+            reservationContext = new ReservationContext();
+        }
         public async Task CreateAsync(Reservation reservation)
         {
             await reservationContext.CreateAsync(reservation);

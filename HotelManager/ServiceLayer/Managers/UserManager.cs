@@ -5,7 +5,10 @@ namespace ServiceLayer
     public class UserManager
     {
         private readonly UserContext userContext;
-
+        public UserManager()//constructor without parameters
+        {
+            userContext = new UserContext();
+        }
         public UserManager(UserContext userContext)
         {
             this.userContext = userContext;

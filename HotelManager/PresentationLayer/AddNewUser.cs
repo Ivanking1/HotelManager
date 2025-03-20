@@ -1,14 +1,30 @@
 ﻿
 
+using ServiceLayer;
+
 namespace PresentationLayer
 {
     public partial class AddNewUserForm : Form
     {
-        public AddNewUserForm()
+        private UserManager userManager;
+        private User loggedInUser;
+        public AddNewUserForm(User loggedInUser)
         {
+            this.loggedInUser = loggedInUser;
+            userManager = new UserManager();
             InitializeComponent();
             InitializePlaceholders();
+            LoadUserRoles();
         }
+        public AddNewUserForm(User loggedInUser, UserManager userManager)
+        {
+            this.loggedInUser = loggedInUser;
+            this.userManager = userManager;
+            InitializeComponent();
+            InitializePlaceholders();
+            LoadUserRoles();
+        }
+
         #region placeholders
         private void InitializePlaceholders()
         {
@@ -78,7 +94,7 @@ namespace PresentationLayer
         {
             cmbUserRole.Items.Add("Select User Role");
 
-            // Add enum values
+            //enum values for role
             foreach (var role in Enum.GetValues(typeof(Role)))
             {
                 cmbUserRole.Items.Add(role);
@@ -109,20 +125,62 @@ namespace PresentationLayer
 
         }
 
-        private void bnAddUser_Click(object sender, EventArgs e)
+        private async void bnAddUser_Click(object sender, EventArgs e)
         {
-            string username = txtUsername.Text;
-            string password;
-            if (!string.IsNullOrWhiteSpace(txtPassword.Text) && txtPassword.Text == txtConfirmPassword.Text)
+            string username = txtUsername.Text.Trim();
+            string? password = null;
+            if (!string.IsNullOrWhiteSpace(txtPassword.Text.Trim()) 
+                && txtPassword.Text.Trim() == txtConfirmPassword.Text.Trim())
             {
-                password = txtPassword.Text;
+                password = txtPassword.Text.Trim();
             }
-            string firstName = txtFirstName.Text;
-            string secondName = txtSecondName.Text;
-            string lastName = txtLastName.Text;
-            string socialSecurity = txtSocialSecurity.Text;
-            string phoneNumber = txtPhoneNumber.Text;
-            string email = txtEmail.Text;
+            string firstName = txtFirstName.Text.Trim();
+            string secondName = txtSecondName.Text.Trim();
+            string lastName = txtLastName.Text.Trim();
+            string socialSecurity = txtSocialSecurity.Text.Trim();
+            string phoneNumber = txtPhoneNumber.Text.Trim();
+            string email = txtEmail.Text.Trim();
+            DateTime startOfEmployment = DateTime.Now;
+            string? role = cmbUserRole.SelectedItem.ToString();
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) ||
+                string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(secondName) ||
+                string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(socialSecurity) ||
+                string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email) || role == null)
+            {
+                MessageBox.Show("Please fill in all required fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            User newUser = new User
+            {
+                Id = Guid.NewGuid(),
+                UserName = username,
+                Password = password,  // ⚠️ Consider hashing the password in a real application
+                FirstName = firstName,
+                SecondName = secondName,
+                LastName = lastName,
+                SocialSecurity = socialSecurity,
+                PhoneNumber = phoneNumber,
+                Email = email,
+                StartOfEmployment = startOfEmployment,
+                IsActive = true,
+                Role = (Role)Enum.Parse(typeof(Role), role)  // Assuming Role is an Enum
+            };
+
+            try
+            {
+                await userManager.CreateAsync(newUser); 
+                MessageBox.Show("User added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //this.Close(); // Close the form
+                UsersForm usersForm = new UsersForm(loggedInUser);
+                usersForm.Show();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         

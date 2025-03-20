@@ -69,7 +69,13 @@ namespace PresentationLayer
             UsersForm usersForm = new UsersForm(loggedInUser);
             usersForm.Show();
         }
+        private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+        }
         #endregion
+
 
     }
 }

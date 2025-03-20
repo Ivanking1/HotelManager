@@ -1,11 +1,22 @@
 ﻿
 
+using ServiceLayer;
+
 namespace PresentationLayer
 {
     public partial class AddNewRoom : Form
     {
+        private RoomManager roomManager;
         public AddNewRoom()
         {
+            roomManager = new RoomManager();
+            InitializeComponent();
+            LoadRoomTypes();
+            InitializePlaceholders();
+        }
+        public AddNewRoom(RoomManager roomManager)
+        {
+            this.roomManager = roomManager;
             InitializeComponent();
             LoadRoomTypes();
             InitializePlaceholders();
@@ -83,35 +94,35 @@ namespace PresentationLayer
 
         private void bnAddRoom_Click(object sender, EventArgs e)
         {
-            //if (!int.TryParse(txtRoomNumber.Text, out int roomNumber))
-            //{
-            //    MessageBox.Show("Invalid Room Number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+            if (!int.TryParse(txtRoomNumber.Text, out int roomNumber))
+            {
+                MessageBox.Show("Invalid Room Number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            //if (!decimal.TryParse(txtAdultPrice.Text, out decimal adultPrice))
-            //{
-            //    MessageBox.Show("Invalid Adult Price!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+            if (!decimal.TryParse(txtAdultPrice.Text, out decimal adultPrice))
+            {
+                MessageBox.Show("Invalid Adult Price!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            //if (!decimal.TryParse(txtChildPrice.Text, out decimal childPrice))
-            //{
-            //    MessageBox.Show("Invalid Child Price!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+            if (!decimal.TryParse(txtChildPrice.Text, out decimal childPrice))
+            {
+                MessageBox.Show("Invalid Child Price!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            //// Get selected room type
-            //RoomEnum selectedRoomType = (RoomEnum)cmbRoomType.SelectedItem;
+            // Get selected room type
+            RoomEnum selectedRoomType = (RoomEnum)cmbRoomType.SelectedItem;
 
-            //// Create a new room
-            //Room newRoom = new Room(roomNumber, selectedRoomType, true, adultPrice, childPrice);
+            // Create a new room
+            Room newRoom = new Room(roomNumber, selectedRoomType, true, adultPrice, childPrice);
 
-            //// Save the room (Example: Add to a list or database)
-            //MessageBox.Show("Room Added Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Save the room (Example: Add to a list or database)
+            MessageBox.Show("Room Added Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            //// Close the form or clear fields for new entry
-            //this.Close();
+            // Close the form or clear fields for new entry
+            this.Close();
         }
     }
 }

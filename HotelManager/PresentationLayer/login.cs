@@ -1,11 +1,23 @@
 
 
+using DataLayer;
+using Microsoft.IdentityModel.Tokens;
+using ServiceLayer;
+
 namespace PresentationLayer
 {
     public partial class LoginForm : Form
     {
+        private readonly UserManager userManager;
         public LoginForm()
         {
+           userManager = new UserManager();
+            InitializeComponent();
+            InitializePlaceholders();
+        }
+        public LoginForm(UserManager userManager)
+        {
+            this.userManager = userManager;
             InitializeComponent();
             InitializePlaceholders();
         }
@@ -51,10 +63,36 @@ namespace PresentationLayer
 
         }
 
-        private void bnLogin_Click(object sender, EventArgs e)
+        private async Task<User> GetUser(string username, string password)
         {
-            string username = txtUsername.Text;
-            string password = txtPassword.Text;
+            if(string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                return null;
+            }
+            else
+            {
+                ICollection<User> users = await userManager.ReadAllAsync();
+                User User = users.FirstOrDefault(u => u.UserName == username && u.Password == password);
+                return User;
+            }
+           
+        }
+        private async void bnLogin_ClickAsync(object sender, EventArgs e)
+        {
+            User loggedInUser;
+            string username;
+            string password;
+            if (txtUsername.Text.IsNullOrEmpty() || txtPassword.Text.IsNullOrEmpty())
+            {
+                return;
+            }
+            else 
+            {
+                username = txtUsername.Text;
+                password = txtPassword.Text;
+                //loggedInUser = await GetUser(username, password);
+            }
+            
 
             // Simulated users
             List<User> users = new List<User>
@@ -65,8 +103,8 @@ namespace PresentationLayer
             };
 
             // Find user
-            User loggedInUser = users.FirstOrDefault(u => u.UserName == username && u.Password == password);
-
+            loggedInUser = users.FirstOrDefault(u => u.UserName == username && u.Password == password);
+            //need to check if the user is active
             if (loggedInUser != null)
             {
                 HomeForm homeForm = new HomeForm(loggedInUser);
@@ -78,11 +116,13 @@ namespace PresentationLayer
                 MessageBox.Show("Invalid username or password!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
+            //code for testing
             LoginForm.ActiveForm?.Hide();
+            new AddNewReservationForm().Show();
             //new AddNewUserForm().Show();
             //new AddNewClientForm().Show();
             //new AddNewRoom().Show();
-            new AddNewReservation().Show();
+
         }
     }
 }

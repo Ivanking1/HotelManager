@@ -1,9 +1,15 @@
 ﻿
+using DataLayer;
+
 namespace ServiceLayer
 {
     public class ClientManager
     {
         private readonly ClientContext clientContext;
+        public ClientManager()//constructor without parameters
+        {
+            clientContext = new ClientContext();
+        }
         public ClientManager(ClientContext clientContext)
         {
             this.clientContext = clientContext;
