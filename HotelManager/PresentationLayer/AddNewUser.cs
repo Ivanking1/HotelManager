@@ -1,12 +1,14 @@
 ﻿
 
 using ServiceLayer;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace PresentationLayer
 {
     public partial class AddNewUserForm : Form
     {
-        private UserManager userManager;
+        private readonly UserManager userManager;
         private User loggedInUser;
         public AddNewUserForm(User loggedInUser)
         {
@@ -35,7 +37,6 @@ namespace PresentationLayer
             SetPlaceholder(txtFirstName, "First Name");
             SetPlaceholder(txtSecondName, "Second Name");
             SetPlaceholder(txtLastName, "Last Name");
-            SetPlaceholder(txtSocialSecurity, "Social Security");
             SetPlaceholder(txtPhoneNumber, "Phone Number");
             SetPlaceholder(txtEmail, "Email");
 
@@ -57,9 +58,6 @@ namespace PresentationLayer
 
             txtLastName.GotFocus += (sender, e) => RemovePlaceholder(txtLastName, "Last Name");
             txtLastName.LostFocus += (sender, e) => SetPlaceholder(txtLastName, "Last Name");
-
-            txtSocialSecurity.GotFocus += (sender, e) => RemovePlaceholder(txtSocialSecurity, "Social Security");
-            txtSocialSecurity.LostFocus += (sender, e) => SetPlaceholder(txtSocialSecurity, "Social Security");
 
             txtPhoneNumber.GotFocus += (sender, e) => RemovePlaceholder(txtPhoneNumber, "Phone Number");
             txtPhoneNumber.LostFocus += (sender, e) => SetPlaceholder(txtPhoneNumber, "Phone Number");
@@ -137,36 +135,38 @@ namespace PresentationLayer
             string firstName = txtFirstName.Text.Trim();
             string secondName = txtSecondName.Text.Trim();
             string lastName = txtLastName.Text.Trim();
-            string socialSecurity = txtSocialSecurity.Text.Trim();
+            DateTime dateOfBirth = dTPDateOfBirth.Value;//may replace it with date of birth 
             string phoneNumber = txtPhoneNumber.Text.Trim();
             string email = txtEmail.Text.Trim();
             DateTime startOfEmployment = DateTime.Now;
-            string? role = cmbUserRole.SelectedItem.ToString();
+            string? roleString = cmbUserRole.SelectedItem.ToString();
+            DateTime? endOfEmployment;
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) ||
                 string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(secondName) ||
-                string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(socialSecurity) ||
-                string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email) || role == null)
+                string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(phoneNumber) || 
+                string.IsNullOrEmpty(email) || roleString == null)
             {
                 MessageBox.Show("Please fill in all required fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            User newUser = new User
-            {
-                Id = Guid.NewGuid(),
-                UserName = username,
-                Password = password,  // ⚠️ Consider hashing the password in a real application
-                FirstName = firstName,
-                SecondName = secondName,
-                LastName = lastName,
-                SocialSecurity = socialSecurity,
-                PhoneNumber = phoneNumber,
-                Email = email,
-                StartOfEmployment = startOfEmployment,
-                IsActive = true,
-                Role = (Role)Enum.Parse(typeof(Role), role)  // Assuming Role is an Enum
-            };
+            Role role = (Role)Enum.Parse(typeof(Role), roleString);
+
+            User newUser = new User(Guid.NewGuid(),
+                username,
+                password,  //hashing the password
+                firstName,
+                secondName,
+                lastName,
+                dateOfBirth,
+                phoneNumber,
+                email,
+                startOfEmployment,
+                true,
+                null,
+                role);
+           
 
             try
             {

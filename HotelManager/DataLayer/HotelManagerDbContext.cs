@@ -13,6 +13,8 @@ namespace DataLayer
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
                 optionsBuilder.UseSqlServer(Connection.conString);
+            //https://hotelmanager-e070f-default-rtdb.firebaseio.com/
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

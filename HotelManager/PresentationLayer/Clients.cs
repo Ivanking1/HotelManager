@@ -75,5 +75,11 @@ namespace PresentationLayer
         }
         #endregion
 
+        private void bnNewClient_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            AddNewClientForm addNewClient = new AddNewClientForm(loggedInUser);
+            addNewClient.Show();
+        }
     }
 }

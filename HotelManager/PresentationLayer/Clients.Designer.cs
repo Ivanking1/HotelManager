@@ -35,6 +35,8 @@
             roomsToolStripMenuItem = new ToolStripMenuItem();
             usersToolStripMenuItem = new ToolStripMenuItem();
             logOutToolStripMenuItem = new ToolStripMenuItem();
+            bnNewClient = new Button();
+            listBox1 = new ListBox();
             navigationBarMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -89,11 +91,33 @@
             logOutToolStripMenuItem.Size = new Size(114, 35);
             logOutToolStripMenuItem.Text = "Log Out";
             // 
+            // bnNewClient
+            // 
+            bnNewClient.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnNewClient.Location = new Point(806, 621);
+            bnNewClient.Name = "bnNewClient";
+            bnNewClient.RightToLeft = RightToLeft.No;
+            bnNewClient.Size = new Size(283, 52);
+            bnNewClient.TabIndex = 2;
+            bnNewClient.Text = "Add new client";
+            bnNewClient.UseVisualStyleBackColor = true;
+            bnNewClient.Click += bnNewClient_Click;
+            // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.Location = new Point(139, 81);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(503, 464);
+            listBox1.TabIndex = 3;
+            // 
             // ClientsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1157, 685);
+            Controls.Add(listBox1);
+            Controls.Add(bnNewClient);
             Controls.Add(navigationBarMenuStrip);
             Name = "ClientsForm";
             Text = "Clients";
@@ -112,5 +136,7 @@
         private ToolStripMenuItem roomsToolStripMenuItem;
         private ToolStripMenuItem usersToolStripMenuItem;
         private ToolStripMenuItem logOutToolStripMenuItem;
+        private Button bnNewClient;
+        private ListBox listBox1;
     }
 }

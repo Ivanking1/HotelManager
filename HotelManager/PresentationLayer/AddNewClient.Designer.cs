@@ -37,6 +37,7 @@
             txtEmail = new TextBox();
             txtAge = new TextBox();
             errorProvider1 = new ErrorProvider(components);
+            bnClientsView = new Button();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
@@ -53,7 +54,7 @@
             // bnAddClient
             // 
             bnAddClient.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnAddClient.Location = new Point(433, 622);
+            bnAddClient.Location = new Point(424, 616);
             bnAddClient.Name = "bnAddClient";
             bnAddClient.Size = new Size(302, 70);
             bnAddClient.TabIndex = 1;
@@ -105,11 +106,24 @@
             // 
             errorProvider1.ContainerControl = this;
             // 
+            // bnClientsView
+            // 
+            bnClientsView.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnClientsView.Location = new Point(804, 634);
+            bnClientsView.Name = "bnClientsView";
+            bnClientsView.RightToLeft = RightToLeft.No;
+            bnClientsView.Size = new Size(300, 52);
+            bnClientsView.TabIndex = 13;
+            bnClientsView.Text = "Return to clients";
+            bnClientsView.UseVisualStyleBackColor = true;
+            bnClientsView.Click += bnClientsView_Click;
+            // 
             // AddNewClientForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1116, 715);
+            Controls.Add(bnClientsView);
             Controls.Add(txtAge);
             Controls.Add(txtEmail);
             Controls.Add(txtPhoneNumber);
@@ -134,5 +148,6 @@
         private TextBox txtEmail;
         private TextBox txtAge;
         private ErrorProvider errorProvider1;
+        private Button bnClientsView;
     }
 }

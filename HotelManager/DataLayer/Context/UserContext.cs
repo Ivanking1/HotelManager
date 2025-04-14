@@ -1,117 +1,97 @@
 ﻿using BusinessLayer;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using FireSharp.Config;
+using FireSharp.Interfaces;
+
+using FireSharp.Response;
+
+
 
 namespace DataLayer
 {
     public class UserContext : IDb<User, Guid>
     {
-        private readonly HotelManagerDbContext dbContext;
+        private readonly IFirebaseClient client;
 
         public UserContext()//constructor without parameters
         {
-            dbContext = new HotelManagerDbContext();
+            client = FirebaseClientProvider.Client;
         }
-        public UserContext(HotelManagerDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
+       
         public async Task CreateAsync(User entity)
         {
-            try
-            {
-                entity.Password = BCrypt.Net.BCrypt.HashPassword(entity.Password);//Hashing the password
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
 
-                await dbContext.Users.AddAsync(entity);
-                await dbContext.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var firebaseUser = ToFirebaseUser(entity);
+            await client.SetAsync($"users/{firebaseUser.Id}", firebaseUser);
         }
 
         public async Task<User> ReadAsync(Guid key, bool NavigationalProperties = false, bool isReadOnly = true)
         {
-            try
-            {
-                IQueryable<User> query = dbContext.Users;
-
-                
-                if (isReadOnly)
-                {
-                    query.AsNoTrackingWithIdentityResolution();
-                }
-
-                return await query.SingleOrDefaultAsync(e => e.Id == key);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var response = await client.GetAsync($"users/{key}");
+            var firebaseUser = response.ResultAs<FirebaseUser>();
+            return firebaseUser == null ? null : ToDomainUser(firebaseUser);
         }
 
         public async Task<ICollection<User>> ReadAllAsync(bool NavigationalProperties = false, bool isReadOnly = true)
         {
-            try
-            {
-                IQueryable<User> query = dbContext.Users;
+            var response = await client.GetAsync("users");
+            var usersDict = response.ResultAs<Dictionary<string, FirebaseUser>>();
 
-                if (isReadOnly)
-                {
-                    query.AsNoTrackingWithIdentityResolution();
-                }
-
-                return await query.ToListAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return usersDict?.Values.Select(ToDomainUser).ToList() ?? new List<User>();
         }
 
         public async Task UpdateAsync(User entity, bool NavigationalProperties = false)
         {
-            try
-            {
-                User userFromDb = await ReadAsync(entity.Id, NavigationalProperties, false);
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
 
-                if (userFromDb is null)
-                {
-                    throw new ArgumentException("User with id = " + entity.Id + " does not exist!");
-                }
-
-                dbContext.Entry(userFromDb).CurrentValues.SetValues(entity);
-                await dbContext.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var firebaseUser = ToFirebaseUser(entity);
+            await client.UpdateAsync($"users/{firebaseUser.Id}", firebaseUser);
         }
 
         public async Task DeleteAsync(Guid key)
         {
-            try
+            await client.DeleteAsync($"users/{key}");
+        }
+        private FirebaseUser ToFirebaseUser(User user)
+        {
+            return new FirebaseUser
             {
-                User user = await ReadAsync(key, false, false);
+                Id = user.Id,
+                UserName = user.UserName,
+                Password = user.Password,
+                FirstName = user.FirstName,
+                SecondName = user.SecondName,
+                LastName = user.LastName,
+                DateOfBirth = user.DateOfBirth,
+                PhoneNumber = user.PhoneNumber,
+                Email = user.Email,
+                StartOfEmployment = user.StartOfEmployment,
+                IsActive = user.IsActive,
+                EndOfEmployment = user.EndOfEmployment,
+                Role = user.Role
+            };
+        }
 
-                if (user is null)
-                {
-                    throw new ArgumentException("User with id = " + key + " does not exist!");
-                }
-
-                dbContext.Users.Remove(user);
-                await dbContext.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+        private User ToDomainUser(FirebaseUser user)
+        {
+            return new User(
+                user.Id,
+                user.UserName,
+                user.Password,
+                user.FirstName,
+                user.SecondName,
+                user.LastName,
+                user.DateOfBirth,
+                user.PhoneNumber,
+                user.Email,
+                user.StartOfEmployment,
+                user.IsActive,
+                user.EndOfEmployment,
+                user.Role
+            );
         }
     }
 }

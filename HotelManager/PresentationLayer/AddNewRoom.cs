@@ -6,16 +6,19 @@ namespace PresentationLayer
 {
     public partial class AddNewRoom : Form
     {
-        private RoomManager roomManager;
-        public AddNewRoom()
+        private readonly RoomManager roomManager;
+        private User loggedInUser;
+        public AddNewRoom(User loggedInUser)
         {
+            this.loggedInUser = loggedInUser;
             roomManager = new RoomManager();
             InitializeComponent();
             LoadRoomTypes();
             InitializePlaceholders();
         }
-        public AddNewRoom(RoomManager roomManager)
+        public AddNewRoom(User loggedInUser, RoomManager roomManager)
         {
+            this.loggedInUser = loggedInUser;
             this.roomManager = roomManager;
             InitializeComponent();
             LoadRoomTypes();
@@ -92,7 +95,7 @@ namespace PresentationLayer
 
         }
 
-        private void bnAddRoom_Click(object sender, EventArgs e)
+        private async void bnAddRoom_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(txtRoomNumber.Text, out int roomNumber))
             {
@@ -100,29 +103,47 @@ namespace PresentationLayer
                 return;
             }
 
-            if (!decimal.TryParse(txtAdultPrice.Text, out decimal adultPrice))
+            if (!decimal.TryParse(txtAdultPrice.Text, out decimal adultPrice) ||
+             !decimal.TryParse(txtChildPrice.Text, out decimal childPrice))
             {
-                MessageBox.Show("Invalid Adult Price!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid price input!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (!decimal.TryParse(txtChildPrice.Text, out decimal childPrice))
+            if (cmbRoomType.SelectedIndex == 0) // Prevent placeholder selection
             {
-                MessageBox.Show("Invalid Child Price!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select a valid Room Type!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Get selected room type
-            RoomEnum selectedRoomType = (RoomEnum)cmbRoomType.SelectedItem;
+            if(adultPrice < 0 || childPrice < 0) 
+            {
+                MessageBox.Show("Invalid prices!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            // Create a new room
-            Room newRoom = new Room(roomNumber, selectedRoomType, true, adultPrice, childPrice);
+            if (roomNumber < 0 )
+            {
+                MessageBox.Show("Invalid room number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            // Save the room (Example: Add to a list or database)
-            MessageBox.Show("Room Added Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            RoomEnum roomType = (RoomEnum)Enum.Parse(typeof(RoomEnum), cmbRoomType.SelectedItem.ToString());
 
-            // Close the form or clear fields for new entry
-            this.Close();
+            Room newRoom = new Room(Guid.Empty, roomNumber, roomType, true, adultPrice, childPrice);
+
+
+            try
+            {
+                await roomManager.CreateAsync(newRoom);
+                MessageBox.Show("Room added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                RoomsForm roomsForm = new RoomsForm(loggedInUser);
+                roomsForm.Show();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using BusinessLayer;
+﻿using Azure;
+using BusinessLayer;
+
+using FireSharp.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,104 +13,74 @@ namespace DataLayer
 {
     public class RoomContext : IDb<Room, Guid>
     {
-        private readonly HotelManagerDbContext dbContext;
-        public RoomContext()//constructor without parameters
+        private readonly IFirebaseClient client;
+        public RoomContext()
         {
-            dbContext = new HotelManagerDbContext();
+            client = FirebaseClientProvider.Client;
         }
-        public RoomContext(HotelManagerDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
+        
         public async Task CreateAsync(Room entity)
         {
-            try
-            {
-                await dbContext.Rooms.AddAsync(entity);
-                await dbContext.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            var firebaseRoom = ToFirebaseRoom(entity);
+            await client.SetAsync($"rooms/{firebaseRoom.Id}", firebaseRoom);
         }
 
         public async Task<Room> ReadAsync(Guid key, bool NavigationalProperties = false, bool isReadOnly = true)
         {
-            try
-            {
-                IQueryable<Room> query = dbContext.Rooms;
-
-                if (isReadOnly)
-                {
-                    query.AsNoTrackingWithIdentityResolution();
-                }
-
-                return await query.SingleOrDefaultAsync(e => e.Id == key);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var response = await client.GetAsync($"rooms/{key}");
+            var firebaseRoom = response.ResultAs<FirebaseRoom>();
+            return firebaseRoom == null ? null : ToDomainRoom(firebaseRoom);
         }
 
         public async Task<ICollection<Room>> ReadAllAsync(bool NavigationalProperties = false, bool isReadOnly = true)
         {
-            try
-            {
-                IQueryable<Room> query = dbContext.Rooms;
+            var response = await client.GetAsync("rooms");
+            var roomsDict = response.ResultAs<Dictionary<string, FirebaseRoom>>();
 
-                if (isReadOnly)
-                {
-                    query.AsNoTrackingWithIdentityResolution();
-                }
-
-                return await query.ToListAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return roomsDict?.Values.Select(ToDomainRoom).ToList() ?? new List<Room>();
         }
 
         public async Task UpdateAsync(Room entity, bool NavigationalProperties = false)
         {
-            try
-            {
-                Room roomFromDb = await ReadAsync(entity.Id, NavigationalProperties, false);
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
 
-                if (roomFromDb is null)
-                {
-                    throw new ArgumentException("Room with id = " + entity.Id + " does not exist!");
-                }
-
-                dbContext.Entry(roomFromDb).CurrentValues.SetValues(entity);
-                await dbContext.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var firebaseRoom = ToFirebaseRoom(entity);
+            await client.UpdateAsync($"rooms/{firebaseRoom.Id}", firebaseRoom);
         }
 
         public async Task DeleteAsync(Guid key)
         {
-            try
+            await client.DeleteAsync($"rooms/{key}");
+        }
+        private FirebaseRoom ToFirebaseRoom(Room room)
+        {
+            return new FirebaseRoom
             {
-                Room room = await ReadAsync(key, false, false);
+                Id = room.Id,
+                RoomNumber = room.RoomNumber,  
+                Capacity = room.Capacity,      
+                RoomType = room.RoomType,       
+                IsAvailable = room.IsAvailable,
+                AdultPrice = room.AdultPrice,   
+                ChildPrice = room.ChildPrice   
+            };
+        }
 
-                if (room is null)
-                {
-                    throw new ArgumentException("Room with id = " + key + " does not exist!");
-                }
-
-                dbContext.Rooms.Remove(room);
-                await dbContext.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+        // Mapping from FirebaseRoom to Room domain object
+        private Room ToDomainRoom(FirebaseRoom firebaseRoom)
+        {
+            return new Room(
+                firebaseRoom.Id,
+                firebaseRoom.RoomNumber,
+                firebaseRoom.RoomType,
+                firebaseRoom.IsAvailable,
+                firebaseRoom.AdultPrice,
+                firebaseRoom.ChildPrice
+            );
         }
     }
 }

@@ -6,15 +6,18 @@ namespace PresentationLayer
 {
     public partial class AddNewClientForm : Form
     {
-        private ClientManager clientManager;
-        public AddNewClientForm()
+        private readonly ClientManager clientManager;
+        private User loggedInUser;
+        public AddNewClientForm(User loggedInUser)
         {
+            this.loggedInUser = loggedInUser;
             clientManager = new ClientManager();
             InitializeComponent();
             InitializePlaceholders();
         }
-        public AddNewClientForm(ClientManager clientManager)
+        public AddNewClientForm(User loggedInUser, ClientManager clientManager)
         {
+            this.loggedInUser = loggedInUser;
             this.clientManager = clientManager;
             InitializeComponent();
             InitializePlaceholders();
@@ -68,7 +71,7 @@ namespace PresentationLayer
         }
         #endregion
 
-        private void ValidateAge()
+        private void ValidateAge()//experimental
         {
             int currentAge;
             if (int.TryParse(txtAge.Text, out currentAge) || string.IsNullOrWhiteSpace(txtAge.Text))
@@ -81,26 +84,76 @@ namespace PresentationLayer
             }
         }
 
-        private void bnAddClient_Click(object sender, EventArgs e)
+        private bool IsValidEmail(string email)
         {
-           
-            string firstName = txtFirstName.Text;
-            string lastName = txtLastName.Text;
-            int age;
-            if (int.TryParse(txtAge.Text, out age))
+            try
             {
-                errorProvider1.SetError(txtAge, ""); //  Clear error
+                var addr = new System.Net.Mail.MailAddress(email);//email validation
+                return addr.Address == email;
             }
-            else
+            catch
             {
-                errorProvider1.SetError(txtAge, "Please enter a valid number!"); //  Show error
+                return false;
             }
-            string phoneNumber = txtPhoneNumber.Text;
-            string email = txtEmail.Text;
-            if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName))//
+        }
+
+        private async void bnAddClient_Click(object sender, EventArgs e)
+        {
+
+            // Validate Inputs
+            if (string.IsNullOrWhiteSpace(txtFirstName.Text) ||
+                string.IsNullOrWhiteSpace(txtLastName.Text) ||
+                string.IsNullOrWhiteSpace(txtPhoneNumber.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail.Text) ||
+                string.IsNullOrWhiteSpace(txtAge.Text))
             {
+                MessageBox.Show("All fields are required!", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            if (!int.TryParse(txtAge.Text, out int age) || age <= 0)
+            {
+                MessageBox.Show("Invalid age!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!IsValidEmail(txtEmail.Text))
+            {
+                MessageBox.Show("Invalid email format!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+
+            Client newClient = new Client(Guid.NewGuid(),
+                txtFirstName.Text,
+                txtLastName.Text,
+                txtPhoneNumber.Text,
+                txtEmail.Text,
+                age);//experimental
+
+
+            // Save to database asynchronously
+            try
+            {
+                await clientManager.CreateAsync(newClient);
+                MessageBox.Show("Client Added Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClientsForm clientsForm = new ClientsForm(loggedInUser);
+                clientsForm.Show();
+                this.Hide();
+                //this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void bnClientsView_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            ClientsForm clientsForm = new ClientsForm(loggedInUser);
+            clientsForm.Show();
         }
     }
 }

@@ -6,17 +6,26 @@ namespace PresentationLayer
 {
     public partial class AddNewReservationForm : Form
     {
-        private ReservationManager reservationManager;
-        public AddNewReservationForm()
+        private readonly ReservationManager reservationManager;//investigate readonly
+        private readonly ClientManager clientManager;
+        private readonly RoomManager roomManager;
+        private User loggedInUser;
+        public AddNewReservationForm(User loggedInUser)
         {
+            this.loggedInUser = loggedInUser;
             reservationManager = new ReservationManager();
+            clientManager = new ClientManager();
+            roomManager = new RoomManager();    
             InitializeComponent();
             LoadClients();
             LoadFreeRooms();
             LoadMealsTypes();
         }
-        public AddNewReservationForm(ReservationManager reservationManager)
+        public AddNewReservationForm(User loggedInUser, ClientManager clientManager, RoomManager roomManager, ReservationManager reservationManager)
         {
+            this.loggedInUser = loggedInUser;
+            this.clientManager = clientManager;
+            this.roomManager = roomManager;
             this.reservationManager = reservationManager;
             InitializeComponent();
             LoadClients();
@@ -30,13 +39,13 @@ namespace PresentationLayer
         {
             List<Room> exampleRooms = new List<Room>
             {
-               new Room(101, RoomEnum.Apartment, true, 100m, 50m),  // Free
-               new Room(102, RoomEnum.TwoSingleBeds, true, 150m, 75m),  // Free
-               new Room(103, RoomEnum.DoubleBed, false, 200m, 100m) // Occupied (Not shown)
+               new Room(Guid.NewGuid(), 101, RoomEnum.FamilyRoom, true, 100m, 50m),  // Free
+               new Room(Guid.NewGuid(), 102, RoomEnum.Suite, true, 150m, 75m),  // Free
+               new Room(Guid.NewGuid(), 103, RoomEnum.TwinRoom, false, 200m, 100m) // Occupied (Not shown)
             };
 
             // Filter only free rooms
-            var freeRooms = exampleRooms.Where(room => room.IsFree).ToList();
+            var freeRooms = exampleRooms.Where(room => room.IsAvailable).ToList();
 
             // Bind to ComboBox
             cmbRooms.Items.Add("Select Room");
@@ -54,7 +63,7 @@ namespace PresentationLayer
 
             cmbRooms.SelectedItemChanged += CmbRoomType_SelectedIndexChanged;
 
-            //using (var db = new HotelManagerDbContext()) // Your DbContext
+            //using (var db = new HotelManagerDbContext()) // This should be entirely redone
             //{
             //    var freeRooms = db.Rooms
             //        .Where(room => !db.Reservations.Any(res => res.RoomId == room.Id)) // Room is not in any reservation
@@ -82,9 +91,9 @@ namespace PresentationLayer
         {
             List<Client> exampleClients = new List<Client>
             {
-              new Client("John", "Doe", "123-456-7890", "john.doe@example.com", 30),
-              new Client("Jane", "Smith", "987-654-3210", "jane.smith@example.com", 25),
-              new Client("Alice", "Brown", "555-123-4567", "alice.brown@example.com", 28)
+              new Client(Guid.NewGuid(), "John", "Doe", "123-456-7890", "john.doe@example.com", 30),
+              new Client(Guid.NewGuid(), "Jane", "Smith", "987-654-3210", "jane.smith@example.com", 25),
+              new Client(Guid.NewGuid(), "Alice", "Brown", "555-123-4567", "alice.brown@example.com", 28)
             };
 
             // Bind the list to the CheckedListBox

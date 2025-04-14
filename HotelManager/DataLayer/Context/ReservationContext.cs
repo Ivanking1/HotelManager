@@ -1,113 +1,139 @@
 ﻿using BusinessLayer;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using FireSharp.Config;
+using FireSharp.Interfaces;
+
+using FireSharp.Response;
+
 
 namespace DataLayer
 {
     public class ReservationContext : IDb<Reservation, Guid>
     {
-        private readonly HotelManagerDbContext dbContext;
+        private readonly IFirebaseClient client;
         public ReservationContext()//constructor without parameters
         {
-            dbContext = new HotelManagerDbContext();
+            client = FirebaseClientProvider.Client;
         }
-        public ReservationContext(HotelManagerDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
+        
         public async Task CreateAsync(Reservation entity)
         {
-            try
-            {
-                await dbContext.Reservations.AddAsync(entity);
-                await dbContext.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            var firebaseReservation = ToFirebaseReservation(entity);
+            await client.SetAsync($"reservations/{firebaseReservation.Id}", firebaseReservation);
         }
 
         public async Task<Reservation> ReadAsync(Guid key, bool NavigationalProperties = false, bool isReadOnly = true)
         {
-            try
-            {
-                IQueryable<Reservation> query = dbContext.Reservations;
+            var response = await client.GetAsync($"reservations/{key}");
+            var firebaseReservation = response.ResultAs<FirebaseReservation>();
 
-                if (isReadOnly)
-                {
-                    query.AsNoTrackingWithIdentityResolution();
-                }
+            if (firebaseReservation == null)
+                return null;
 
-                return await query.SingleOrDefaultAsync(e => e.Id == key);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await ToDomainReservation(firebaseReservation, NavigationalProperties);
         }
 
         public async Task<ICollection<Reservation>> ReadAllAsync(bool NavigationalProperties = false, bool isReadOnly = true)
         {
-            try
-            {
-                IQueryable<Reservation> query = dbContext.Reservations;
+            var response = await client.GetAsync("reservations");
+            var dict = response.ResultAs<Dictionary<string, FirebaseReservation>>();
 
-                if (isReadOnly)
-                {
-                    query.AsNoTrackingWithIdentityResolution();
-                }
-
-                return await query.ToListAsync();
-            }
-            catch (Exception)
+            var reservations = new List<Reservation>();
+            foreach (var firebaseRes in dict?.Values ?? Enumerable.Empty<FirebaseReservation>())
             {
-                throw;
+                var domainRes = await ToDomainReservation(firebaseRes, NavigationalProperties);
+                reservations.Add(domainRes);
             }
+
+            return reservations;
         }
 
         public async Task UpdateAsync(Reservation entity, bool NavigationalProperties = false)
         {
-            try
-            {
-                Reservation reservationFromDb = await ReadAsync(entity.Id, NavigationalProperties, false);
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
 
-                if (reservationFromDb is null)
-                {
-                    throw new ArgumentException("Reservation with id = " + entity.Id + " does not exist!");
-                }
-
-                dbContext.Entry(reservationFromDb).CurrentValues.SetValues(entity);
-                await dbContext.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var firebaseReservation = ToFirebaseReservation(entity);
+            await client.UpdateAsync($"reservations/{firebaseReservation.Id}", firebaseReservation);
         }
 
         public async Task DeleteAsync(Guid key)
         {
-            try
+            await client.DeleteAsync($"reservations/{key}");
+        }
+        private FirebaseReservation ToFirebaseReservation(Reservation r)
+        {
+            return new FirebaseReservation
             {
-                Reservation reservation = await ReadAsync(key, false, false);
+                Id = r.Id,
+                RoomId = r.ReservedRoom.Id,
+                UserId = r.BookedBy.Id,
+                Guests = r.Guests?.Select(c => ToFirebaseClient(c)).ToList(),
+                StartingDate = r.StartingDate,
+                EndingDate = r.EndingDate,
+                MealPlan = r.MealPlan,
+                Price = r.Price
+            };
+        }
+        private async Task<Reservation> ToDomainReservation(FirebaseReservation f, bool includeNavigation)
+        {
+            Room room;
+            User user;
 
-                if (reservation is null)
-                {
-                    throw new ArgumentException("Reservation with id = " + key + " does not exist!");
-                }
-
-                dbContext.Reservations.Remove(reservation);
-                await dbContext.SaveChangesAsync();
-            }
-            catch (Exception)
+            if (includeNavigation)
             {
-                throw;
+                var roomContext = new RoomContext(); // or inject it
+                var userContext = new UserContext();
+                room = await roomContext.ReadAsync(f.RoomId);
+                user = await userContext.ReadAsync(f.UserId);
             }
+            else
+            {
+                room = new Room(f.RoomId); // minimal constructor
+                user = new User(f.UserId); // minimal constructor
+            }
+
+            var guests = f.Guests?.Select(ToDomainClient).ToList() ?? new List<Client>();
+
+            return new Reservation(
+                f.Id,
+                room,
+                user,
+                guests,
+                f.StartingDate,
+                f.EndingDate,
+                f.MealPlan
+            );
+        }
+        private FirebaseClient ToFirebaseClient(Client client)
+        {
+            if (client == null) return null;
+
+            return new FirebaseClient
+            {
+                Id = client.Id,
+                FirstName = client.FirstName,
+                LastName = client.LastName,
+                PhoneNumber = client.PhoneNumber,
+                Email = client.Email,
+                Age = client.Age
+            };
+        }
+
+        private Client ToDomainClient(FirebaseClient client)
+        {
+            return new Client(
+                client.Id,
+                client.FirstName,
+                client.LastName,
+                client.PhoneNumber,
+                client.Email,
+                client.Age
+            );
         }
     }
 }

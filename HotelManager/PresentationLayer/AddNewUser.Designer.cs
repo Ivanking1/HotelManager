@@ -36,10 +36,10 @@
             txtFirstName = new TextBox();
             txtSecondName = new TextBox();
             txtLastName = new TextBox();
-            txtSocialSecurity = new TextBox();
             txtPhoneNumber = new TextBox();
             txtEmail = new TextBox();
             cmbUserRole = new ComboBox();
+            dTPDateOfBirth = new DateTimePicker();
             SuspendLayout();
             // 
             // lbTitle
@@ -55,7 +55,7 @@
             // bnAddUser
             // 
             bnAddUser.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnAddUser.Location = new Point(461, 545);
+            bnAddUser.Location = new Point(437, 545);
             bnAddUser.Name = "bnAddUser";
             bnAddUser.RightToLeft = RightToLeft.No;
             bnAddUser.Size = new Size(285, 80);
@@ -112,18 +112,10 @@
             txtLastName.Size = new Size(270, 38);
             txtLastName.TabIndex = 7;
             // 
-            // txtSocialSecurity
-            // 
-            txtSocialSecurity.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSocialSecurity.Location = new Point(790, 162);
-            txtSocialSecurity.Name = "txtSocialSecurity";
-            txtSocialSecurity.Size = new Size(303, 38);
-            txtSocialSecurity.TabIndex = 8;
-            // 
             // txtPhoneNumber
             // 
             txtPhoneNumber.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPhoneNumber.Location = new Point(790, 265);
+            txtPhoneNumber.Location = new Point(790, 162);
             txtPhoneNumber.Name = "txtPhoneNumber";
             txtPhoneNumber.Size = new Size(303, 38);
             txtPhoneNumber.TabIndex = 9;
@@ -131,7 +123,7 @@
             // txtEmail
             // 
             txtEmail.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtEmail.Location = new Point(790, 360);
+            txtEmail.Location = new Point(790, 265);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(303, 38);
             txtEmail.TabIndex = 10;
@@ -140,20 +132,27 @@
             // 
             cmbUserRole.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbUserRole.FormattingEnabled = true;
-            cmbUserRole.Location = new Point(725, 449);
+            cmbUserRole.Location = new Point(750, 472);
             cmbUserRole.Name = "cmbUserRole";
             cmbUserRole.Size = new Size(368, 39);
             cmbUserRole.TabIndex = 14;
+            // 
+            // dTPDateOfBirth
+            // 
+            dTPDateOfBirth.Location = new Point(790, 367);
+            dTPDateOfBirth.Name = "dTPDateOfBirth";
+            dTPDateOfBirth.Size = new Size(303, 27);
+            dTPDateOfBirth.TabIndex = 16;
             // 
             // AddNewUserForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1176, 682);
+            Controls.Add(dTPDateOfBirth);
             Controls.Add(cmbUserRole);
             Controls.Add(txtEmail);
             Controls.Add(txtPhoneNumber);
-            Controls.Add(txtSocialSecurity);
             Controls.Add(txtLastName);
             Controls.Add(txtSecondName);
             Controls.Add(txtFirstName);
@@ -179,9 +178,9 @@
         private TextBox txtFirstName;
         private TextBox txtSecondName;
         private TextBox txtLastName;
-        private TextBox txtSocialSecurity;
         private TextBox txtPhoneNumber;
         private TextBox txtEmail;
         private ComboBox cmbUserRole;
+        private DateTimePicker dTPDateOfBirth;
     }
 }

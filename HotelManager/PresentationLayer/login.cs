@@ -63,19 +63,16 @@ namespace PresentationLayer
 
         }
 
-        private async Task<User> GetUser(string username, string password)
+        private async Task<User?> GetUser(string username, string password)
         {
-            if(string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            ICollection<User> users = await userManager.ReadAllAsync();
+            User? loggedInUser = users.FirstOrDefault(u => u.UserName == username);
+            if (loggedInUser != null && loggedInUser.VerifyPassword(password))
             {
-                return null;
+                return loggedInUser;  // Correct password
             }
-            else
-            {
-                ICollection<User> users = await userManager.ReadAllAsync();
-                User User = users.FirstOrDefault(u => u.UserName == username && u.Password == password);
-                return User;
-            }
-           
+
+            return null;
         }
         private async void bnLogin_ClickAsync(object sender, EventArgs e)
         {
@@ -90,20 +87,28 @@ namespace PresentationLayer
             {
                 username = txtUsername.Text;
                 password = txtPassword.Text;
-                //loggedInUser = await GetUser(username, password);
+                loggedInUser = await GetUser(username, password);
             }
             
 
             // Simulated users
             List<User> users = new List<User>
             {
-              new User("admin", "1234", "Admin", "", "User", "SSN", "123456789", "admin@email.com", DateTime.Now, true, null, Role.Administrator),
-              new User("reception", "1234", "Receptionist", "", "User", "SSN", "987654321", "reception@email.com", DateTime.Now, true, null, Role.Receptionist),
-              new User("worker", "1234", "Guest", "", "User", "SSN", "456123789", "guest@email.com", DateTime.Now, true, null, Role.Worker)
+              new User(Guid.NewGuid(), "adminUser", BCrypt.Net.BCrypt.HashPassword("Admin@123"), "John", 
+              "Michael", "Doe", new DateTime(1985, 6, 15), "+123456789", "admin@example.com",
+              new DateTime(2020, 1, 10), true, null, Role.Administrator),
+
+              new User(Guid.NewGuid(), "receptionist1", BCrypt.Net.BCrypt.HashPassword("Reception@456"), 
+              "Alice", "Marie", "Johnson", new DateTime(1992, 3, 25), "+987654321", "alice.johnson@example.com",
+              new DateTime(2021, 5, 20), true, null, Role.Receptionist),
+
+              new User(Guid.NewGuid(), "worker99", BCrypt.Net.BCrypt.HashPassword("Worker@789"), 
+              "Robert", "James", "Smith", new DateTime(1998, 11, 10), "+1122334455", 
+              "robert.smith@example.com", new DateTime(2023, 8, 5), true, null, Role.Worker)
             };
 
             // Find user
-            loggedInUser = users.FirstOrDefault(u => u.UserName == username && u.Password == password);
+           // loggedInUser = users.FirstOrDefault(u => u.UserName == username && u.Password == password);
             //need to check if the user is active
             if (loggedInUser != null)
             {
@@ -117,8 +122,8 @@ namespace PresentationLayer
             }
             
             //code for testing
-            LoginForm.ActiveForm?.Hide();
-            new AddNewReservationForm().Show();
+            //LoginForm.ActiveForm?.Hide();
+            //new AddNewReservationForm(loggedInUser).Show();
             //new AddNewUserForm().Show();
             //new AddNewClientForm().Show();
             //new AddNewRoom().Show();

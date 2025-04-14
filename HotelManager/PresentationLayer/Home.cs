@@ -42,8 +42,8 @@ namespace PresentationLayer
 
         private void homeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HomeForm homeForm = new HomeForm(loggedInUser);
-            homeForm.Show();
+            HomeForm homeForm = new HomeForm(loggedInUser);// that would open a new one without closing the previous one
+            homeForm.Show();                               //should change thet
         }
 
         private void reservationsToolStripMenuItem_Click(object sender, EventArgs e)

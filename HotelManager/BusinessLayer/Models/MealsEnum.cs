@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace BusinessLayer
 {
     public enum MealsEnum
     {
-        OnlyBreakfast,
-        ThreeMeals,
-        AllInclusive
+        None = 0,
+        OnlyBreakfast = 1,
+        ThreeMeals = 2,
+        AllInclusive = 3
     }
 }
