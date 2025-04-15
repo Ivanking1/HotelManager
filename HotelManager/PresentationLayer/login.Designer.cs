@@ -79,9 +79,10 @@
             lbUsername.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbUsername.Location = new Point(176, 188);
             lbUsername.Name = "lbUsername";
-            lbUsername.Size = new Size(133, 31);
+            lbUsername.Size = new Size(246, 31);
             lbUsername.TabIndex = 4;
-            lbUsername.Text = "Username: ";
+            lbUsername.Text = "Потребителско име: ";
+
             // 
             // lbPassword
             // 
@@ -89,9 +90,10 @@
             lbPassword.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbPassword.Location = new Point(176, 299);
             lbPassword.Name = "lbPassword";
-            lbPassword.Size = new Size(126, 31);
+            lbPassword.Size = new Size(110, 31);
             lbPassword.TabIndex = 5;
-            lbPassword.Text = "Password: ";
+            lbPassword.Text = "Парола: ";
+
             // 
             // LoginForm
             // 

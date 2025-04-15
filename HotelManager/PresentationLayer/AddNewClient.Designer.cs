@@ -67,7 +67,7 @@
             txtFirstName.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtFirstName.Location = new Point(172, 207);
             txtFirstName.Name = "txtFirstName";
-            txtFirstName.Size = new Size(193, 38);
+            txtFirstName.Size = new Size(280, 38);
             txtFirstName.TabIndex = 6;
             // 
             // txtLastName
@@ -75,23 +75,23 @@
             txtLastName.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtLastName.Location = new Point(172, 333);
             txtLastName.Name = "txtLastName";
-            txtLastName.Size = new Size(193, 38);
+            txtLastName.Size = new Size(280, 38);
             txtLastName.TabIndex = 8;
             // 
             // txtPhoneNumber
             // 
             txtPhoneNumber.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPhoneNumber.Location = new Point(668, 207);
+            txtPhoneNumber.Location = new Point(668, 218);
             txtPhoneNumber.Name = "txtPhoneNumber";
-            txtPhoneNumber.Size = new Size(193, 38);
+            txtPhoneNumber.Size = new Size(304, 38);
             txtPhoneNumber.TabIndex = 10;
             // 
             // txtEmail
             // 
             txtEmail.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtEmail.Location = new Point(678, 342);
+            txtEmail.Location = new Point(668, 342);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(193, 38);
+            txtEmail.Size = new Size(304, 38);
             txtEmail.TabIndex = 11;
             // 
             // txtAge
@@ -99,7 +99,7 @@
             txtAge.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtAge.Location = new Point(172, 432);
             txtAge.Name = "txtAge";
-            txtAge.Size = new Size(193, 38);
+            txtAge.Size = new Size(280, 38);
             txtAge.TabIndex = 12;
             // 
             // errorProvider1

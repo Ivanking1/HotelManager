@@ -25,15 +25,16 @@ namespace PresentationLayer
         private void InitializePlaceholders()
         {
             // Set placeholders for multiple textboxes
-            SetPlaceholder(txtUsername, "User Name");
-            SetPlaceholder(txtPassword, "Password");
+            SetPlaceholder(txtUsername, "User123");
+            SetPlaceholder(txtPassword, "123456");
+
 
             // Attach events dynamically
-            txtUsername.GotFocus += (sender, e) => RemovePlaceholder(txtUsername, "User Name");
-            txtUsername.LostFocus += (sender, e) => SetPlaceholder(txtUsername, "User Name");
+            txtUsername.GotFocus += (sender, e) => RemovePlaceholder(txtUsername, "User123");
+            txtUsername.LostFocus += (sender, e) => SetPlaceholder(txtUsername, "User123");
 
-            txtPassword.GotFocus += (sender, e) => RemovePlaceholder(txtPassword, "Password", true);
-            txtPassword.LostFocus += (sender, e) => SetPlaceholder(txtPassword, "Password", true);
+            txtPassword.GotFocus += (sender, e) => RemovePlaceholder(txtPassword, "123456", true);
+            txtPassword.LostFocus += (sender, e) => SetPlaceholder(txtPassword, "123456", true);
         }
 
         private void SetPlaceholder(TextBox textBox, string placeholder, bool isPassword = false)

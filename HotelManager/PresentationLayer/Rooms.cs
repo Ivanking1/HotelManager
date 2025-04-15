@@ -41,35 +41,41 @@ namespace PresentationLayer
 
         private void homeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Close();
             HomeForm homeForm = new HomeForm(loggedInUser);
             homeForm.Show();
         }
 
         private void reservationsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Close();
             ReservationsForm reservationsForm = new ReservationsForm(loggedInUser);
             reservationsForm.Show();
         }
 
         private void clientsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Close();
             ClientsForm clientsForm = new ClientsForm(loggedInUser);
             clientsForm.Show();
         }
 
         private void roomsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RoomsForm roomsForm = new RoomsForm(loggedInUser);
-            roomsForm.Show();
+            //this.Close();
+            //RoomsForm roomsForm = new RoomsForm(loggedInUser);
+            //roomsForm.Show();
         }
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Close();
             UsersForm usersForm = new UsersForm(loggedInUser);
             usersForm.Show();
         }
         private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Close();
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
         }
