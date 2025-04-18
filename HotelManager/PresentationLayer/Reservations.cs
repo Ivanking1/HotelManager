@@ -5,12 +5,21 @@ namespace PresentationLayer
     public partial class ReservationsForm : Form
     {
         private User loggedInUser;
+        private User? SelectedUser;//for edit
         public ReservationsForm(User loggedInUser)
         {
             this.loggedInUser = loggedInUser;
             InitializeComponent();
             ConfigureMenuPermissions();
         }
+        public ReservationsForm(User loggedInUser, User SelectedUser)//for edit
+        {
+            this.loggedInUser = loggedInUser;
+            this.SelectedUser = SelectedUser;
+            InitializeComponent();
+            ConfigureMenuPermissions();
+        }
+
         #region navigation bar
         private void ConfigureMenuPermissions()
         {
@@ -80,5 +89,11 @@ namespace PresentationLayer
         }
         #endregion
 
+        private void bnNewReservation_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            AddNewReservationForm addNewReservationForm = new AddNewReservationForm(loggedInUser);
+            addNewReservationForm.Show();
+        }
     }
 }

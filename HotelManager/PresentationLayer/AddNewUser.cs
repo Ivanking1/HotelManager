@@ -101,9 +101,6 @@ namespace PresentationLayer
 
             cmbUserRole.SelectedIndex = 0;
             cmbUserRole.ForeColor = Color.Gray;
-
-
-            cmbUserRole.SelectedIndexChanged += CmbUserRole_SelectedIndexChanged;
         }
         private void CmbUserRole_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -127,7 +124,7 @@ namespace PresentationLayer
         {
             string username = txtUsername.Text.Trim();
             string? password = null;
-            if (!string.IsNullOrWhiteSpace(txtPassword.Text.Trim()) 
+            if (!string.IsNullOrWhiteSpace(txtPassword.Text.Trim())
                 && txtPassword.Text.Trim() == txtConfirmPassword.Text.Trim())
             {
                 password = txtPassword.Text.Trim();
@@ -135,7 +132,7 @@ namespace PresentationLayer
             string firstName = txtFirstName.Text.Trim();
             string secondName = txtSecondName.Text.Trim();
             string lastName = txtLastName.Text.Trim();
-            DateTime dateOfBirth = dTPDateOfBirth.Value;//may replace it with date of birth 
+            DateTime dateOfBirth = dtpDateOfBirth.Value;
             string phoneNumber = txtPhoneNumber.Text.Trim();
             string email = txtEmail.Text.Trim();
             DateTime startOfEmployment = DateTime.Now;
@@ -144,7 +141,7 @@ namespace PresentationLayer
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) ||
                 string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(secondName) ||
-                string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(phoneNumber) || 
+                string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(phoneNumber) ||
                 string.IsNullOrEmpty(email) || roleString == null)
             {
                 MessageBox.Show("Please fill in all required fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -166,11 +163,11 @@ namespace PresentationLayer
                 true,
                 null,
                 role);
-           
+
 
             try
             {
-                await userManager.CreateAsync(newUser); 
+                await userManager.CreateAsync(newUser);
                 MessageBox.Show("User added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //this.Close(); // Close the form
                 UsersForm usersForm = new UsersForm(loggedInUser);
@@ -183,6 +180,11 @@ namespace PresentationLayer
             }
         }
 
-        
+        private void bnUsersView_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            UsersForm usersForm = new UsersForm(loggedInUser);
+            usersForm.Show();
+        }
     }
 }

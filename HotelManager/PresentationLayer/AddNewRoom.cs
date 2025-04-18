@@ -4,11 +4,11 @@ using ServiceLayer;
 
 namespace PresentationLayer
 {
-    public partial class AddNewRoom : Form
+    public partial class AddNewRoomForm : Form
     {
         private readonly RoomManager roomManager;
         private User loggedInUser;
-        public AddNewRoom(User loggedInUser)
+        public AddNewRoomForm(User loggedInUser)
         {
             this.loggedInUser = loggedInUser;
             roomManager = new RoomManager();
@@ -16,7 +16,7 @@ namespace PresentationLayer
             LoadRoomTypes();
             InitializePlaceholders();
         }
-        public AddNewRoom(User loggedInUser, RoomManager roomManager)
+        public AddNewRoomForm(User loggedInUser, RoomManager roomManager)
         {
             this.loggedInUser = loggedInUser;
             this.roomManager = roomManager;
@@ -71,11 +71,11 @@ namespace PresentationLayer
                 cmbRoomType.Items.Add(type);
             }
 
-            
-            cmbRoomType.SelectedIndex = 0;
-            cmbRoomType.ForeColor = Color.Gray; 
 
-           
+            cmbRoomType.SelectedIndex = 0;
+            cmbRoomType.ForeColor = Color.Gray;
+
+
             cmbRoomType.SelectedIndexChanged += CmbRoomType_SelectedIndexChanged;
         }
         private void CmbRoomType_SelectedIndexChanged(object sender, EventArgs e)
@@ -116,12 +116,12 @@ namespace PresentationLayer
                 return;
             }
 
-            if(adultPrice < 0 || childPrice < 0) 
+            if (adultPrice < 0 || childPrice < 0)
             {
                 MessageBox.Show("Invalid prices!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            if (roomNumber < 0 )
+            if (roomNumber < 0)
             {
                 MessageBox.Show("Invalid room number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -135,7 +135,7 @@ namespace PresentationLayer
             {
                 await roomManager.CreateAsync(newRoom);
                 MessageBox.Show("Room added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
                 RoomsForm roomsForm = new RoomsForm(loggedInUser);
                 roomsForm.Show();
                 this.Hide();
@@ -144,6 +144,13 @@ namespace PresentationLayer
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void bnRoomsView_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            RoomsForm roomsForm = new RoomsForm(loggedInUser);
+            roomsForm.Show();
         }
     }
 }

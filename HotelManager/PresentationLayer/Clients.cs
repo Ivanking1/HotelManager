@@ -5,6 +5,7 @@ namespace PresentationLayer
     public partial class ClientsForm : Form
     {
         private User loggedInUser;
+        private User? SelectedUser;//for edit
         public ClientsForm(User loggedInUser)
         {
             this.loggedInUser = loggedInUser;
@@ -12,6 +13,15 @@ namespace PresentationLayer
             InitializeComponent();
             ConfigureMenuPermissions();
         }
+        public ClientsForm(User loggedInUser, User SelectedUser)//for edit
+        {
+            this.loggedInUser = loggedInUser;
+            this.SelectedUser = SelectedUser;
+
+            InitializeComponent();
+            ConfigureMenuPermissions();
+        }
+
         #region navigation bar
         private void ConfigureMenuPermissions()
         {

@@ -1,6 +1,6 @@
 ﻿namespace PresentationLayer
 {
-    partial class AddNewRoom
+    partial class AddNewRoomForm
     {
         /// <summary>
         /// Required designer variable.
@@ -34,76 +34,152 @@
             txtChildPrice = new TextBox();
             txtAdultPrice = new TextBox();
             cmbRoomType = new ComboBox();
+            lbRoomNumber = new Label();
+            lbRoomType = new Label();
+            lbChieldPrice = new Label();
+            lbAdultPrice = new Label();
+            lbPrices = new Label();
+            bnRoomsView = new Button();
             SuspendLayout();
             // 
             // txtRoomNumber
             // 
             txtRoomNumber.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtRoomNumber.Location = new Point(198, 227);
+            txtRoomNumber.Location = new Point(198, 259);
             txtRoomNumber.Name = "txtRoomNumber";
-            txtRoomNumber.Size = new Size(227, 38);
+            txtRoomNumber.Size = new Size(306, 38);
             txtRoomNumber.TabIndex = 7;
             // 
             // lbTitle
             // 
             lbTitle.AutoSize = true;
             lbTitle.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbTitle.Location = new Point(370, 49);
+            lbTitle.Location = new Point(465, 54);
             lbTitle.Name = "lbTitle";
-            lbTitle.Size = new Size(479, 81);
+            lbTitle.Size = new Size(324, 81);
             lbTitle.TabIndex = 8;
-            lbTitle.Text = "Add New Room";
+            lbTitle.Text = "Нова стая";
             // 
             // bnAddRoom
             // 
             bnAddRoom.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            bnAddRoom.BackColor = Color.Teal;
             bnAddRoom.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnAddRoom.Location = new Point(454, 577);
+            bnAddRoom.Location = new Point(475, 595);
             bnAddRoom.Name = "bnAddRoom";
-            bnAddRoom.Size = new Size(302, 70);
+            bnAddRoom.Size = new Size(342, 70);
             bnAddRoom.TabIndex = 9;
-            bnAddRoom.Text = "Add Room";
-            bnAddRoom.UseVisualStyleBackColor = true;
+            bnAddRoom.Text = "Добави стая";
+            bnAddRoom.UseVisualStyleBackColor = false;
             bnAddRoom.Click += bnAddRoom_Click;
             // 
             // txtChildPrice
             // 
             txtChildPrice.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtChildPrice.Location = new Point(768, 227);
+            txtChildPrice.Location = new Point(768, 259);
             txtChildPrice.Name = "txtChildPrice";
-            txtChildPrice.Size = new Size(215, 38);
+            txtChildPrice.Size = new Size(260, 38);
             txtChildPrice.TabIndex = 11;
             // 
             // txtAdultPrice
             // 
             txtAdultPrice.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtAdultPrice.Location = new Point(768, 351);
+            txtAdultPrice.Location = new Point(768, 374);
             txtAdultPrice.Name = "txtAdultPrice";
-            txtAdultPrice.Size = new Size(215, 38);
+            txtAdultPrice.Size = new Size(260, 38);
             txtAdultPrice.TabIndex = 12;
             // 
             // cmbRoomType
             // 
             cmbRoomType.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbRoomType.FormattingEnabled = true;
-            cmbRoomType.Location = new Point(198, 350);
+            cmbRoomType.Location = new Point(198, 373);
             cmbRoomType.Name = "cmbRoomType";
-            cmbRoomType.Size = new Size(227, 39);
+            cmbRoomType.Size = new Size(306, 39);
             cmbRoomType.TabIndex = 13;
             // 
-            // AddNewRoom
+            // lbRoomNumber
+            // 
+            lbRoomNumber.AutoSize = true;
+            lbRoomNumber.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbRoomNumber.Location = new Point(198, 225);
+            lbRoomNumber.Name = "lbRoomNumber";
+            lbRoomNumber.Size = new Size(180, 31);
+            lbRoomNumber.TabIndex = 19;
+            lbRoomNumber.Text = "Номер на стая:";
+            // 
+            // lbRoomType
+            // 
+            lbRoomType.AutoSize = true;
+            lbRoomType.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbRoomType.Location = new Point(198, 340);
+            lbRoomType.Name = "lbRoomType";
+            lbRoomType.Size = new Size(147, 31);
+            lbRoomType.TabIndex = 20;
+            lbRoomType.Text = "Вид на стая:";
+            // 
+            // lbChieldPrice
+            // 
+            lbChieldPrice.AutoSize = true;
+            lbChieldPrice.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbChieldPrice.Location = new Point(768, 225);
+            lbChieldPrice.Name = "lbChieldPrice";
+            lbChieldPrice.Size = new Size(99, 31);
+            lbChieldPrice.TabIndex = 21;
+            lbChieldPrice.Text = "За дете:";
+            // 
+            // lbAdultPrice
+            // 
+            lbAdultPrice.AutoSize = true;
+            lbAdultPrice.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbAdultPrice.Location = new Point(768, 340);
+            lbAdultPrice.Name = "lbAdultPrice";
+            lbAdultPrice.Size = new Size(163, 31);
+            lbAdultPrice.TabIndex = 22;
+            lbAdultPrice.Text = "За възрастен:";
+            // 
+            // lbPrices
+            // 
+            lbPrices.AutoSize = true;
+            lbPrices.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbPrices.Location = new Point(768, 162);
+            lbPrices.Name = "lbPrices";
+            lbPrices.Size = new Size(260, 38);
+            lbPrices.TabIndex = 23;
+            lbPrices.Text = "Цена за нощувка:";
+            // 
+            // bnRoomsView
+            // 
+            bnRoomsView.BackColor = Color.Teal;
+            bnRoomsView.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnRoomsView.Location = new Point(949, 595);
+            bnRoomsView.Name = "bnRoomsView";
+            bnRoomsView.RightToLeft = RightToLeft.No;
+            bnRoomsView.Size = new Size(300, 105);
+            bnRoomsView.TabIndex = 24;
+            bnRoomsView.Text = "База даннни\n с клиенти";
+            bnRoomsView.UseVisualStyleBackColor = false;
+            bnRoomsView.Click += bnRoomsView_Click;
+            // 
+            // AddNewRoomForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1185, 693);
+            ClientSize = new Size(1280, 720);
+            Controls.Add(bnRoomsView);
+            Controls.Add(lbPrices);
+            Controls.Add(lbAdultPrice);
+            Controls.Add(lbChieldPrice);
+            Controls.Add(lbRoomType);
+            Controls.Add(lbRoomNumber);
             Controls.Add(cmbRoomType);
             Controls.Add(txtAdultPrice);
             Controls.Add(txtChildPrice);
             Controls.Add(bnAddRoom);
             Controls.Add(lbTitle);
             Controls.Add(txtRoomNumber);
-            Name = "AddNewRoom";
-            Text = "AddNewRoom";
+            Name = "AddNewRoomForm";
+            Text = "HotelManager";
             Load += AddNewRoom_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -118,5 +194,11 @@
         private TextBox txtChildPrice;
         private TextBox txtAdultPrice;
         private ComboBox cmbRoomType;
+        private Label lbRoomNumber;
+        private Label lbRoomType;
+        private Label lbChieldPrice;
+        private Label lbAdultPrice;
+        private Label lbPrices;
+        private Button bnRoomsView;
     }
 }

@@ -5,6 +5,7 @@ namespace PresentationLayer
     public partial class RoomsForm : Form
     {
         private User loggedInUser;
+        private User? SelectedUser;//for edit
         public RoomsForm(User loggedInUser)
         {
             this.loggedInUser = loggedInUser;  // Store user details
@@ -12,6 +13,15 @@ namespace PresentationLayer
             InitializeComponent();
             ConfigureMenuPermissions();
         }
+        public RoomsForm(User loggedInUser, User SelectedUser)//for edit
+        {
+            this.loggedInUser = loggedInUser;  // Store user details
+            this.SelectedUser = SelectedUser;
+
+            InitializeComponent();
+            ConfigureMenuPermissions();
+        }
+
         #region navigation bar
         private void ConfigureMenuPermissions()
         {
@@ -81,5 +91,12 @@ namespace PresentationLayer
         }
         #endregion
 
+
+        private void bnNewRoom_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            AddNewRoomForm addNewRoomForm = new AddNewRoomForm(loggedInUser);
+            addNewRoomForm.Show();
+        }
     }
 }

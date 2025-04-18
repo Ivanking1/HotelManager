@@ -15,7 +15,7 @@ namespace PresentationLayer
             this.loggedInUser = loggedInUser;
             reservationManager = new ReservationManager();
             clientManager = new ClientManager();
-            roomManager = new RoomManager();    
+            roomManager = new RoomManager();
             InitializeComponent();
             LoadClients();
             LoadFreeRooms();
@@ -48,20 +48,20 @@ namespace PresentationLayer
             var freeRooms = exampleRooms.Where(room => room.IsAvailable).ToList();
 
             // Bind to ComboBox
-            cmbRooms.Items.Add("Select Room");
+            cmbRoom.Items.Add("Select Room");
 
             // Add enum values
             foreach (var room in freeRooms)
             {
-                cmbRooms.Items.Add(room);
+                cmbRoom.Items.Add(room);
             }
 
 
-            cmbRooms.SelectedIndex = 0;
-            cmbRooms.ForeColor = Color.Gray;
+            cmbRoom.SelectedIndex = 0;
+            cmbRoom.ForeColor = Color.Gray;
 
 
-            cmbRooms.SelectedItemChanged += CmbRoomType_SelectedIndexChanged;
+            cmbRoom.SelectedIndexChanged += CmbRoomType_SelectedIndexChanged;
 
             //using (var db = new HotelManagerDbContext()) // This should be entirely redone
             //{
@@ -75,16 +75,16 @@ namespace PresentationLayer
             //    cmbRooms.ValueMember = "Id"; // Store room ID
             //}
         }
-        
+
         private void CmbRoomType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbRooms.SelectedIndex == 0)
+            if (cmbRoom.SelectedIndex == 0)
             {
-                cmbRooms.ForeColor = Color.Gray; // Placeholder color
+                cmbRoom.ForeColor = Color.Gray; // Placeholder color
             }
             else
             {
-                cmbRooms.ForeColor = Color.Black; // Normal color
+                cmbRoom.ForeColor = Color.Black; // Normal color
             }
         }
         private void LoadClients()
@@ -101,13 +101,11 @@ namespace PresentationLayer
             clbClients.DisplayMember = "FullName";
             clbClients.ValueMember = "Id";
 
-            //using (var db = new HotelManagerDbContext()) // Replace with your HotelManagerDbContext
-            //{
-            //    var clients = db.Clients.ToList();
-            //    clbClients.DataSource = clients;
-            //    clbClients.DisplayMember = "FullName"; // Assuming Client has a FullName property
-            //    clbClients.ValueMember = "Id"; // Store the unique ID
-            //}
+
+            clbClients.DataSource = clientManager.ReadAllAsync();
+            clbClients.DisplayMember = "FullName"; // Assuming Client has a FullName property
+            clbClients.ValueMember = "Id"; // Store the unique ID
+
         }
 
         private void LoadMealsTypes()
@@ -142,6 +140,25 @@ namespace PresentationLayer
         private void AddNewReservation_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private List<Client> GetSelectedClients()
+        {
+            return clbClients.CheckedItems
+                             .Cast<Client>()  // Assuming DataSource is List<Client>
+                             .ToList();
+        }
+
+        private void bnAddReservation_Click(object sender, EventArgs e)
+        {
+            List<Client> selectedGuests = GetSelectedClients();
+        }
+
+        private void bnReservationsView_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            ReservationsForm reservationsForm = new ReservationsForm(loggedInUser);
+            reservationsForm.Show();
         }
     }
 }

@@ -35,19 +35,27 @@
             roomsToolStripMenuItem = new ToolStripMenuItem();
             usersToolStripMenuItem = new ToolStripMenuItem();
             logOutToolStripMenuItem = new ToolStripMenuItem();
+            dgvUsers = new DataGridView();
+            bnDeleteUser = new Button();
+            bnEditUser = new Button();
+            bnNewUser = new Button();
+            cmbSort = new ComboBox();
+            lbSort = new Label();
+            lbTitle = new Label();
             navigationBarMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
             SuspendLayout();
             // 
             // navigationBarMenuStrip
             // 
             navigationBarMenuStrip.BackColor = Color.Teal;
-            navigationBarMenuStrip.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            navigationBarMenuStrip.Font = new Font("Segoe UI", 15.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             navigationBarMenuStrip.ImageScalingSize = new Size(20, 20);
             navigationBarMenuStrip.Items.AddRange(new ToolStripItem[] { homeToolStripMenuItem, reservationsToolStripMenuItem, clientsToolStripMenuItem, roomsToolStripMenuItem, usersToolStripMenuItem, logOutToolStripMenuItem });
             navigationBarMenuStrip.Location = new Point(0, 0);
             navigationBarMenuStrip.Margin = new Padding(5);
             navigationBarMenuStrip.Name = "navigationBarMenuStrip";
-            navigationBarMenuStrip.Size = new Size(1163, 39);
+            navigationBarMenuStrip.Size = new Size(1280, 45);
             navigationBarMenuStrip.TabIndex = 1;
             navigationBarMenuStrip.Text = "menuStrip1";
             // 
@@ -55,50 +63,136 @@
             // 
             homeToolStripMenuItem.BackColor = Color.Teal;
             homeToolStripMenuItem.Name = "homeToolStripMenuItem";
-            homeToolStripMenuItem.Size = new Size(93, 35);
-            homeToolStripMenuItem.Text = "Home";
+            homeToolStripMenuItem.Size = new Size(131, 41);
+            homeToolStripMenuItem.Text = "Начало";
             // 
             // reservationsToolStripMenuItem
             // 
             reservationsToolStripMenuItem.Name = "reservationsToolStripMenuItem";
-            reservationsToolStripMenuItem.Size = new Size(164, 35);
-            reservationsToolStripMenuItem.Text = "Reservations";
+            reservationsToolStripMenuItem.Size = new Size(190, 41);
+            reservationsToolStripMenuItem.Text = "Резервации";
             // 
             // clientsToolStripMenuItem
             // 
             clientsToolStripMenuItem.Name = "clientsToolStripMenuItem";
-            clientsToolStripMenuItem.Size = new Size(101, 35);
-            clientsToolStripMenuItem.Text = "Clients";
+            clientsToolStripMenuItem.Size = new Size(102, 41);
+            clientsToolStripMenuItem.Text = "Гости";
             // 
             // roomsToolStripMenuItem
             // 
             roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
-            roomsToolStripMenuItem.Size = new Size(101, 35);
-            roomsToolStripMenuItem.Text = "Rooms";
+            roomsToolStripMenuItem.Size = new Size(92, 41);
+            roomsToolStripMenuItem.Text = "Стаи";
             // 
             // usersToolStripMenuItem
             // 
             usersToolStripMenuItem.Name = "usersToolStripMenuItem";
-            usersToolStripMenuItem.Size = new Size(86, 35);
-            usersToolStripMenuItem.Text = "Users";
+            usersToolStripMenuItem.Size = new Size(179, 41);
+            usersToolStripMenuItem.Text = "Служители";
             // 
             // logOutToolStripMenuItem
             // 
             logOutToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
             logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            logOutToolStripMenuItem.Size = new Size(114, 35);
-            logOutToolStripMenuItem.Text = "Log Out";
+            logOutToolStripMenuItem.Size = new Size(290, 41);
+            logOutToolStripMenuItem.Text = "Излизане от акаунт";
+            // 
+            // dgvUsers
+            // 
+            dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvUsers.Location = new Point(26, 127);
+            dgvUsers.Name = "dgvUsers";
+            dgvUsers.RowHeadersWidth = 51;
+            dgvUsers.Size = new Size(774, 581);
+            dgvUsers.TabIndex = 2;
+            // 
+            // bnDeleteUser
+            // 
+            bnDeleteUser.BackColor = Color.Teal;
+            bnDeleteUser.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnDeleteUser.Location = new Point(875, 116);
+            bnDeleteUser.Name = "bnDeleteUser";
+            bnDeleteUser.RightToLeft = RightToLeft.No;
+            bnDeleteUser.Size = new Size(335, 116);
+            bnDeleteUser.TabIndex = 6;
+            bnDeleteUser.Text = "Изтрий \nслужител";
+            bnDeleteUser.UseVisualStyleBackColor = false;
+            bnDeleteUser.Click += bnDeleteUser_Click;
+            // 
+            // bnEditUser
+            // 
+            bnEditUser.BackColor = Color.Teal;
+            bnEditUser.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnEditUser.Location = new Point(875, 291);
+            bnEditUser.Name = "bnEditUser";
+            bnEditUser.RightToLeft = RightToLeft.No;
+            bnEditUser.Size = new Size(335, 116);
+            bnEditUser.TabIndex = 7;
+            bnEditUser.Text = "Редактирай \nслужител";
+            bnEditUser.UseVisualStyleBackColor = false;
+            bnEditUser.Click += bnEditUser_Click;
+            // 
+            // bnNewUser
+            // 
+            bnNewUser.BackColor = Color.Teal;
+            bnNewUser.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnNewUser.Location = new Point(875, 589);
+            bnNewUser.Name = "bnNewUser";
+            bnNewUser.RightToLeft = RightToLeft.No;
+            bnNewUser.Size = new Size(335, 119);
+            bnNewUser.TabIndex = 8;
+            bnNewUser.Text = "Добави нов\n служител";
+            bnNewUser.UseVisualStyleBackColor = false;
+            bnNewUser.Click += bnNewUser_Click;
+            // 
+            // cmbSort
+            // 
+            cmbSort.FormattingEnabled = true;
+            cmbSort.Location = new Point(541, 79);
+            cmbSort.Name = "cmbSort";
+            cmbSort.Size = new Size(218, 28);
+            cmbSort.TabIndex = 5;
+            cmbSort.SelectedIndexChanged += CmbSort_SelectedIndexChanged;
+            // 
+            // lbSort
+            // 
+            lbSort.AutoSize = true;
+            lbSort.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbSort.Location = new Point(389, 75);
+            lbSort.Name = "lbSort";
+            lbSort.Size = new Size(146, 28);
+            lbSort.TabIndex = 4;
+            lbSort.Text = "Сортиране по";
+            // 
+            // lbTitle
+            // 
+            lbTitle.AutoSize = true;
+            lbTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbTitle.Location = new Point(61, 55);
+            lbTitle.Name = "lbTitle";
+            lbTitle.Size = new Size(241, 54);
+            lbTitle.TabIndex = 3;
+            lbTitle.Text = "Служители";
             // 
             // UsersForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1163, 672);
+            ClientSize = new Size(1280, 720);
+            Controls.Add(lbTitle);
+            Controls.Add(lbSort);
+            Controls.Add(cmbSort);
+            Controls.Add(bnNewUser);
+            Controls.Add(bnEditUser);
+            Controls.Add(bnDeleteUser);
+            Controls.Add(dgvUsers);
             Controls.Add(navigationBarMenuStrip);
             Name = "UsersForm";
-            Text = "Users";
+            Text = "HotelManager";
+            Load += UsersForm_Load;
             navigationBarMenuStrip.ResumeLayout(false);
             navigationBarMenuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -112,5 +206,12 @@
         private ToolStripMenuItem roomsToolStripMenuItem;
         private ToolStripMenuItem usersToolStripMenuItem;
         private ToolStripMenuItem logOutToolStripMenuItem;
+        private DataGridView dgvUsers;
+        private Button bnDeleteUser;
+        private Button bnEditUser;
+        private Button bnNewUser;
+        private ComboBox cmbSort;
+        private Label lbSort;
+        private Label lbTitle;
     }
 }

@@ -1,17 +1,36 @@
 ﻿
 
+using DataLayer;
+using ServiceLayer;
+
 namespace PresentationLayer
 {
     public partial class UsersForm : Form
     {
         private User loggedInUser;
+        private User? SelectedUser;//for edit
+        private readonly UserManager userManager;
+        private List<User> allUsers = new List<User>();
         public UsersForm(User loggedInUser)
         {
+            userManager = new UserManager();
             this.loggedInUser = loggedInUser;  // Store user details
 
             InitializeComponent();
             ConfigureMenuPermissions();
+            LoadUsersAsync();
         }
+        public UsersForm(User loggedInUser, User SelectedUser)//for edit
+        {
+            userManager = new UserManager();
+            this.loggedInUser = loggedInUser;  // Store user details
+            this.SelectedUser = SelectedUser;
+
+            InitializeComponent();
+            ConfigureMenuPermissions();
+            LoadUsersAsync();
+        }
+
         #region navigation bar
         private void ConfigureMenuPermissions()
         {
@@ -81,5 +100,96 @@ namespace PresentationLayer
         }
         #endregion
 
+        private async void LoadUsersAsync()
+        {
+            try
+            {
+                allUsers = (await userManager.ReadAllAsync()).ToList(); // store users
+
+                ApplySorting(); // initial load with sorting (default)
+
+                dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvUsers.MultiSelect = false;
+                dgvUsers.ReadOnly = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading users: {ex.Message}");
+            }
+        }
+        private void ApplySorting()
+        {
+            IEnumerable<User> sortedUsers = allUsers;
+
+            string selected = cmbSort.SelectedItem?.ToString();
+
+            switch (selected)
+            {
+                case "потребителско име":
+                    sortedUsers = allUsers.OrderBy(u => u.UserName);
+                    break;
+                case "роля":
+                    sortedUsers = allUsers.OrderBy(u => u.Role.ToString());
+                    break;
+                case "активност":
+                    sortedUsers = allUsers.OrderBy(u => u.IsActive);
+                    break;
+                case "възраст":
+                    sortedUsers = allUsers.OrderBy(u => u.Age);
+                    break;
+
+                default:
+                    break;
+            }
+
+            dgvUsers.DataSource = sortedUsers.Select(u => new
+            {
+                u.UserName,
+                u.Role,
+                u.IsActive,
+                u.Age,
+                u.Email,
+                u.PhoneNumber
+            }).ToList();
+        }
+        private void CmbSort_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplySorting();
+        }
+        private void UsersForm_Load(object sender, EventArgs e)
+        {
+            cmbSort.Items.AddRange(new string[] { "потребителско име", "роля", "активност", "възраст" });
+            cmbSort.SelectedIndex = 0;
+        }
+
+        private async void bnDeleteUser_Click(object sender, EventArgs e)
+        {
+            if (dgvUsers.CurrentRow?.DataBoundItem is User selectedUser)
+            {
+                var confirm = MessageBox.Show($"Delete user {selectedUser.UserName}?", "Confirm", MessageBoxButtons.YesNo);
+                if (confirm == DialogResult.Yes)
+                {
+                    await userManager.DeleteAsync(selectedUser.Id);
+                    LoadUsersAsync(); // Refresh grid
+                }
+            }
+        }
+
+        private void bnEditUser_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            AddNewUserForm addNewUserForm = new AddNewUserForm(loggedInUser);// will add new edit constructor
+            addNewUserForm.Show();
+        }
+
+        private void bnNewUser_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            AddNewUserForm addNewUserForm = new AddNewUserForm(loggedInUser);
+            addNewUserForm.Show();
+        }
+
+        
     }
 }

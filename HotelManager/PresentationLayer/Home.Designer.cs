@@ -37,74 +37,72 @@
             logOutToolStripMenuItem = new ToolStripMenuItem();
             navigationBarMenuStrip.SuspendLayout();
             SuspendLayout();
+
+            #region navigation design
             // 
             // navigationBarMenuStrip
             // 
             navigationBarMenuStrip.BackColor = Color.Teal;
-            navigationBarMenuStrip.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            navigationBarMenuStrip.Font = new Font("Segoe UI", 15.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             navigationBarMenuStrip.ImageScalingSize = new Size(20, 20);
             navigationBarMenuStrip.Items.AddRange(new ToolStripItem[] { homeToolStripMenuItem, reservationsToolStripMenuItem, clientsToolStripMenuItem, roomsToolStripMenuItem, usersToolStripMenuItem, logOutToolStripMenuItem });
             navigationBarMenuStrip.Location = new Point(0, 0);
             navigationBarMenuStrip.Margin = new Padding(5);
             navigationBarMenuStrip.Name = "navigationBarMenuStrip";
-            navigationBarMenuStrip.Size = new Size(1155, 39);
-            navigationBarMenuStrip.TabIndex = 0;
+            navigationBarMenuStrip.Size = new Size(1280, 45);
+            navigationBarMenuStrip.TabIndex = 1;
             navigationBarMenuStrip.Text = "menuStrip1";
             // 
             // homeToolStripMenuItem
             // 
             homeToolStripMenuItem.BackColor = Color.Teal;
             homeToolStripMenuItem.Name = "homeToolStripMenuItem";
-            homeToolStripMenuItem.Size = new Size(93, 35);
-            homeToolStripMenuItem.Text = "Home";
-            homeToolStripMenuItem.Click += homeToolStripMenuItem_Click;
+            homeToolStripMenuItem.Size = new Size(131, 41);
+            homeToolStripMenuItem.Text = "Начало";
             // 
             // reservationsToolStripMenuItem
             // 
             reservationsToolStripMenuItem.Name = "reservationsToolStripMenuItem";
-            reservationsToolStripMenuItem.Size = new Size(164, 35);
-            reservationsToolStripMenuItem.Text = "Reservations";
-            reservationsToolStripMenuItem.Click += reservationsToolStripMenuItem_Click;
+            reservationsToolStripMenuItem.Size = new Size(190, 41);
+            reservationsToolStripMenuItem.Text = "Резервации";
             // 
             // clientsToolStripMenuItem
             // 
             clientsToolStripMenuItem.Name = "clientsToolStripMenuItem";
-            clientsToolStripMenuItem.Size = new Size(101, 35);
-            clientsToolStripMenuItem.Text = "Clients";
-            clientsToolStripMenuItem.Click += clientsToolStripMenuItem_Click;
+            clientsToolStripMenuItem.Size = new Size(102, 41);
+            clientsToolStripMenuItem.Text = "Гости";
             // 
             // roomsToolStripMenuItem
             // 
             roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
-            roomsToolStripMenuItem.Size = new Size(101, 35);
-            roomsToolStripMenuItem.Text = "Rooms";
-            roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
+            roomsToolStripMenuItem.Size = new Size(92, 41);
+            roomsToolStripMenuItem.Text = "Стаи";
             // 
             // usersToolStripMenuItem
             // 
             usersToolStripMenuItem.Name = "usersToolStripMenuItem";
-            usersToolStripMenuItem.Size = new Size(86, 35);
-            usersToolStripMenuItem.Text = "Users";
-            usersToolStripMenuItem.Click += usersToolStripMenuItem_Click;
+            usersToolStripMenuItem.Size = new Size(179, 41);
+            usersToolStripMenuItem.Text = "Служители";
             // 
             // logOutToolStripMenuItem
             // 
             logOutToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
             logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            logOutToolStripMenuItem.Size = new Size(114, 35);
-            logOutToolStripMenuItem.Text = "Log Out";
-            logOutToolStripMenuItem.Click += logOutToolStripMenuItem_Click;
+            logOutToolStripMenuItem.Size = new Size(290, 41);
+            logOutToolStripMenuItem.Text = "Излизане от акаунт";
+            #endregion
+
             // 
             // HomeForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1155, 704);
+            ClientSize = new Size(1280, 720);
             Controls.Add(navigationBarMenuStrip);
             MainMenuStrip = navigationBarMenuStrip;
             Name = "HomeForm";
-            Text = "Home";
+            Text = "HotelManager";
             navigationBarMenuStrip.ResumeLayout(false);
             navigationBarMenuStrip.PerformLayout();
             ResumeLayout(false);
