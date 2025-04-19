@@ -299,6 +299,7 @@
             Controls.Add(bnAddUser);
             Controls.Add(lbTitle);
             Name = "AddNewUserForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
             Load += AddNewUser_Load;
             ResumeLayout(false);

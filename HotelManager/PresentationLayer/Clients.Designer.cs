@@ -67,30 +67,35 @@
             homeToolStripMenuItem.Name = "homeToolStripMenuItem";
             homeToolStripMenuItem.Size = new Size(131, 41);
             homeToolStripMenuItem.Text = "Начало";
+            homeToolStripMenuItem.Click += homeToolStripMenuItem_Click;
             // 
             // reservationsToolStripMenuItem
             // 
             reservationsToolStripMenuItem.Name = "reservationsToolStripMenuItem";
             reservationsToolStripMenuItem.Size = new Size(190, 41);
             reservationsToolStripMenuItem.Text = "Резервации";
+            reservationsToolStripMenuItem.Click += reservationsToolStripMenuItem_Click;
             // 
             // clientsToolStripMenuItem
             // 
             clientsToolStripMenuItem.Name = "clientsToolStripMenuItem";
             clientsToolStripMenuItem.Size = new Size(102, 41);
             clientsToolStripMenuItem.Text = "Гости";
+            clientsToolStripMenuItem.Click += clientsToolStripMenuItem_Click;
             // 
             // roomsToolStripMenuItem
             // 
             roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
             roomsToolStripMenuItem.Size = new Size(92, 41);
             roomsToolStripMenuItem.Text = "Стаи";
+            roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
             // 
             // usersToolStripMenuItem
             // 
             usersToolStripMenuItem.Name = "usersToolStripMenuItem";
             usersToolStripMenuItem.Size = new Size(179, 41);
             usersToolStripMenuItem.Text = "Служители";
+            usersToolStripMenuItem.Click += usersToolStripMenuItem_Click;
             // 
             // logOutToolStripMenuItem
             // 
@@ -98,9 +103,10 @@
             logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
             logOutToolStripMenuItem.Size = new Size(290, 41);
             logOutToolStripMenuItem.Text = "Излизане от акаунт";
+            logOutToolStripMenuItem.Click += logOutToolStripMenuItem_Click;
             #endregion
 
-           
+
             // 
             // dgvClients
             // 
@@ -191,6 +197,7 @@
             Controls.Add(bnNewClient);
             Controls.Add(navigationBarMenuStrip);
             Name = "ClientsForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
             navigationBarMenuStrip.ResumeLayout(false);
             navigationBarMenuStrip.PerformLayout();

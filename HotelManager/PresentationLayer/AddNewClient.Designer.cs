@@ -195,6 +195,7 @@
             Controls.Add(bnAddClient);
             Controls.Add(lbTitle);
             Name = "AddNewClientForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);

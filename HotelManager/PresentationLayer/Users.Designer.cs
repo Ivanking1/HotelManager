@@ -45,6 +45,8 @@
             navigationBarMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
             SuspendLayout();
+
+            #region navigation design
             // 
             // navigationBarMenuStrip
             // 
@@ -65,30 +67,35 @@
             homeToolStripMenuItem.Name = "homeToolStripMenuItem";
             homeToolStripMenuItem.Size = new Size(131, 41);
             homeToolStripMenuItem.Text = "Начало";
+            homeToolStripMenuItem.Click += homeToolStripMenuItem_Click;
             // 
             // reservationsToolStripMenuItem
             // 
             reservationsToolStripMenuItem.Name = "reservationsToolStripMenuItem";
             reservationsToolStripMenuItem.Size = new Size(190, 41);
             reservationsToolStripMenuItem.Text = "Резервации";
+            reservationsToolStripMenuItem.Click += reservationsToolStripMenuItem_Click;
             // 
             // clientsToolStripMenuItem
             // 
             clientsToolStripMenuItem.Name = "clientsToolStripMenuItem";
             clientsToolStripMenuItem.Size = new Size(102, 41);
             clientsToolStripMenuItem.Text = "Гости";
+            clientsToolStripMenuItem.Click += clientsToolStripMenuItem_Click;
             // 
             // roomsToolStripMenuItem
             // 
             roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
             roomsToolStripMenuItem.Size = new Size(92, 41);
             roomsToolStripMenuItem.Text = "Стаи";
+            roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
             // 
             // usersToolStripMenuItem
             // 
             usersToolStripMenuItem.Name = "usersToolStripMenuItem";
             usersToolStripMenuItem.Size = new Size(179, 41);
             usersToolStripMenuItem.Text = "Служители";
+            usersToolStripMenuItem.Click += usersToolStripMenuItem_Click;
             // 
             // logOutToolStripMenuItem
             // 
@@ -96,6 +103,9 @@
             logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
             logOutToolStripMenuItem.Size = new Size(290, 41);
             logOutToolStripMenuItem.Text = "Излизане от акаунт";
+            logOutToolStripMenuItem.Click += logOutToolStripMenuItem_Click;
+            #endregion
+
             // 
             // dgvUsers
             // 
@@ -188,6 +198,7 @@
             Controls.Add(dgvUsers);
             Controls.Add(navigationBarMenuStrip);
             Name = "UsersForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
             Load += UsersForm_Load;
             navigationBarMenuStrip.ResumeLayout(false);

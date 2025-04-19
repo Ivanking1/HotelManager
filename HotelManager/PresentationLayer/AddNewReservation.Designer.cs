@@ -211,6 +211,7 @@
             Controls.Add(bnAddReservation);
             Controls.Add(lbTitle);
             Name = "AddNewReservationForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
             Load += AddNewReservation_Load;
             ResumeLayout(false);

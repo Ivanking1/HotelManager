@@ -169,6 +169,7 @@ namespace PresentationLayer
             //need to check if the user is active
             if (loggedInUser != null)
             {
+                
                 HomeForm homeForm = new HomeForm(loggedInUser);
                 homeForm.Show();
                 this.Hide();

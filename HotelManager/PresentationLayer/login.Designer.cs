@@ -125,6 +125,7 @@
             Controls.Add(txtUsername);
             Controls.Add(lbTitleLogin);
             Name = "LoginForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
             Load += login_Load;
             ResumeLayout(false);

@@ -27,27 +27,27 @@ namespace PresentationLayer
         {
             // Set placeholders for multiple textboxes
 
-            SetPlaceholder(txtFirstName, "First Name");
-            SetPlaceholder(txtLastName, "Last Name");
-            SetPlaceholder(txtAge, "Age");
-            SetPlaceholder(txtPhoneNumber, "Phone Number");
-            SetPlaceholder(txtEmail, "Email");
+            SetPlaceholder(txtFirstName, "първо име");
+            SetPlaceholder(txtLastName, "последно име");
+            SetPlaceholder(txtAge, "възраст", true); //experiment
+            SetPlaceholder(txtPhoneNumber, "0000000000");
+            SetPlaceholder(txtEmail, "example@gmail.com");
 
             // Attach events dynamically
-            txtFirstName.GotFocus += (sender, e) => RemovePlaceholder(txtFirstName, "First Name");
-            txtFirstName.LostFocus += (sender, e) => SetPlaceholder(txtFirstName, "First Name");
+            txtFirstName.GotFocus += (sender, e) => RemovePlaceholder(txtFirstName, "първо име");
+            txtFirstName.LostFocus += (sender, e) => SetPlaceholder(txtFirstName, "първо име");
 
-            txtLastName.GotFocus += (sender, e) => RemovePlaceholder(txtLastName, "Last Name");
-            txtLastName.LostFocus += (sender, e) => SetPlaceholder(txtLastName, "Last Name");
+            txtLastName.GotFocus += (sender, e) => RemovePlaceholder(txtLastName, "последно име");
+            txtLastName.LostFocus += (sender, e) => SetPlaceholder(txtLastName, "последно име");
 
-            txtAge.GotFocus += (sender, e) => RemovePlaceholder(txtAge, "Age", true);
-            txtAge.LostFocus += (sender, e) => SetPlaceholder(txtAge, "Age", true);
+            txtAge.GotFocus += (sender, e) => RemovePlaceholder(txtAge, "възраст", true);
+            txtAge.LostFocus += (sender, e) => SetPlaceholder(txtAge, "възраст", true);
 
-            txtPhoneNumber.GotFocus += (sender, e) => RemovePlaceholder(txtPhoneNumber, "Phone Number");
-            txtPhoneNumber.LostFocus += (sender, e) => SetPlaceholder(txtPhoneNumber, "Phone Number");
+            txtPhoneNumber.GotFocus += (sender, e) => RemovePlaceholder(txtPhoneNumber, "0000000000");
+            txtPhoneNumber.LostFocus += (sender, e) => SetPlaceholder(txtPhoneNumber, "0000000000");
 
-            txtEmail.GotFocus += (sender, e) => RemovePlaceholder(txtEmail, "Email");
-            txtEmail.LostFocus += (sender, e) => SetPlaceholder(txtEmail, "Email");
+            txtEmail.GotFocus += (sender, e) => RemovePlaceholder(txtEmail, "example@gmail.com");
+            txtEmail.LostFocus += (sender, e) => SetPlaceholder(txtEmail, "example@gmail.com");
         }
 
         private void SetPlaceholder(TextBox textBox, string placeholder, bool isAge = false)

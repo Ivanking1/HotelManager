@@ -179,6 +179,7 @@
             Controls.Add(lbTitle);
             Controls.Add(txtRoomNumber);
             Name = "AddNewRoomForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
             Load += AddNewRoom_Load;
             ResumeLayout(false);

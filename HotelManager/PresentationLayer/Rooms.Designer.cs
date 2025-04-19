@@ -45,6 +45,8 @@
             navigationBarMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRooms).BeginInit();
             SuspendLayout();
+
+            #region navigation design
             // 
             // navigationBarMenuStrip
             // 
@@ -65,30 +67,35 @@
             homeToolStripMenuItem.Name = "homeToolStripMenuItem";
             homeToolStripMenuItem.Size = new Size(131, 41);
             homeToolStripMenuItem.Text = "Начало";
+            homeToolStripMenuItem.Click += homeToolStripMenuItem_Click;
             // 
             // reservationsToolStripMenuItem
             // 
             reservationsToolStripMenuItem.Name = "reservationsToolStripMenuItem";
             reservationsToolStripMenuItem.Size = new Size(190, 41);
             reservationsToolStripMenuItem.Text = "Резервации";
+            reservationsToolStripMenuItem.Click += reservationsToolStripMenuItem_Click;
             // 
             // clientsToolStripMenuItem
             // 
             clientsToolStripMenuItem.Name = "clientsToolStripMenuItem";
             clientsToolStripMenuItem.Size = new Size(102, 41);
             clientsToolStripMenuItem.Text = "Гости";
+            clientsToolStripMenuItem.Click += clientsToolStripMenuItem_Click;
             // 
             // roomsToolStripMenuItem
             // 
             roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
             roomsToolStripMenuItem.Size = new Size(92, 41);
             roomsToolStripMenuItem.Text = "Стаи";
+            roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
             // 
             // usersToolStripMenuItem
             // 
             usersToolStripMenuItem.Name = "usersToolStripMenuItem";
             usersToolStripMenuItem.Size = new Size(179, 41);
             usersToolStripMenuItem.Text = "Служители";
+            usersToolStripMenuItem.Click += usersToolStripMenuItem_Click;
             // 
             // logOutToolStripMenuItem
             // 
@@ -96,43 +103,9 @@
             logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
             logOutToolStripMenuItem.Size = new Size(290, 41);
             logOutToolStripMenuItem.Text = "Излизане от акаунт";
-            // 
-            // bnDeleteRoom
-            // 
-            bnDeleteRoom.BackColor = Color.Teal;
-            bnDeleteRoom.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnDeleteRoom.Location = new Point(875, 116);
-            bnDeleteRoom.Name = "bnDeleteRoom";
-            bnDeleteRoom.RightToLeft = RightToLeft.No;
-            bnDeleteRoom.Size = new Size(335, 116);
-            bnDeleteRoom.TabIndex = 6;
-            bnDeleteRoom.Text = "Изтрий \nстая";
-            bnDeleteRoom.UseVisualStyleBackColor = false;
-            // 
-            // bnEditRoom
-            // 
-            bnEditRoom.BackColor = Color.Teal;
-            bnEditRoom.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnEditRoom.Location = new Point(875, 291);
-            bnEditRoom.Name = "bnEditRoom";
-            bnEditRoom.RightToLeft = RightToLeft.No;
-            bnEditRoom.Size = new Size(335, 116);
-            bnEditRoom.TabIndex = 7;
-            bnEditRoom.Text = "Редактирай \nстая";
-            bnEditRoom.UseVisualStyleBackColor = false;
-            // 
-            // bnNewRoom
-            // 
-            bnNewRoom.BackColor = Color.Teal;
-            bnNewRoom.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnNewRoom.Location = new Point(875, 589);
-            bnNewRoom.Name = "bnNewRoom";
-            bnNewRoom.RightToLeft = RightToLeft.No;
-            bnNewRoom.Size = new Size(335, 119);
-            bnNewRoom.TabIndex = 8;
-            bnNewRoom.Text = "Добави нов\n стая";
-            bnNewRoom.UseVisualStyleBackColor = false;
-            bnNewRoom.Click += bnNewRoom_Click;
+            logOutToolStripMenuItem.Click += logOutToolStripMenuItem_Click;
+            #endregion
+
             // 
             // dgvRooms
             // 
@@ -171,6 +144,44 @@
             cmbSort.Size = new Size(218, 28);
             cmbSort.TabIndex = 5;
             // 
+            // bnDeleteRoom
+            // 
+            bnDeleteRoom.BackColor = Color.Teal;
+            bnDeleteRoom.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnDeleteRoom.Location = new Point(875, 116);
+            bnDeleteRoom.Name = "bnDeleteRoom";
+            bnDeleteRoom.RightToLeft = RightToLeft.No;
+            bnDeleteRoom.Size = new Size(335, 116);
+            bnDeleteRoom.TabIndex = 6;
+            bnDeleteRoom.Text = "Изтрий \nстая";
+            bnDeleteRoom.UseVisualStyleBackColor = false;
+            // 
+            // bnEditRoom
+            // 
+            bnEditRoom.BackColor = Color.Teal;
+            bnEditRoom.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnEditRoom.Location = new Point(875, 291);
+            bnEditRoom.Name = "bnEditRoom";
+            bnEditRoom.RightToLeft = RightToLeft.No;
+            bnEditRoom.Size = new Size(335, 116);
+            bnEditRoom.TabIndex = 7;
+            bnEditRoom.Text = "Редактирай \nстая";
+            bnEditRoom.UseVisualStyleBackColor = false;
+            // 
+            // bnNewRoom
+            // 
+            bnNewRoom.BackColor = Color.Teal;
+            bnNewRoom.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnNewRoom.Location = new Point(875, 589);
+            bnNewRoom.Name = "bnNewRoom";
+            bnNewRoom.RightToLeft = RightToLeft.No;
+            bnNewRoom.Size = new Size(335, 119);
+            bnNewRoom.TabIndex = 8;
+            bnNewRoom.Text = "Добави нов\n стая";
+            bnNewRoom.UseVisualStyleBackColor = false;
+            bnNewRoom.Click += bnNewRoom_Click;
+            
+            // 
             // RoomsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -185,6 +196,7 @@
             Controls.Add(bnDeleteRoom);
             Controls.Add(navigationBarMenuStrip);
             Name = "RoomsForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
             navigationBarMenuStrip.ResumeLayout(false);
             navigationBarMenuStrip.PerformLayout();
