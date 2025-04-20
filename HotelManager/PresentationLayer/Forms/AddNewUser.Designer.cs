@@ -51,6 +51,8 @@
             lbDateOfBirth = new Label();
             lbRole = new Label();
             bnUsersView = new Button();
+            bnUpdUser = new Button();
+            chkIsActive = new CheckBox();
             SuspendLayout();
             // 
             // lbTitle
@@ -270,11 +272,37 @@
             bnUsersView.UseVisualStyleBackColor = false;
             bnUsersView.Click += bnUsersView_Click;
             // 
+            // bnUpdUser
+            // 
+            bnUpdUser.BackColor = Color.Teal;
+            bnUpdUser.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnUpdUser.Location = new Point(399, 591);
+            bnUpdUser.Name = "bnUpdUser";
+            bnUpdUser.RightToLeft = RightToLeft.No;
+            bnUpdUser.Size = new Size(512, 80);
+            bnUpdUser.TabIndex = 33;
+            bnUpdUser.Text = "Редактирай потребител";
+            bnUpdUser.UseVisualStyleBackColor = false;
+            bnUpdUser.Click += bnUpdUser_Click;
+            // 
+            // chkIsActive
+            // 
+            chkIsActive.AutoSize = true;
+            chkIsActive.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            chkIsActive.Location = new Point(495, 481);
+            chkIsActive.Name = "chkIsActive";
+            chkIsActive.Size = new Size(128, 35);
+            chkIsActive.TabIndex = 34;
+            chkIsActive.Text = "Активен";
+            chkIsActive.UseVisualStyleBackColor = true;
+            // 
             // AddNewUserForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1280, 720);
+            Controls.Add(chkIsActive);
+            Controls.Add(bnUpdUser);
             Controls.Add(bnUsersView);
             Controls.Add(lbRole);
             Controls.Add(lbDateOfBirth);
@@ -331,5 +359,7 @@
         private Label lbDateOfBirth;
         private Label lbRole;
         private Button bnUsersView;
+        private Button bnUpdUser;
+        private CheckBox chkIsActive;
     }
 }

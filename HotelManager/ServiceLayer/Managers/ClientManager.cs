@@ -11,10 +11,7 @@ namespace ServiceLayer
         {
             clientContext = new ClientContext();
         }
-        public ClientManager(ClientContext clientContext)
-        {
-            this.clientContext = clientContext ?? throw new ArgumentNullException(nameof(clientContext));
-        }
+        
         public async Task CreateAsync(Client client)
         {
             if (client == null)

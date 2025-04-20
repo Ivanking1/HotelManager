@@ -42,11 +42,10 @@
             cmbSort = new ComboBox();
             lbSort = new Label();
             lbTitle = new Label();
+            bnEndEmployment = new Button();
             navigationBarMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
             SuspendLayout();
-
-            #region navigation design
             // 
             // navigationBarMenuStrip
             // 
@@ -104,23 +103,25 @@
             logOutToolStripMenuItem.Size = new Size(290, 41);
             logOutToolStripMenuItem.Text = "Излизане от акаунт";
             logOutToolStripMenuItem.Click += logOutToolStripMenuItem_Click;
-            #endregion
-
             // 
             // dgvUsers
             // 
+            dgvUsers.AllowUserToAddRows = false;
             dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvUsers.Location = new Point(26, 127);
+            dgvUsers.MultiSelect = false;
             dgvUsers.Name = "dgvUsers";
+            dgvUsers.ReadOnly = true;
             dgvUsers.RowHeadersWidth = 51;
-            dgvUsers.Size = new Size(774, 581);
+            dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvUsers.Size = new Size(817, 581);
             dgvUsers.TabIndex = 2;
             // 
             // bnDeleteUser
             // 
             bnDeleteUser.BackColor = Color.Teal;
             bnDeleteUser.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnDeleteUser.Location = new Point(875, 116);
+            bnDeleteUser.Location = new Point(907, 116);
             bnDeleteUser.Name = "bnDeleteUser";
             bnDeleteUser.RightToLeft = RightToLeft.No;
             bnDeleteUser.Size = new Size(335, 116);
@@ -133,7 +134,7 @@
             // 
             bnEditUser.BackColor = Color.Teal;
             bnEditUser.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnEditUser.Location = new Point(875, 291);
+            bnEditUser.Location = new Point(907, 272);
             bnEditUser.Name = "bnEditUser";
             bnEditUser.RightToLeft = RightToLeft.No;
             bnEditUser.Size = new Size(335, 116);
@@ -146,7 +147,7 @@
             // 
             bnNewUser.BackColor = Color.Teal;
             bnNewUser.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnNewUser.Location = new Point(875, 589);
+            bnNewUser.Location = new Point(907, 589);
             bnNewUser.Name = "bnNewUser";
             bnNewUser.RightToLeft = RightToLeft.No;
             bnNewUser.Size = new Size(335, 119);
@@ -184,11 +185,25 @@
             lbTitle.TabIndex = 3;
             lbTitle.Text = "Служители";
             // 
+            // bnEndEmployment
+            // 
+            bnEndEmployment.BackColor = Color.Teal;
+            bnEndEmployment.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnEndEmployment.Location = new Point(907, 424);
+            bnEndEmployment.Name = "bnEndEmployment";
+            bnEndEmployment.RightToLeft = RightToLeft.No;
+            bnEndEmployment.Size = new Size(335, 116);
+            bnEndEmployment.TabIndex = 9;
+            bnEndEmployment.Text = "Уволни \nслужител";
+            bnEndEmployment.UseVisualStyleBackColor = false;
+            bnEndEmployment.Click += bnEndEmployment_Click;
+            // 
             // UsersForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1280, 720);
+            Controls.Add(bnEndEmployment);
             Controls.Add(lbTitle);
             Controls.Add(lbSort);
             Controls.Add(cmbSort);
@@ -224,5 +239,6 @@
         private ComboBox cmbSort;
         private Label lbSort;
         private Label lbTitle;
+        private Button bnEndEmployment;
     }
 }

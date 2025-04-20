@@ -45,7 +45,7 @@ namespace PresentationLayer
                     "Reception",
                     "Receptionist",
                     "User",
-                    new DateTime(1980, 1, 1),
+                    new DateTime(2000, 1, 1),
                     "+0000000010",
                     "reception@example.com",
                     DateTime.Now,
@@ -55,7 +55,34 @@ namespace PresentationLayer
                 );
 
                 await userManager.CreateAsync(receptionist);
-                MessageBox.Show("Default admin created:\nUsername: admin\nPassword: admin123", "Admin Seeded");
+                MessageBox.Show("Default receptionist created:\nUsername: reception\nPassword: reception123", "Receptionist Seeded");
+            }
+        }
+        static async Task SeedWorkerIfNotExists()
+        {
+            var userManager = new UserManager();
+            var allUsers = await userManager.ReadAllAsync();
+
+            if (!allUsers.Any(u => u.Role == Role.Worker))
+            {
+                var receptionist = new User(
+                    Guid.NewGuid(),
+                    "worker",
+                    "worker123",
+                    "Worker",
+                    "Worker",
+                    "User",
+                    new DateTime(1970, 1, 1),
+                    "+0000000010",
+                    "worker@example.com",
+                    DateTime.Now,
+                    true,
+                    null,
+                    Role.Worker
+                );
+
+                await userManager.CreateAsync(receptionist);
+                MessageBox.Show("Default worker created:\nUsername: worker\nPassword: worker123", "Worker Seeded");
             }
         }
         /// <summary>
@@ -74,6 +101,7 @@ namespace PresentationLayer
             // Seed the admin user if no admins exist
             SeedAdminIfNotExists().GetAwaiter().GetResult();
             SeedReceptionistIfNotExists().GetAwaiter().GetResult();
+            SeedWorkerIfNotExists().GetAwaiter().GetResult();
 
             Application.Run(new LoginForm());
 

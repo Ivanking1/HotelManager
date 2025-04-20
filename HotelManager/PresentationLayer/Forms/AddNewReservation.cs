@@ -9,49 +9,41 @@ namespace PresentationLayer
         private readonly ReservationManager reservationManager;//investigate readonly
         private readonly ClientManager clientManager;
         private readonly RoomManager roomManager;
-        private User loggedInUser;
-        public AddNewReservationForm(User loggedInUser)
+
+        private List<Client> allClients = new List<Client>();
+        public AddNewReservationForm()
         {
-            this.loggedInUser = loggedInUser;
             reservationManager = new ReservationManager();
             clientManager = new ClientManager();
             roomManager = new RoomManager();
             InitializeComponent();
-            LoadClients();
+            LoadClientsAsync();
             LoadFreeRooms();
             LoadMealsTypes();
         }
-        public AddNewReservationForm(User loggedInUser, ClientManager clientManager, RoomManager roomManager, ReservationManager reservationManager)
-        {
-            this.loggedInUser = loggedInUser;
-            this.clientManager = clientManager;
-            this.roomManager = roomManager;
-            this.reservationManager = reservationManager;
-            InitializeComponent();
-            LoadClients();
-            LoadFreeRooms();
-            LoadMealsTypes();
-        }
+        
         #region placeholders
 
         #endregion
-        private void LoadFreeRooms()
+        private async void LoadFreeRooms()
         {
-            List<Room> exampleRooms = new List<Room>
-            {
-               new Room(Guid.NewGuid(), 101, RoomEnum.FamilyRoom, true, 100m, 50m),  // Free
-               new Room(Guid.NewGuid(), 102, RoomEnum.Suite, true, 150m, 75m),  // Free
-               new Room(Guid.NewGuid(), 103, RoomEnum.TwinRoom, false, 200m, 100m) // Occupied (Not shown)
-            };
+            //List<Room> exampleRooms = new List<Room>
+            //{
+            //   new Room(Guid.NewGuid(), 101, RoomEnum.FamilyRoom, true, 100m, 50m),  // Free
+            //   new Room(Guid.NewGuid(), 102, RoomEnum.Suite, true, 150m, 75m),  // Free
+            //   new Room(Guid.NewGuid(), 103, RoomEnum.TwinRoom, false, 200m, 100m) // Occupied (Not shown)
+            //};
 
             // Filter only free rooms
-            var freeRooms = exampleRooms.Where(room => room.IsAvailable).ToList();
+           // var freeRooms = exampleRooms.Where(room => room.IsAvailable).ToList();
 
             // Bind to ComboBox
             cmbRoom.Items.Add("Select Room");
 
+            var rooms = await roomManager.ReadAllAsync();
+            List<Room> roomList = rooms.ToList();
             // Add enum values
-            foreach (var room in freeRooms)
+            foreach (var room in roomList)
             {
                 cmbRoom.Items.Add(room);
             }
@@ -87,22 +79,29 @@ namespace PresentationLayer
                 cmbRoom.ForeColor = Color.Black; // Normal color
             }
         }
-        private void LoadClients()
+        private async void LoadClientsAsync()
         {
-            List<Client> exampleClients = new List<Client>
-            {
-              new Client(Guid.NewGuid(), "John", "Doe", "123-456-7890", "john.doe@example.com", 30),
-              new Client(Guid.NewGuid(), "Jane", "Smith", "987-654-3210", "jane.smith@example.com", 25),
-              new Client(Guid.NewGuid(), "Alice", "Brown", "555-123-4567", "alice.brown@example.com", 28)
-            };
+            //List<Client> exampleClients = new List<Client>
+            //{
+            //  new Client(Guid.NewGuid(), "John", "Doe", "123-456-7890", "john.doe@example.com", 30),
+            //  new Client(Guid.NewGuid(), "Jane", "Smith", "987-654-3210", "jane.smith@example.com", 25),
+            //  new Client(Guid.NewGuid(), "Alice", "Brown", "555-123-4567", "alice.brown@example.com", 28)
+            //};
 
             // Bind the list to the CheckedListBox
-            clbClients.DataSource = exampleClients;
-            clbClients.DisplayMember = "FullName";
-            clbClients.ValueMember = "Id";
+            //clbClients.DataSource = exampleClients;
+            //clbClients.DisplayMember = "FullName";
+            //clbClients.ValueMember = "Id";
 
+            allClients = (await clientManager.ReadAllAsync()).ToList();
+            IEnumerable<Client> sortedClients = allClients;
+            clbClients.DataSource = sortedClients.Select(u => new
+            {
+                u.FullName,
+                u.Age
+            }).ToList();
 
-            clbClients.DataSource = clientManager.ReadAllAsync();
+            
             clbClients.DisplayMember = "FullName"; // Assuming Client has a FullName property
             clbClients.ValueMember = "Id"; // Store the unique ID
 
@@ -156,9 +155,8 @@ namespace PresentationLayer
 
         private void bnReservationsView_Click(object sender, EventArgs e)
         {
-            this.Close();
-            ReservationsForm reservationsForm = new ReservationsForm(loggedInUser);
-            reservationsForm.Show();
+            this.Hide();
+            FormsContext.ReservationsForm?.Show();
         }
     }
 }

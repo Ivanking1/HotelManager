@@ -1,27 +1,17 @@
 ﻿
-using ServiceLayer;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace PresentationLayer
 {
     public partial class AddNewClientForm : Form
     {
         private readonly ClientManager clientManager;
-        private User loggedInUser;
-        public AddNewClientForm(User loggedInUser)
+        public AddNewClientForm()
         {
-            this.loggedInUser = loggedInUser;
             clientManager = new ClientManager();
             InitializeComponent();
             InitializePlaceholders();
         }
-        public AddNewClientForm(User loggedInUser, ClientManager clientManager)
-        {
-            this.loggedInUser = loggedInUser;
-            this.clientManager = clientManager;
-            InitializeComponent();
-            InitializePlaceholders();
-        }
+       
         #region placeholders
         private void InitializePlaceholders()
         {
@@ -122,6 +112,12 @@ namespace PresentationLayer
                 MessageBox.Show("Invalid email format!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (!string.IsNullOrWhiteSpace(txtPhoneNumber.Text) && !System.Text.RegularExpressions.Regex.IsMatch(txtPhoneNumber.Text, @"^\+?\d{7,15}$"))
+            {
+                MessageBox.Show("Invalid phone number format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+                
 
 
 
@@ -138,10 +134,10 @@ namespace PresentationLayer
             {
                 await clientManager.CreateAsync(newClient);
                 MessageBox.Show("Client Added Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ClientsForm clientsForm = new ClientsForm(loggedInUser);
-                clientsForm.Show();
+
+                
                 this.Hide();
-                //this.Close();
+                FormsContext.ClientsForm?.Show();
             }
             catch (Exception ex)
             {
@@ -151,9 +147,8 @@ namespace PresentationLayer
 
         private void bnClientsView_Click(object sender, EventArgs e)
         {
-            this.Close();
-            ClientsForm clientsForm = new ClientsForm(loggedInUser);
-            clientsForm.Show();
+            this.Hide();
+            FormsContext.ClientsForm?.Show();
         }
     }
 }

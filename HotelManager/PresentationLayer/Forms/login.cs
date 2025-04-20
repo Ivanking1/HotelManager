@@ -1,13 +1,11 @@
 
 
-using DataLayer;
-using Microsoft.IdentityModel.Tokens;
-using ServiceLayer;
-
 namespace PresentationLayer
 {
     public partial class LoginForm : Form
     {
+        
+
         private readonly UserManager userManager;
         private bool isPasswordVisible = false;
         public LoginForm()
@@ -91,6 +89,23 @@ namespace PresentationLayer
 
         }
 
+        private async Task InitializeApplicationForms(User loggedInUser)
+        {
+            await Task.Run(() =>
+            {
+                FormsContext.LoggedInUser = loggedInUser;  // Store user globally
+                FormsContext.HomeForm = new HomeForm();
+                FormsContext.ReservationsForm = new ReservationsForm();
+                FormsContext.ClientsForm = new ClientsForm();
+                FormsContext.RoomsForm = new RoomsForm();
+                FormsContext.UsersForm = new UsersForm();
+                FormsContext.AddNewReservationForm = new AddNewReservationForm();
+                FormsContext.AddNewClientForm = new AddNewClientForm();
+                FormsContext.AddNewRoomForm = new AddNewRoomForm();
+                FormsContext.AddNewUserForm = new AddNewUserForm();
+            });
+
+        }
         private async Task<User?> GetUser(string username, string password)
         {
             ICollection<User> users = await userManager.ReadAllAsync();
@@ -147,7 +162,6 @@ namespace PresentationLayer
                 loggedInUser = await GetUser(username, password);
             }
 
-
             // Simulated users
             List<User> users = new List<User>
             {
@@ -163,31 +177,18 @@ namespace PresentationLayer
               "Robert", "James", "Smith", new DateTime(1998, 11, 10), "+1122334455",
               "robert.smith@example.com", new DateTime(2023, 8, 5), true, null, Role.Worker)
             };
-
-            // Find user
-            // loggedInUser = users.FirstOrDefault(u => u.UserName == username && u.Password == password);
-            //need to check if the user is active
-            if (loggedInUser != null)
+            
+            if (loggedInUser != null && loggedInUser.IsActive == true)//need to check if the user is active
             {
-                
-                HomeForm homeForm = new HomeForm(loggedInUser);
-                homeForm.Show();
+                await InitializeApplicationForms(loggedInUser);
+
+                FormsContext.HomeForm?.Show();
                 this.Hide();
             }
             else
             {
                 MessageBox.Show("Invalid username or password!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            //code for testing
-            //LoginForm.ActiveForm?.Hide();
-            //new AddNewReservationForm(loggedInUser).Show();
-            //new AddNewUserForm().Show();
-            //new AddNewClientForm().Show();
-            //new AddNewRoom().Show();
-
         }
-
-        
     }
 }

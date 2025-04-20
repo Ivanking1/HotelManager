@@ -4,33 +4,34 @@ namespace PresentationLayer
 {
     public partial class HomeForm : Form
     {
-        private User loggedInUser; // Store logged-in user
-
-        public HomeForm(User loggedInUser)
+        public HomeForm()
         {
-            this.loggedInUser = loggedInUser;  // Store user details
-
             InitializeComponent();
             ConfigureMenuPermissions();
         }
         #region navigation bar
         private void ConfigureMenuPermissions()
         {
-            if (loggedInUser.Role == Role.Administrator)
+            if(FormsContext.LoggedInUser == null)//not neccesarry may remove later
+            {
+                throw new ArgumentException("not logged in");
+            }
+
+            if (FormsContext.LoggedInUser.Role == Role.Administrator)
             {
                 reservationsToolStripMenuItem.Enabled = true;
                 clientsToolStripMenuItem.Enabled = true;
                 roomsToolStripMenuItem.Enabled = true;
                 usersToolStripMenuItem.Enabled = true;
             }
-            else if (loggedInUser.Role == Role.Receptionist)
+            else if (FormsContext.LoggedInUser.Role == Role.Receptionist)
             {
                 reservationsToolStripMenuItem.Enabled = true;
                 clientsToolStripMenuItem.Enabled = true;
                 roomsToolStripMenuItem.Enabled = false;
                 usersToolStripMenuItem.Enabled = false;
             }
-            else if (loggedInUser.Role == Role.Worker)
+            else if (FormsContext.LoggedInUser.Role == Role.Worker)
             {
                 reservationsToolStripMenuItem.Enabled = false;
                 clientsToolStripMenuItem.Enabled = false;
@@ -42,43 +43,53 @@ namespace PresentationLayer
 
         private void homeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //this.Close();
-            //HomeForm homeForm = new HomeForm(loggedInUser);// that would open a new one without closing the previous one
-            //homeForm.Show();                               //should change thet
+            this.Hide();
+            FormsContext.HomeForm?.Show();
         }
 
         private void reservationsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
-            ReservationsForm reservationsForm = new ReservationsForm(loggedInUser);
-            reservationsForm.Show();
+            this.Hide();
+            FormsContext.ReservationsForm?.Show();
         }
 
         private void clientsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
-            ClientsForm clientsForm = new ClientsForm(loggedInUser);
-            clientsForm.Show();
+            this.Hide();
+            FormsContext.ClientsForm?.Show();
         }
 
         private void roomsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
-            RoomsForm roomsForm = new RoomsForm(loggedInUser);
-            roomsForm.Show();
+            this.Hide();
+            FormsContext.RoomsForm?.Show();
         }
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
-            UsersForm usersForm = new UsersForm(loggedInUser);
-            usersForm.Show();
+            this.Hide();
+            FormsContext.UsersForm?.Show();
         }
         private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
-            LoginForm loginForm = new LoginForm();
+            // Close all forms
+            FormsContext.HomeForm?.Close();
+            FormsContext.ReservationsForm?.Close();
+            FormsContext.ClientsForm?.Close();
+            FormsContext.RoomsForm?.Close();
+            FormsContext.UsersForm?.Close();
+            FormsContext.AddNewReservationForm?.Close();
+            FormsContext.AddNewClientForm?.Close();
+            FormsContext.AddNewRoomForm?.Close();
+            FormsContext.AddNewUserForm?.Close();
+
+            // Reset AppContext
+            FormsContext.LoggedInUser = null;
+
+            // Return to login
+            var loginForm = new LoginForm();
             loginForm.Show();
+            this.Close();
         }
         #endregion
 

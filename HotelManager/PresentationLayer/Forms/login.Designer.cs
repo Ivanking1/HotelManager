@@ -39,6 +39,7 @@
             // 
             // lbTitleLogin
             // 
+            lbTitleLogin.Anchor = AnchorStyles.None;//may add to all elements
             lbTitleLogin.AutoSize = true;
             lbTitleLogin.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbTitleLogin.Location = new Point(81, 51);

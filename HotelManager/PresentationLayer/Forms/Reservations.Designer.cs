@@ -1,6 +1,6 @@
 ﻿namespace PresentationLayer
 {
-    partial class RoomsForm
+    partial class ReservationsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -35,18 +35,16 @@
             roomsToolStripMenuItem = new ToolStripMenuItem();
             usersToolStripMenuItem = new ToolStripMenuItem();
             logOutToolStripMenuItem = new ToolStripMenuItem();
-            bnDeleteRoom = new Button();
-            bnEditRoom = new Button();
-            bnNewRoom = new Button();
-            dgvRooms = new DataGridView();
+            dgvReservations = new DataGridView();
+            bnDeleteReservation = new Button();
+            bnEditResrvation = new Button();
+            bnNewReservation = new Button();
             lbTitle = new Label();
             lbSort = new Label();
             cmbSort = new ComboBox();
             navigationBarMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvRooms).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvReservations).BeginInit();
             SuspendLayout();
-
-            #region navigation design
             // 
             // navigationBarMenuStrip
             // 
@@ -104,17 +102,52 @@
             logOutToolStripMenuItem.Size = new Size(290, 41);
             logOutToolStripMenuItem.Text = "Излизане от акаунт";
             logOutToolStripMenuItem.Click += logOutToolStripMenuItem_Click;
-            #endregion
-
             // 
-            // dgvRooms
+            // dgvReservations
             // 
-            dgvRooms.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvRooms.Location = new Point(26, 127);
-            dgvRooms.Name = "dgvRooms";
-            dgvRooms.RowHeadersWidth = 51;
-            dgvRooms.Size = new Size(774, 581);
-            dgvRooms.TabIndex = 2;
+            dgvReservations.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvReservations.Location = new Point(26, 127);
+            dgvReservations.Name = "dgvReservations";
+            dgvReservations.RowHeadersWidth = 51;
+            dgvReservations.Size = new Size(774, 581);
+            dgvReservations.TabIndex = 2;
+            // 
+            // bnDeleteReservation
+            // 
+            bnDeleteReservation.BackColor = Color.Teal;
+            bnDeleteReservation.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnDeleteReservation.Location = new Point(907, 116);
+            bnDeleteReservation.Name = "bnDeleteReservation";
+            bnDeleteReservation.RightToLeft = RightToLeft.No;
+            bnDeleteReservation.Size = new Size(335, 116);
+            bnDeleteReservation.TabIndex = 6;
+            bnDeleteReservation.Text = "Изтрий \nрезервация";
+            bnDeleteReservation.UseVisualStyleBackColor = false;
+            // 
+            // bnEditResrvation
+            // 
+            bnEditResrvation.BackColor = Color.Teal;
+            bnEditResrvation.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnEditResrvation.Location = new Point(907, 272);
+            bnEditResrvation.Name = "bnEditResrvation";
+            bnEditResrvation.RightToLeft = RightToLeft.No;
+            bnEditResrvation.Size = new Size(335, 116);
+            bnEditResrvation.TabIndex = 7;
+            bnEditResrvation.Text = "Редактирай \nрезервация";
+            bnEditResrvation.UseVisualStyleBackColor = false;
+            // 
+            // bnNewReservation
+            // 
+            bnNewReservation.BackColor = Color.Teal;
+            bnNewReservation.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnNewReservation.Location = new Point(907, 589);
+            bnNewReservation.Name = "bnNewReservation";
+            bnNewReservation.RightToLeft = RightToLeft.No;
+            bnNewReservation.Size = new Size(335, 119);
+            bnNewReservation.TabIndex = 8;
+            bnNewReservation.Text = "Добави нов\n резервация";
+            bnNewReservation.UseVisualStyleBackColor = false;
+            bnNewReservation.Click += bnNewReservation_Click;
             // 
             // lbTitle
             // 
@@ -144,45 +177,7 @@
             cmbSort.Size = new Size(218, 28);
             cmbSort.TabIndex = 5;
             // 
-            // bnDeleteRoom
-            // 
-            bnDeleteRoom.BackColor = Color.Teal;
-            bnDeleteRoom.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnDeleteRoom.Location = new Point(875, 116);
-            bnDeleteRoom.Name = "bnDeleteRoom";
-            bnDeleteRoom.RightToLeft = RightToLeft.No;
-            bnDeleteRoom.Size = new Size(335, 116);
-            bnDeleteRoom.TabIndex = 6;
-            bnDeleteRoom.Text = "Изтрий \nстая";
-            bnDeleteRoom.UseVisualStyleBackColor = false;
-            // 
-            // bnEditRoom
-            // 
-            bnEditRoom.BackColor = Color.Teal;
-            bnEditRoom.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnEditRoom.Location = new Point(875, 291);
-            bnEditRoom.Name = "bnEditRoom";
-            bnEditRoom.RightToLeft = RightToLeft.No;
-            bnEditRoom.Size = new Size(335, 116);
-            bnEditRoom.TabIndex = 7;
-            bnEditRoom.Text = "Редактирай \nстая";
-            bnEditRoom.UseVisualStyleBackColor = false;
-            // 
-            // bnNewRoom
-            // 
-            bnNewRoom.BackColor = Color.Teal;
-            bnNewRoom.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnNewRoom.Location = new Point(875, 589);
-            bnNewRoom.Name = "bnNewRoom";
-            bnNewRoom.RightToLeft = RightToLeft.No;
-            bnNewRoom.Size = new Size(335, 119);
-            bnNewRoom.TabIndex = 8;
-            bnNewRoom.Text = "Добави нов\n стая";
-            bnNewRoom.UseVisualStyleBackColor = false;
-            bnNewRoom.Click += bnNewRoom_Click;
-            
-            // 
-            // RoomsForm
+            // ReservationsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -190,17 +185,17 @@
             Controls.Add(cmbSort);
             Controls.Add(lbSort);
             Controls.Add(lbTitle);
-            Controls.Add(dgvRooms);
-            Controls.Add(bnNewRoom);
-            Controls.Add(bnEditRoom);
-            Controls.Add(bnDeleteRoom);
+            Controls.Add(bnNewReservation);
+            Controls.Add(bnEditResrvation);
+            Controls.Add(bnDeleteReservation);
+            Controls.Add(dgvReservations);
             Controls.Add(navigationBarMenuStrip);
-            Name = "RoomsForm";
+            Name = "ReservationsForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
             navigationBarMenuStrip.ResumeLayout(false);
             navigationBarMenuStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvRooms).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvReservations).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -214,10 +209,10 @@
         private ToolStripMenuItem roomsToolStripMenuItem;
         private ToolStripMenuItem usersToolStripMenuItem;
         private ToolStripMenuItem logOutToolStripMenuItem;
-        private Button bnDeleteRoom;
-        private Button bnEditRoom;
-        private Button bnNewRoom;
-        private DataGridView dgvRooms;
+        private DataGridView dgvReservations;
+        private Button bnDeleteReservation;
+        private Button bnEditResrvation;
+        private Button bnNewReservation;
         private Label lbTitle;
         private Label lbSort;
         private ComboBox cmbSort;

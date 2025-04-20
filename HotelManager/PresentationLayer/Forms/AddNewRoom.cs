@@ -7,23 +7,14 @@ namespace PresentationLayer
     public partial class AddNewRoomForm : Form
     {
         private readonly RoomManager roomManager;
-        private User loggedInUser;
-        public AddNewRoomForm(User loggedInUser)
+        public AddNewRoomForm()
         {
-            this.loggedInUser = loggedInUser;
             roomManager = new RoomManager();
             InitializeComponent();
             LoadRoomTypes();
             InitializePlaceholders();
         }
-        public AddNewRoomForm(User loggedInUser, RoomManager roomManager)
-        {
-            this.loggedInUser = loggedInUser;
-            this.roomManager = roomManager;
-            InitializeComponent();
-            LoadRoomTypes();
-            InitializePlaceholders();
-        }
+        
         #region placeholders
         private void InitializePlaceholders()
         {
@@ -136,9 +127,8 @@ namespace PresentationLayer
                 await roomManager.CreateAsync(newRoom);
                 MessageBox.Show("Room added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                RoomsForm roomsForm = new RoomsForm(loggedInUser);
-                roomsForm.Show();
                 this.Hide();
+                FormsContext.RoomsForm?.Show();
             }
             catch (Exception ex)
             {
@@ -148,9 +138,8 @@ namespace PresentationLayer
 
         private void bnRoomsView_Click(object sender, EventArgs e)
         {
-            this.Close();
-            RoomsForm roomsForm = new RoomsForm(loggedInUser);
-            roomsForm.Show();
+            this.Hide();
+            FormsContext.RoomsForm?.Show();
         }
     }
 }

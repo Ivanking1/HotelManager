@@ -45,8 +45,6 @@
             navigationBarMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvClients).BeginInit();
             SuspendLayout();
-
-            #region navigation design
             // 
             // navigationBarMenuStrip
             // 
@@ -104,9 +102,19 @@
             logOutToolStripMenuItem.Size = new Size(290, 41);
             logOutToolStripMenuItem.Text = "Излизане от акаунт";
             logOutToolStripMenuItem.Click += logOutToolStripMenuItem_Click;
-            #endregion
-
-
+            // 
+            // bnNewClient
+            // 
+            bnNewClient.BackColor = Color.Teal;
+            bnNewClient.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnNewClient.Location = new Point(907, 589);
+            bnNewClient.Name = "bnNewClient";
+            bnNewClient.RightToLeft = RightToLeft.No;
+            bnNewClient.Size = new Size(335, 119);
+            bnNewClient.TabIndex = 8;
+            bnNewClient.Text = "Добави нов\n гост";
+            bnNewClient.UseVisualStyleBackColor = false;
+            bnNewClient.Click += bnNewClient_Click;
             // 
             // dgvClients
             // 
@@ -116,6 +124,30 @@
             dgvClients.RowHeadersWidth = 51;
             dgvClients.Size = new Size(774, 581);
             dgvClients.TabIndex = 2;
+            // 
+            // bnDeleteClient
+            // 
+            bnDeleteClient.BackColor = Color.Teal;
+            bnDeleteClient.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnDeleteClient.Location = new Point(907, 116);
+            bnDeleteClient.Name = "bnDeleteClient";
+            bnDeleteClient.RightToLeft = RightToLeft.No;
+            bnDeleteClient.Size = new Size(335, 116);
+            bnDeleteClient.TabIndex = 6;
+            bnDeleteClient.Text = "Изтрий \nгост";
+            bnDeleteClient.UseVisualStyleBackColor = false;
+            // 
+            // bnEditClient
+            // 
+            bnEditClient.BackColor = Color.Teal;
+            bnEditClient.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnEditClient.Location = new Point(907, 272);
+            bnEditClient.Name = "bnEditClient";
+            bnEditClient.RightToLeft = RightToLeft.No;
+            bnEditClient.Size = new Size(335, 116);
+            bnEditClient.TabIndex = 7;
+            bnEditClient.Text = "Редактирай \nгост";
+            bnEditClient.UseVisualStyleBackColor = false;
             // 
             // lbTitle
             // 
@@ -144,44 +176,6 @@
             cmbSort.Name = "cmbSort";
             cmbSort.Size = new Size(218, 28);
             cmbSort.TabIndex = 5;
-            // 
-            // bnDeleteClient
-            // 
-            bnDeleteClient.BackColor = Color.Teal;
-            bnDeleteClient.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnDeleteClient.Location = new Point(875, 116);
-            bnDeleteClient.Name = "bnDeleteClient";
-            bnDeleteClient.RightToLeft = RightToLeft.No;
-            bnDeleteClient.Size = new Size(335, 116);
-            bnDeleteClient.TabIndex = 6;
-            bnDeleteClient.Text = "Изтрий \nгост";
-            bnDeleteClient.UseVisualStyleBackColor = false;
-            // 
-            // bnEditClient
-            // 
-            bnEditClient.BackColor = Color.Teal;
-            bnEditClient.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnEditClient.Location = new Point(875, 291);
-            bnEditClient.Name = "bnEditClient";
-            bnEditClient.RightToLeft = RightToLeft.No;
-            bnEditClient.Size = new Size(335, 116);
-            bnEditClient.TabIndex = 7;
-            bnEditClient.Text = "Редактирай \nгост";
-            bnEditClient.UseVisualStyleBackColor = false;
-            // 
-            // bnNewClient
-            // 
-            bnNewClient.BackColor = Color.Teal;
-            bnNewClient.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnNewClient.Location = new Point(875, 589);
-            bnNewClient.Name = "bnNewClient";
-            bnNewClient.RightToLeft = RightToLeft.No;
-            bnNewClient.Size = new Size(335, 119);
-            bnNewClient.TabIndex = 8;
-            bnNewClient.Text = "Добави нов\n гост";
-            bnNewClient.UseVisualStyleBackColor = false;
-            bnNewClient.Click += bnNewClient_Click;
-            
             // 
             // ClientsForm
             // 
