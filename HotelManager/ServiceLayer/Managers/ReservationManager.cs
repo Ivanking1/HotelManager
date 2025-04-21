@@ -34,17 +34,17 @@ namespace ServiceLayer
             await reservationContext.CreateAsync(reservation);
         }
 
-        public async Task<Reservation> ReadAsync(Guid reservationId, bool useNavigationalProperties = false, bool isReadOnly = true)
+        public async Task<Reservation> ReadAsync(Guid reservationId, bool useNavigationalProperties = true, bool isReadOnly = true)
         {
             return await reservationContext.ReadAsync(reservationId, useNavigationalProperties, isReadOnly);
         }
 
-        public async Task<ICollection<Reservation>> ReadAllAsync(bool useNavigationalProperties = false, bool isReadOnly = true)
+        public async Task<ICollection<Reservation>> ReadAllAsync(bool useNavigationalProperties = true, bool isReadOnly = true)
         {
             return await reservationContext.ReadAllAsync(useNavigationalProperties, isReadOnly);
         }
 
-        public async Task UpdateAsync(Reservation reservation, bool useNavigationalProperties = false)
+        public async Task UpdateAsync(Reservation reservation, bool useNavigationalProperties = true)
         {
             if (reservation == null)
                 throw new ArgumentNullException(nameof(reservation), "Reservation cannot be null.");

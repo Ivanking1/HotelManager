@@ -42,8 +42,9 @@
             lbTitle = new Label();
             lbSort = new Label();
             cmbSort = new ComboBox();
+            bnGenerateReservation = new Button();
             navigationBarMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvReservations).BeginInit();
+            ((ISupportInitialize)dgvReservations).BeginInit();
             SuspendLayout();
             // 
             // navigationBarMenuStrip
@@ -123,6 +124,7 @@
             bnDeleteReservation.TabIndex = 6;
             bnDeleteReservation.Text = "Изтрий \nрезервация";
             bnDeleteReservation.UseVisualStyleBackColor = false;
+            bnDeleteReservation.Click += bnDeleteReservation_Click;
             // 
             // bnEditResrvation
             // 
@@ -135,6 +137,7 @@
             bnEditResrvation.TabIndex = 7;
             bnEditResrvation.Text = "Редактирай \nрезервация";
             bnEditResrvation.UseVisualStyleBackColor = false;
+            bnEditResrvation.Click += bnEditResrvation_Click;
             // 
             // bnNewReservation
             // 
@@ -155,9 +158,9 @@
             lbTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbTitle.Location = new Point(61, 55);
             lbTitle.Name = "lbTitle";
-            lbTitle.Size = new Size(241, 54);
+            lbTitle.Size = new Size(256, 54);
             lbTitle.TabIndex = 3;
-            lbTitle.Text = "Служители";
+            lbTitle.Text = "Резервации";
             // 
             // lbSort
             // 
@@ -176,12 +179,26 @@
             cmbSort.Name = "cmbSort";
             cmbSort.Size = new Size(218, 28);
             cmbSort.TabIndex = 5;
+            cmbSort.SelectedIndexChanged += CmbSort_SelectedIndexChanged;
+            // 
+            // bnGenerateReservation
+            // 
+            bnGenerateReservation.BackColor = Color.Teal;
+            bnGenerateReservation.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnGenerateReservation.Location = new Point(907, 452);
+            bnGenerateReservation.Name = "bnGenerateReservation";
+            bnGenerateReservation.Size = new Size(335, 70);
+            bnGenerateReservation.TabIndex = 9;
+            bnGenerateReservation.Text = "Generate reservation";
+            bnGenerateReservation.UseVisualStyleBackColor = false;
+            bnGenerateReservation.Click += bnGenerateReservation_Click;
             // 
             // ReservationsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1280, 720);
+            Controls.Add(bnGenerateReservation);
             Controls.Add(cmbSort);
             Controls.Add(lbSort);
             Controls.Add(lbTitle);
@@ -193,9 +210,11 @@
             Name = "ReservationsForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
+            Load += ReservationsForm_Load;
+            Shown += ReservationsForm_Shown;
             navigationBarMenuStrip.ResumeLayout(false);
             navigationBarMenuStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvReservations).EndInit();
+            ((ISupportInitialize)dgvReservations).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -216,5 +235,6 @@
         private Label lbTitle;
         private Label lbSort;
         private ComboBox cmbSort;
+        private Button bnGenerateReservation;
     }
 }

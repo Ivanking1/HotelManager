@@ -26,7 +26,7 @@ namespace DataLayer
             await client.SetAsync($"reservations/{firebaseReservation.Id}", firebaseReservation);
         }
 
-        public async Task<Reservation> ReadAsync(Guid key, bool NavigationalProperties = false, bool isReadOnly = true)
+        public async Task<Reservation> ReadAsync(Guid key, bool NavigationalProperties = true, bool isReadOnly = true)
         {
             var response = await client.GetAsync($"reservations/{key}");
             var firebaseReservation = response.ResultAs<FirebaseReservation>();
@@ -37,7 +37,7 @@ namespace DataLayer
             return await ToDomainReservation(firebaseReservation, NavigationalProperties);
         }
 
-        public async Task<ICollection<Reservation>> ReadAllAsync(bool NavigationalProperties = false, bool isReadOnly = true)
+        public async Task<ICollection<Reservation>> ReadAllAsync(bool NavigationalProperties = true, bool isReadOnly = true)
         {
             var response = await client.GetAsync("reservations");
             var dict = response.ResultAs<Dictionary<string, FirebaseReservation>>();
@@ -79,7 +79,7 @@ namespace DataLayer
                 Price = r.Price
             };
         }
-        private async Task<Reservation> ToDomainReservation(FirebaseReservation f, bool includeNavigation)
+        private async Task<Reservation> ToDomainReservation(FirebaseReservation f, bool includeNavigation = true)
         {
             Room room;
             User user;

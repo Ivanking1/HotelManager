@@ -146,40 +146,7 @@ namespace PresentationLayer
                 default:
                     break;
             }
-            // Clear existing columns if they exist
-            dgvUsers.Columns.Clear();
-
-            // Add only the columns we want with Bulgarian headers
-            dgvUsers.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                DataPropertyName = "UserName",
-                HeaderText = "Потребителско име"
-            });
-            dgvUsers.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                DataPropertyName = "Role",
-                HeaderText = "Роля"
-            });
-            dgvUsers.Columns.Add(new DataGridViewCheckBoxColumn()
-            {
-                DataPropertyName = "IsActive",
-                HeaderText = "Активност"
-            });
-            dgvUsers.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                DataPropertyName = "Age",
-                HeaderText = "Възраст"
-            });
-            dgvUsers.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                DataPropertyName = "Email",
-                HeaderText = "Имейл"
-            });
-            dgvUsers.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                DataPropertyName = "PhoneNumber",
-                HeaderText = "Телефон"
-            });
+            
 
             // Bind the data
             dgvUsers.DataSource = new BindingList<User>(sortedUsers.ToList());
@@ -189,23 +156,57 @@ namespace PresentationLayer
             dgvUsers.AllowUserToAddRows = false; // This removes the empty row
 
         }
-        protected override void OnShown(EventArgs e)
+        private void ConfigureDataGridViewColumns()
         {
-            base.OnShown(e);
-            LoadUsersAsync(); // Refresh data every time form is shown
+            dgvUsers.Columns.Clear();
+
+            var columns = new[]
+            {
+                new { DataProperty = "UserName", Header = "Потребителско име", Type = typeof(string) },
+                new { DataProperty = "Role", Header = "Роля", Type = typeof(string) },
+                new { DataProperty = "IsActive", Header = "Активност", Type = typeof(bool) },
+                new { DataProperty = "Age", Header = "Възраст", Type = typeof(int) },
+                new { DataProperty = "Email", Header = "Имейл", Type = typeof(string) },
+                new { DataProperty = "PhoneNumber", Header = "Телефон", Type = typeof(string) }
+            };
+
+            foreach (var col in columns)
+            {
+                if (col.Type == typeof(bool))
+                {
+                    dgvUsers.Columns.Add(new DataGridViewCheckBoxColumn()
+                    {
+                        DataPropertyName = col.DataProperty,
+                        HeaderText = col.Header,
+                        ReadOnly = true
+                    });
+                }
+                else
+                {
+                    dgvUsers.Columns.Add(new DataGridViewTextBoxColumn()
+                    {
+                        DataPropertyName = col.DataProperty,
+                        HeaderText = col.Header,
+                        ReadOnly = true
+                    });
+                }
+            }
+        }
+
+        private void UsersForm_Shown(object sender, EventArgs e)
+        {
+            LoadUsersAsync();
         }
         private void CmbSort_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadUsersAsync();
         }
-        private async void UsersForm_Load(object sender, EventArgs e)
+        private void UsersForm_Load(object sender, EventArgs e)
         {
             cmbSort.Items.AddRange(new string[] { "потребителско име", "роля", "активност", "възраст" });
             cmbSort.SelectedIndex = 0;
-            dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvUsers.MultiSelect = false;
-            dgvUsers.ReadOnly = true;
+
+            ConfigureDataGridViewColumns();
 
             LoadUsersAsync();
         }

@@ -42,8 +42,9 @@
             lbTitle = new Label();
             lbSort = new Label();
             cmbSort = new ComboBox();
+            bnGenerateClient = new Button();
             navigationBarMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvClients).BeginInit();
+            ((ISupportInitialize)dgvClients).BeginInit();
             SuspendLayout();
             // 
             // navigationBarMenuStrip
@@ -124,6 +125,7 @@
             dgvClients.RowHeadersWidth = 51;
             dgvClients.Size = new Size(774, 581);
             dgvClients.TabIndex = 2;
+            dgvClients.AutoGenerateColumns = false;
             // 
             // bnDeleteClient
             // 
@@ -136,6 +138,7 @@
             bnDeleteClient.TabIndex = 6;
             bnDeleteClient.Text = "Изтрий \nгост";
             bnDeleteClient.UseVisualStyleBackColor = false;
+            bnDeleteClient.Click += bnDeleteClient_Click;
             // 
             // bnEditClient
             // 
@@ -148,6 +151,7 @@
             bnEditClient.TabIndex = 7;
             bnEditClient.Text = "Редактирай \nгост";
             bnEditClient.UseVisualStyleBackColor = false;
+            bnEditClient.Click += bnEditClient_Click;
             // 
             // lbTitle
             // 
@@ -155,9 +159,9 @@
             lbTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbTitle.Location = new Point(61, 55);
             lbTitle.Name = "lbTitle";
-            lbTitle.Size = new Size(241, 54);
+            lbTitle.Size = new Size(126, 54);
             lbTitle.TabIndex = 3;
-            lbTitle.Text = "Служители";
+            lbTitle.Text = "Гости";
             // 
             // lbSort
             // 
@@ -176,12 +180,26 @@
             cmbSort.Name = "cmbSort";
             cmbSort.Size = new Size(218, 28);
             cmbSort.TabIndex = 5;
+            cmbSort.SelectedIndexChanged += CmbSort_SelectedIndexChanged;
+            // 
+            // bnGenerateClient
+            // 
+            bnGenerateClient.BackColor = Color.Teal;
+            bnGenerateClient.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnGenerateClient.Location = new Point(956, 452);
+            bnGenerateClient.Name = "bnGenerateClient";
+            bnGenerateClient.Size = new Size(235, 70);
+            bnGenerateClient.TabIndex = 9;
+            bnGenerateClient.Text = "Generate client";
+            bnGenerateClient.UseVisualStyleBackColor = false;
+            bnGenerateClient.Click += bnGenerateClient_Click;
             // 
             // ClientsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1280, 720);
+            Controls.Add(bnGenerateClient);
             Controls.Add(cmbSort);
             Controls.Add(lbSort);
             Controls.Add(lbTitle);
@@ -193,9 +211,11 @@
             Name = "ClientsForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
+            Load += ClientsForm_Load;
+            Shown += ClientsForm_Shown;
             navigationBarMenuStrip.ResumeLayout(false);
             navigationBarMenuStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvClients).EndInit();
+            ((ISupportInitialize)dgvClients).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -216,5 +236,6 @@
         private Label lbTitle;
         private Label lbSort;
         private ComboBox cmbSort;
+        private Button bnGenerateClient;
     }
 }

@@ -42,8 +42,9 @@
             lbTitle = new Label();
             lbSort = new Label();
             cmbSort = new ComboBox();
+            bnGenerateRoom = new Button();
             navigationBarMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvRooms).BeginInit();
+            ((ISupportInitialize)dgvRooms).BeginInit();
             SuspendLayout();
             // 
             // navigationBarMenuStrip
@@ -150,6 +151,7 @@
             dgvRooms.RowHeadersWidth = 51;
             dgvRooms.Size = new Size(774, 581);
             dgvRooms.TabIndex = 2;
+            dgvRooms.AutoGenerateColumns = false;
             // 
             // lbTitle
             // 
@@ -157,9 +159,9 @@
             lbTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbTitle.Location = new Point(61, 55);
             lbTitle.Name = "lbTitle";
-            lbTitle.Size = new Size(241, 54);
+            lbTitle.Size = new Size(112, 54);
             lbTitle.TabIndex = 3;
-            lbTitle.Text = "Служители";
+            lbTitle.Text = "Стаи";
             // 
             // lbSort
             // 
@@ -178,12 +180,26 @@
             cmbSort.Name = "cmbSort";
             cmbSort.Size = new Size(218, 28);
             cmbSort.TabIndex = 5;
+            cmbSort.SelectedIndexChanged += CmbSort_SelectedIndexChanged;
+            // 
+            // bnGenerateRoom
+            // 
+            bnGenerateRoom.BackColor = Color.Teal;
+            bnGenerateRoom.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnGenerateRoom.Location = new Point(956, 452);
+            bnGenerateRoom.Name = "bnGenerateRoom";
+            bnGenerateRoom.Size = new Size(235, 70);
+            bnGenerateRoom.TabIndex = 9;
+            bnGenerateRoom.Text = "Generate room";
+            bnGenerateRoom.UseVisualStyleBackColor = false;
+            bnGenerateRoom.Click += bnGenerateRoom_Click;
             // 
             // RoomsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1280, 720);
+            Controls.Add(bnGenerateRoom);
             Controls.Add(cmbSort);
             Controls.Add(lbSort);
             Controls.Add(lbTitle);
@@ -195,9 +211,11 @@
             Name = "RoomsForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
+            Load += RoomsForm_Load;
+            Shown += RoomsForm_Shown;
             navigationBarMenuStrip.ResumeLayout(false);
             navigationBarMenuStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvRooms).EndInit();
+            ((ISupportInitialize)dgvRooms).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -218,5 +236,6 @@
         private Label lbTitle;
         private Label lbSort;
         private ComboBox cmbSort;
+        private Button bnGenerateRoom;
     }
 }

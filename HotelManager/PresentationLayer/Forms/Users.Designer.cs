@@ -116,6 +116,8 @@
             dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvUsers.Size = new Size(817, 581);
             dgvUsers.TabIndex = 2;
+            dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvUsers.AutoGenerateColumns = false;
             // 
             // bnDeleteUser
             // 
@@ -216,6 +218,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
             Load += UsersForm_Load;
+            Shown += UsersForm_Shown;
             navigationBarMenuStrip.ResumeLayout(false);
             navigationBarMenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
