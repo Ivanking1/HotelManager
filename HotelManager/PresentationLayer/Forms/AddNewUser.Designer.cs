@@ -51,7 +51,7 @@
             lbDateOfBirth = new Label();
             lbRole = new Label();
             bnUsersView = new Button();
-            bnUpdUser = new Button();
+            bnUpdateUser = new Button();
             chkIsActive = new CheckBox();
             SuspendLayout();
             // 
@@ -272,18 +272,18 @@
             bnUsersView.UseVisualStyleBackColor = false;
             bnUsersView.Click += bnUsersView_Click;
             // 
-            // bnUpdUser
+            // bnUpdateUser
             // 
-            bnUpdUser.BackColor = Color.Teal;
-            bnUpdUser.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnUpdUser.Location = new Point(399, 591);
-            bnUpdUser.Name = "bnUpdUser";
-            bnUpdUser.RightToLeft = RightToLeft.No;
-            bnUpdUser.Size = new Size(512, 80);
-            bnUpdUser.TabIndex = 33;
-            bnUpdUser.Text = "Редактирай потребител";
-            bnUpdUser.UseVisualStyleBackColor = false;
-            bnUpdUser.Click += bnUpdUser_Click;
+            bnUpdateUser.BackColor = Color.Teal;
+            bnUpdateUser.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnUpdateUser.Location = new Point(399, 591);
+            bnUpdateUser.Name = "bnUpdateUser";
+            bnUpdateUser.RightToLeft = RightToLeft.No;
+            bnUpdateUser.Size = new Size(512, 80);
+            bnUpdateUser.TabIndex = 33;
+            bnUpdateUser.Text = "Редактирай потребител";
+            bnUpdateUser.UseVisualStyleBackColor = false;
+            bnUpdateUser.Click += bnUpdateUser_Click;
             // 
             // chkIsActive
             // 
@@ -302,7 +302,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1280, 720);
             Controls.Add(chkIsActive);
-            Controls.Add(bnUpdUser);
+            Controls.Add(bnUpdateUser);
             Controls.Add(bnUsersView);
             Controls.Add(lbRole);
             Controls.Add(lbDateOfBirth);
@@ -359,7 +359,7 @@
         private Label lbDateOfBirth;
         private Label lbRole;
         private Button bnUsersView;
-        private Button bnUpdUser;
+        private Button bnUpdateUser;
         private CheckBox chkIsActive;
     }
 }

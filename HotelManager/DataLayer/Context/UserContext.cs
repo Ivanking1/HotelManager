@@ -17,7 +17,11 @@ namespace DataLayer
         {
             client = FirebaseClientProvider.Client;
         }
-       
+        public UserContext(IFirebaseClient firebaseClient)
+        {
+            client = firebaseClient ?? throw new ArgumentNullException(nameof(firebaseClient));
+        }
+
         public async Task CreateAsync(User entity)
         {
             if (entity == null)

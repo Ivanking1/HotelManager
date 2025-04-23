@@ -31,9 +31,9 @@
             lbTitle = new Label();
             bnAddReservation = new Button();
             clbClients = new CheckedListBox();
-            cmbMealsType = new ComboBox();
-            dtpStartingDate = new DateTimePicker();
-            dtpEndingDate = new DateTimePicker();
+            cmbMealPlan = new ComboBox();
+            dtpStartDate = new DateTimePicker();
+            dtpEndDate = new DateTimePicker();
             lbTotalPrice = new Label();
             lbClients = new Label();
             lbRoom = new Label();
@@ -43,6 +43,9 @@
             cmbRoom = new ComboBox();
             txtTotalPrice = new TextBox();
             bnReservationsView = new Button();
+            bnUpdateReservation = new Button();
+            bnSearch = new Button();
+            txtSearch = new TextBox();
             SuspendLayout();
             // 
             // lbTitle
@@ -59,11 +62,11 @@
             // 
             bnAddReservation.BackColor = Color.Teal;
             bnAddReservation.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnAddReservation.Location = new Point(382, 590);
+            bnAddReservation.Location = new Point(382, 576);
             bnAddReservation.Name = "bnAddReservation";
-            bnAddReservation.Size = new Size(500, 70);
+            bnAddReservation.Size = new Size(500, 132);
             bnAddReservation.TabIndex = 10;
-            bnAddReservation.Text = "Добави резервация";
+            bnAddReservation.Text = "Добави \nрезервация";
             bnAddReservation.UseVisualStyleBackColor = false;
             bnAddReservation.Click += bnAddReservation_Click;
             // 
@@ -71,39 +74,43 @@
             // 
             clbClients.CheckOnClick = true;
             clbClients.FormattingEnabled = true;
-            clbClients.Location = new Point(140, 207);
+            clbClients.Location = new Point(92, 207);
             clbClients.Name = "clbClients";
-            clbClients.Size = new Size(396, 158);
+            clbClients.Size = new Size(542, 202);
             clbClients.TabIndex = 12;
+            clbClients.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbClients_ItemCheck);//
             // 
-            // cmbMealsType
+            // cmbMealPlan
             // 
-            cmbMealsType.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cmbMealsType.FormattingEnabled = true;
-            cmbMealsType.Location = new Point(717, 207);
-            cmbMealsType.Name = "cmbMealsType";
-            cmbMealsType.Size = new Size(347, 39);
-            cmbMealsType.TabIndex = 14;
+            cmbMealPlan.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbMealPlan.FormattingEnabled = true;
+            cmbMealPlan.Location = new Point(760, 207);
+            cmbMealPlan.Name = "cmbMealPlan";
+            cmbMealPlan.Size = new Size(347, 39);
+            cmbMealPlan.TabIndex = 14;
+            cmbMealPlan.SelectedIndexChanged += new System.EventHandler(this.cmbMealPlan_SelectedIndexChanged);//
             // 
-            // dtpStartingDate
+            // dtpStartDate
             // 
-            dtpStartingDate.Location = new Point(717, 309);
-            dtpStartingDate.Name = "dtpStartingDate";
-            dtpStartingDate.Size = new Size(347, 27);
-            dtpStartingDate.TabIndex = 15;
+            dtpStartDate.Location = new Point(760, 309);
+            dtpStartDate.Name = "dtpStartDate";
+            dtpStartDate.Size = new Size(347, 27);
+            dtpStartDate.TabIndex = 15;
+            dtpStartDate.ValueChanged += new System.EventHandler(this.dtpStartDate_ValueChanged);//
             // 
-            // dtpEndingDate
+            // dtpEndDate
             // 
-            dtpEndingDate.Location = new Point(717, 390);
-            dtpEndingDate.Name = "dtpEndingDate";
-            dtpEndingDate.Size = new Size(347, 27);
-            dtpEndingDate.TabIndex = 16;
+            dtpEndDate.Location = new Point(760, 390);
+            dtpEndDate.Name = "dtpEndDate";
+            dtpEndDate.Size = new Size(347, 27);
+            dtpEndDate.TabIndex = 16;
+            dtpEndDate.ValueChanged += new System.EventHandler(this.dtpEndDate_ValueChanged);
             // 
             // lbTotalPrice
             // 
             lbTotalPrice.AutoSize = true;
             lbTotalPrice.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbTotalPrice.Location = new Point(717, 451);
+            lbTotalPrice.Location = new Point(760, 455);
             lbTotalPrice.Name = "lbTotalPrice";
             lbTotalPrice.Size = new Size(153, 31);
             lbTotalPrice.TabIndex = 17;
@@ -113,7 +120,7 @@
             // 
             lbClients.AutoSize = true;
             lbClients.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbClients.Location = new Point(140, 173);
+            lbClients.Location = new Point(92, 173);
             lbClients.Name = "lbClients";
             lbClients.Size = new Size(182, 31);
             lbClients.TabIndex = 18;
@@ -123,7 +130,7 @@
             // 
             lbRoom.AutoSize = true;
             lbRoom.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbRoom.Location = new Point(140, 409);
+            lbRoom.Location = new Point(92, 435);
             lbRoom.Name = "lbRoom";
             lbRoom.Size = new Size(69, 31);
             lbRoom.TabIndex = 19;
@@ -133,7 +140,7 @@
             // 
             lbMealsType.AutoSize = true;
             lbMealsType.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbMealsType.Location = new Point(717, 173);
+            lbMealsType.Location = new Point(760, 173);
             lbMealsType.Name = "lbMealsType";
             lbMealsType.Size = new Size(211, 31);
             lbMealsType.TabIndex = 20;
@@ -143,7 +150,7 @@
             // 
             lbStartingDate.AutoSize = true;
             lbStartingDate.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbStartingDate.Location = new Point(717, 275);
+            lbStartingDate.Location = new Point(760, 275);
             lbStartingDate.Name = "lbStartingDate";
             lbStartingDate.Size = new Size(247, 31);
             lbStartingDate.TabIndex = 21;
@@ -153,7 +160,7 @@
             // 
             lbEndingDate.AutoSize = true;
             lbEndingDate.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbEndingDate.Location = new Point(717, 356);
+            lbEndingDate.Location = new Point(760, 356);
             lbEndingDate.Name = "lbEndingDate";
             lbEndingDate.Size = new Size(287, 31);
             lbEndingDate.TabIndex = 22;
@@ -163,14 +170,15 @@
             // 
             cmbRoom.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbRoom.FormattingEnabled = true;
-            cmbRoom.Location = new Point(140, 443);
+            cmbRoom.Location = new Point(92, 469);
             cmbRoom.Name = "cmbRoom";
             cmbRoom.Size = new Size(396, 39);
             cmbRoom.TabIndex = 23;
+            cmbRoom.SelectedIndexChanged += new System.EventHandler(this.cmbRoom_SelectedIndexChanged);//
             // 
             // txtTotalPrice
             // 
-            txtTotalPrice.Location = new Point(865, 457);
+            txtTotalPrice.Location = new Point(908, 459);
             txtTotalPrice.Name = "txtTotalPrice";
             txtTotalPrice.ReadOnly = true;
             txtTotalPrice.Size = new Size(199, 27);
@@ -190,11 +198,44 @@
             bnReservationsView.UseVisualStyleBackColor = false;
             bnReservationsView.Click += bnReservationsView_Click;
             // 
+            // bnUpdateReservation
+            // 
+            bnUpdateReservation.BackColor = Color.Teal;
+            bnUpdateReservation.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnUpdateReservation.Location = new Point(382, 576);
+            bnUpdateReservation.Name = "bnUpdateReservation";
+            bnUpdateReservation.Size = new Size(500, 132);
+            bnUpdateReservation.TabIndex = 10;
+            bnUpdateReservation.Text = "Редактирай\n резервация";
+            bnUpdateReservation.UseVisualStyleBackColor = false;
+            bnUpdateReservation.Click += bnUpdateReservation_Click;
+            // 
+            // bnSearch
+            // 
+            bnSearch.Location = new Point(350, 173);
+            bnSearch.Name = "bnSearch";
+            bnSearch.Size = new Size(94, 29);
+            bnSearch.TabIndex = 26;
+            bnSearch.Text = "Търси";
+            bnSearch.UseVisualStyleBackColor = true;
+            bnSearch.Click += new System.EventHandler(this.btnSearchClients_Click);//
+            // 
+            // txtSearch
+            // 
+            txtSearch.Location = new Point(475, 173);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(144, 27);
+            txtSearch.TabIndex = 27;
+            txtSearch.TextChanged += new System.EventHandler(this.txtSearchClients_TextChanged);//
+            // 
             // AddNewReservationForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1280, 720);
+            Controls.Add(txtSearch);
+            Controls.Add(bnSearch);
+            Controls.Add(bnUpdateReservation);
             Controls.Add(bnReservationsView);
             Controls.Add(txtTotalPrice);
             Controls.Add(cmbRoom);
@@ -204,9 +245,9 @@
             Controls.Add(lbRoom);
             Controls.Add(lbClients);
             Controls.Add(lbTotalPrice);
-            Controls.Add(dtpEndingDate);
-            Controls.Add(dtpStartingDate);
-            Controls.Add(cmbMealsType);
+            Controls.Add(dtpEndDate);
+            Controls.Add(dtpStartDate);
+            Controls.Add(cmbMealPlan);
             Controls.Add(clbClients);
             Controls.Add(bnAddReservation);
             Controls.Add(lbTitle);
@@ -214,6 +255,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
             Load += AddNewReservation_Load;
+            Shown += AddNewReservationForm_Shown;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -223,9 +265,9 @@
         private Label lbTitle;
         private Button bnAddReservation;
         private CheckedListBox clbClients;
-        private ComboBox cmbMealsType;
-        private DateTimePicker dtpStartingDate;
-        private DateTimePicker dtpEndingDate;
+        private ComboBox cmbMealPlan;
+        private DateTimePicker dtpStartDate;
+        private DateTimePicker dtpEndDate;
         private Label lbTotalPrice;
         private Label lbClients;
         private Label lbRoom;
@@ -235,5 +277,8 @@
         private ComboBox cmbRoom;
         private TextBox txtTotalPrice;
         private Button bnReservationsView;
+        private Button bnUpdateReservation;
+        private Button bnSearch;
+        private TextBox txtSearch;
     }
 }

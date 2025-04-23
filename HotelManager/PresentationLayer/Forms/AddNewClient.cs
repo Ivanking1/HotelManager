@@ -1,17 +1,63 @@
 ﻿
 
+using FireSharp.Interfaces;
+
 namespace PresentationLayer
 {
     public partial class AddNewClientForm : Form
     {
         private readonly ClientManager clientManager;
+        private Client? selectedClient;
+        public AddNewClientForm(IFirebaseClient firebaseClient)
+        {
+            clientManager = new ClientManager(firebaseClient);
+            InitializeComponent();
+            InitializePlaceholders();
+            bnAddClient.Visible = true;
+            bnAddClient.Enabled = true;
+            bnUpdateClient.Visible = false;
+            bnUpdateClient.Enabled = false;
+        }
         public AddNewClientForm()
         {
             clientManager = new ClientManager();
             InitializeComponent();
             InitializePlaceholders();
+            bnAddClient.Visible = true;
+            bnAddClient.Enabled = true;
+            bnUpdateClient.Visible = false;
+            bnUpdateClient.Enabled = false;
         }
-       
+
+        public void ReturnFormToNormal()// must add the edditing logic
+        {
+            InitializePlaceholders();
+            bnAddClient.Visible = true;
+            bnAddClient.Enabled = true;
+            bnUpdateClient.Visible = false;
+            bnUpdateClient.Enabled = false;
+        }
+        public void UpdateClientInForm(Client selectedClient)// must add the edditing logic
+        {
+            this.selectedClient = selectedClient;
+            RefreshUIData();
+            bnAddClient.Visible = false;
+            bnAddClient.Enabled = false;
+            bnUpdateClient.Visible = true;
+            bnUpdateClient.Enabled = true;
+        }
+        public void RefreshUIData()
+        {
+            if (selectedClient != null)
+            {
+                txtFirstName.Text = selectedClient.FirstName;
+                txtLastName.Text = selectedClient.LastName;
+                txtAge.Text = selectedClient.Age.ToString();
+                txtPhoneNumber.Text = selectedClient.PhoneNumber;
+                txtEmail.Text = selectedClient.Email;
+            }
+        }
+
         #region placeholders
         private void InitializePlaceholders()
         {
@@ -117,25 +163,21 @@ namespace PresentationLayer
                 MessageBox.Show("Invalid phone number format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-                
 
-
-
-            Client newClient = new Client(Guid.NewGuid(),
+            // Save to database asynchronously
+            try
+            {
+                Client newClient = new Client(Guid.NewGuid(),
                 txtFirstName.Text,
                 txtLastName.Text,
                 txtPhoneNumber.Text,
                 txtEmail.Text,
                 age);//experimental
 
-
-            // Save to database asynchronously
-            try
-            {
                 await clientManager.CreateAsync(newClient);
                 MessageBox.Show("Client Added Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                
+
                 this.Hide();
                 FormsContext.ClientsForm?.Show();
             }
@@ -150,5 +192,59 @@ namespace PresentationLayer
             this.Hide();
             FormsContext.ClientsForm?.Show();
         }
+
+        private async void bnUpdateClient_Click(object sender, EventArgs e)
+        {
+            // Validate Inputs
+            if (string.IsNullOrWhiteSpace(txtFirstName.Text) ||
+                string.IsNullOrWhiteSpace(txtLastName.Text) ||
+                string.IsNullOrWhiteSpace(txtPhoneNumber.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail.Text) ||
+                string.IsNullOrWhiteSpace(txtAge.Text))
+            {
+                MessageBox.Show("All fields are required!", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!int.TryParse(txtAge.Text, out int age) || age <= 0)
+            {
+                MessageBox.Show("Invalid age!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!IsValidEmail(txtEmail.Text))
+            {
+                MessageBox.Show("Invalid email format!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!string.IsNullOrWhiteSpace(txtPhoneNumber.Text) && !System.Text.RegularExpressions.Regex.IsMatch(txtPhoneNumber.Text, @"^\+?\d{7,15}$"))
+            {
+                MessageBox.Show("Invalid phone number format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Save to database asynchronously
+            try
+            {
+                Client newClient = new Client(selectedClient.Id,
+               txtFirstName.Text,
+               txtLastName.Text,
+               txtPhoneNumber.Text,
+               txtEmail.Text,
+               age);//experimental
+
+                await clientManager.UpdateAsync(newClient);
+                MessageBox.Show("Client Added Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.Hide();
+                FormsContext.ClientsForm?.Show();
+                FormsContext.AddNewClientForm.ReturnFormToNormal();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
+    
 }

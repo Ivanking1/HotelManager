@@ -16,7 +16,11 @@ namespace DataLayer
         {
             client = FirebaseClientProvider.Client;
         }
-        
+        public ReservationContext(IFirebaseClient firebaseClient)
+        {
+            client = firebaseClient ?? throw new ArgumentNullException(nameof(firebaseClient));
+        }
+
         public async Task CreateAsync(Reservation entity)
         {
             if (entity == null)

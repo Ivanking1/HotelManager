@@ -1,11 +1,7 @@
 ﻿using BusinessLayer;
 using FireSharp.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
+
 
 namespace DataLayer
 {
@@ -16,7 +12,11 @@ namespace DataLayer
         {
             client = FirebaseClientProvider.Client;
         }
-        
+        public ClientContext(IFirebaseClient firebaseClient)
+        {
+            client = firebaseClient ?? throw new ArgumentNullException(nameof(firebaseClient));
+        }
+
         public async Task CreateAsync(Client entity)
         {
             if (entity == null)
@@ -35,10 +35,40 @@ namespace DataLayer
 
         public async Task<ICollection<Client>> ReadAllAsync(bool NavigationalProperties = false, bool isReadOnly = true)
         {
-            var response = await client.GetAsync("clients");
-            var clientsDict = response.ResultAs<Dictionary<string, FirebaseClient>>();
+            try
+            {
+                if (client == null)
+                {
+                    Debug.WriteLine("FIREBASE CLIENT IS NULL!");
+                    return new List<Client>();
+                }
+                Debug.WriteLine("[ClientContext] Starting ReadAllAsync");
 
-            return clientsDict?.Values.Select(ToDomainClient).ToList() ?? new List<Client>();
+                var response = await client.GetAsync("clients").ConfigureAwait(false);
+
+                Debug.WriteLine($"[ClientContext] Firebase response: {response?.Body ?? "NULL"}");
+
+                if (response?.Body == "null" || string.IsNullOrEmpty(response?.Body))
+                {
+                    Debug.WriteLine("[ClientContext] No clients found in database");
+                    return new List<Client>();
+                }
+
+                var clientsDict = response.ResultAs<Dictionary<string, FirebaseClient>>();
+                var clients = clientsDict?.Values.Select(ToDomainClient).ToList() ?? new List<Client>();
+
+                Debug.WriteLine($"[ClientContext] Returning {clients.Count} clients");
+                return clients;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ClientContext] Error in ReadAllAsync: {ex}");
+                throw; // Re-throw to see the error in calling code
+            }
+            //var response = await client.GetAsync("clients");
+            //var clientsDict = response.ResultAs<Dictionary<string, FirebaseClient>>();
+
+            //return clientsDict?.Values.Select(ToDomainClient).ToList() ?? new List<Client>();
         }
 
         public async Task UpdateAsync(Client entity, bool NavigationalProperties = false)
@@ -53,22 +83,7 @@ namespace DataLayer
         public async Task DeleteAsync(Guid key)
         {
             await client.DeleteAsync($"clients/{key}");
-            //try
-            //{
-            //    Client client = await ReadAsync(key, false, false);
-
-            //    if (client is null)
-            //    {
-            //        throw new ArgumentException("Client with id = " + key + " does not exist!");
-            //    }//may replace with  new KeyNotFoundException($"Client with ID {key} does not exist.");
-
-            //    this.client.Clients.Remove(client);
-            //    await this.client.SaveChangesAsync();
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
+           
         }
         private FirebaseClient ToFirebaseClient(Client client)
         {

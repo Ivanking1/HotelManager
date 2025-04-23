@@ -27,6 +27,9 @@ namespace BusinessLayer
         [Range(0, double.MaxValue, ErrorMessage = "Price must be a positive value.")]
         public decimal ChildPrice { get; private set; }
 
+        
+        public string RoomInfo => $"{RoomNumber} - {RoomType} (Max: {Capacity})";
+
 
 
         public Room() : this(Guid.NewGuid(), 0, RoomEnum.SingleRoom, true, decimal.Zero, decimal.Zero) { }

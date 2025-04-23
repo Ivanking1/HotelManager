@@ -1,5 +1,7 @@
 
 
+using DataLayer;
+
 namespace PresentationLayer
 {
     public partial class LoginForm : Form
@@ -91,18 +93,20 @@ namespace PresentationLayer
 
         private async Task InitializeApplicationForms(User loggedInUser)
         {
+            IFirebaseClient firebaseClient = FirebaseClientProvider.Client;
             await Task.Run(() =>
             {
                 FormsContext.LoggedInUser = loggedInUser;  // Store user globally
                 FormsContext.HomeForm = new HomeForm();
-                FormsContext.ReservationsForm = new ReservationsForm();
-                FormsContext.ClientsForm = new ClientsForm();
-                FormsContext.RoomsForm = new RoomsForm();
-                FormsContext.UsersForm = new UsersForm();
-                FormsContext.AddNewReservationForm = new AddNewReservationForm();
-                FormsContext.AddNewClientForm = new AddNewClientForm();
-                FormsContext.AddNewRoomForm = new AddNewRoomForm();
-                FormsContext.AddNewUserForm = new AddNewUserForm();
+                FormsContext.AddNewReservationForm = new AddNewReservationForm(firebaseClient);
+                FormsContext.ReservationsForm = new ReservationsForm(firebaseClient);
+                FormsContext.ClientsForm = new ClientsForm(firebaseClient);
+                FormsContext.RoomsForm = new RoomsForm(firebaseClient);
+                FormsContext.UsersForm = new UsersForm(firebaseClient);
+                
+                FormsContext.AddNewClientForm = new AddNewClientForm(firebaseClient);
+                FormsContext.AddNewRoomForm = new AddNewRoomForm(firebaseClient);
+                FormsContext.AddNewUserForm = new AddNewUserForm(firebaseClient);
             });
 
         }

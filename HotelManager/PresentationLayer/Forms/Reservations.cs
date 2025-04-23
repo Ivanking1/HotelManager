@@ -1,7 +1,5 @@
 ﻿
 
-using ServiceLayer;
-
 namespace PresentationLayer
 {
     public partial class ReservationsForm : Form
@@ -11,6 +9,16 @@ namespace PresentationLayer
         private ClientManager clientManager;
         private RoomManager roomManager;
         private List<Reservation> allReservations = new List<Reservation>();
+        public ReservationsForm(IFirebaseClient firebaseClient)
+        {
+            userManager = new UserManager(firebaseClient);
+            clientManager = new ClientManager(firebaseClient);
+            roomManager = new RoomManager(firebaseClient);
+            reservationManager = new ReservationManager(firebaseClient);
+            InitializeComponent();
+            ConfigureMenuPermissions();
+            LoadReservationsAsync();
+        }
         public ReservationsForm()
         {
             userManager = new UserManager();
@@ -263,15 +271,16 @@ namespace PresentationLayer
         {
             if (dgvReservations.CurrentRow?.DataBoundItem is Reservation selectedReservation)
             {
-                //this.Hide();
-                //FormsContext.AddNewReservationForm.UpdateReservationInForm(selectedReservation);
-                //FormsContext.AddNewReservationForm.Show();
+                this.Hide();
+                FormsContext.AddNewReservationForm.UpdateReservationInForm(selectedReservation);
+                FormsContext.AddNewReservationForm.Show();
             }
         }
 
         private void bnNewReservation_Click(object sender, EventArgs e)
         {
             this.Hide();
+            FormsContext.AddNewReservationForm.ReturnFormToNormal();
             FormsContext.AddNewReservationForm?.Show();
         }
 

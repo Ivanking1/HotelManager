@@ -40,6 +40,7 @@
             lbAdultPrice = new Label();
             lbPrices = new Label();
             bnRoomsView = new Button();
+            bnUpdateRoom = new Button();
             SuspendLayout();
             // 
             // txtRoomNumber
@@ -65,11 +66,11 @@
             bnAddRoom.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             bnAddRoom.BackColor = Color.Teal;
             bnAddRoom.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnAddRoom.Location = new Point(475, 595);
+            bnAddRoom.Location = new Point(475, 562);
             bnAddRoom.Name = "bnAddRoom";
-            bnAddRoom.Size = new Size(342, 70);
+            bnAddRoom.Size = new Size(392, 138);
             bnAddRoom.TabIndex = 9;
-            bnAddRoom.Text = "Добави стая";
+            bnAddRoom.Text = "Добави\n стая";
             bnAddRoom.UseVisualStyleBackColor = false;
             bnAddRoom.Click += bnAddRoom_Click;
             // 
@@ -161,11 +162,25 @@
             bnRoomsView.UseVisualStyleBackColor = false;
             bnRoomsView.Click += bnRoomsView_Click;
             // 
+            // bnUpdateRoom
+            // 
+            bnUpdateRoom.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            bnUpdateRoom.BackColor = Color.Teal;
+            bnUpdateRoom.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnUpdateRoom.Location = new Point(475, 562);
+            bnUpdateRoom.Name = "bnUpdateRoom";
+            bnUpdateRoom.Size = new Size(392, 138);
+            bnUpdateRoom.TabIndex = 9;
+            bnUpdateRoom.Text = "Редактирай\n стая";
+            bnUpdateRoom.UseVisualStyleBackColor = false;
+            bnUpdateRoom.Click += bnUpdateRoom_Click;
+            // 
             // AddNewRoomForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1280, 720);
+            Controls.Add(bnUpdateRoom);
             Controls.Add(bnRoomsView);
             Controls.Add(lbPrices);
             Controls.Add(lbAdultPrice);
@@ -201,5 +216,6 @@
         private Label lbAdultPrice;
         private Label lbPrices;
         private Button bnRoomsView;
+        private Button bnUpdateRoom;
     }
 }

@@ -1,13 +1,18 @@
 ﻿
 
-using ServiceLayer;
-
 namespace PresentationLayer
 {
     public partial class RoomsForm : Form
     {
         private readonly RoomManager roomManager;
         private List<Room> allRooms = new List<Room>();
+        public RoomsForm(IFirebaseClient firebaseClient)
+        {
+            roomManager = new RoomManager(firebaseClient);
+            InitializeComponent();
+            ConfigureMenuPermissions();
+            LoadRoomsAsync();
+        }
         public RoomsForm()
         {
             roomManager = new RoomManager();
@@ -221,14 +226,15 @@ namespace PresentationLayer
         {
             if (dgvRooms.CurrentRow?.DataBoundItem is Room selectedRoom)
             {
-                //this.Hide();
-                //FormsContext.AddNewRoomForm.UpdateRoomInForm(selectedRoom);
-                //FormsContext.AddNewRoomForm.Show();
+                this.Hide();
+                FormsContext.AddNewRoomForm.UpdateRoomInForm(selectedRoom);
+                FormsContext.AddNewRoomForm.Show();
             }
         }
         private void bnNewRoom_Click(object sender, EventArgs e)
         {
             this.Hide();
+            FormsContext.AddNewRoomForm.ReturnFormToNormal();
             FormsContext.AddNewRoomForm?.Show();
         }
 

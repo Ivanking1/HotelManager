@@ -1,5 +1,7 @@
 ﻿
 
+
+using FireSharp.Interfaces;
 using System.Linq;
 
 namespace ServiceLayer
@@ -11,9 +13,9 @@ namespace ServiceLayer
         {
             userContext = new UserContext();
         }
-        public UserManager(UserContext userContext)
+        public UserManager(IFirebaseClient firebaseClient)
         {
-            this.userContext = userContext;
+            userContext = new UserContext(firebaseClient);
         }
 
         public async Task CreateAsync(User user)

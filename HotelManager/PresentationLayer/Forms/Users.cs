@@ -1,5 +1,4 @@
 ﻿
-using System.ComponentModel;
 
 
 namespace PresentationLayer
@@ -8,10 +7,16 @@ namespace PresentationLayer
     {
         private readonly UserManager userManager;
         private List<User> allUsers = new List<User>();
+        public UsersForm(IFirebaseClient firebaseClient)
+        {
+            userManager = new UserManager(firebaseClient);
+            InitializeComponent();
+            ConfigureMenuPermissions();
+            LoadUsersAsync();
+        }
         public UsersForm()
         {
             userManager = new UserManager();
-
             InitializeComponent();
             ConfigureMenuPermissions();
             LoadUsersAsync();
@@ -242,10 +247,11 @@ namespace PresentationLayer
         private void bnNewUser_Click(object sender, EventArgs e)
         {
             this.Hide();
+            FormsContext.AddNewUserForm.ReturnFormToNormal();
             FormsContext.AddNewUserForm?.Show();
         }
 
-        private void bnEndEmployment_Click(object sender, EventArgs e)
+        private async void bnEndEmployment_Click(object sender, EventArgs e)
         {
             if (dgvUsers.CurrentRow?.DataBoundItem is User selectedUser)
             {
@@ -268,6 +274,7 @@ namespace PresentationLayer
                                         false,
                                         DateTime.Now,
                                         selectedUser.Role);
+                    await userManager.UpdateAsync(newUser);
                     LoadUsersAsync();
                 }
                 else

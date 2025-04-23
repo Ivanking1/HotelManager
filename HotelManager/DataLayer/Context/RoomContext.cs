@@ -1,13 +1,5 @@
-﻿using Azure;
-using BusinessLayer;
-
+﻿using BusinessLayer;
 using FireSharp.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataLayer
 {
@@ -18,7 +10,11 @@ namespace DataLayer
         {
             client = FirebaseClientProvider.Client;
         }
-        
+        public RoomContext(IFirebaseClient firebaseClient)
+        {
+            client = firebaseClient ?? throw new ArgumentNullException(nameof(firebaseClient));
+        }
+
         public async Task CreateAsync(Room entity)
         {
             if (entity == null)

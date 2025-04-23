@@ -1,6 +1,7 @@
 ﻿
 
 using DataLayer;
+using FireSharp.Interfaces;
 using System.Linq;
 
 namespace ServiceLayer
@@ -15,6 +16,12 @@ namespace ServiceLayer
             reservationContext = new ReservationContext();
             roomContext = new RoomContext();
             userContext = new UserContext();
+        }
+        public ReservationManager(IFirebaseClient firebaseClient)
+        {
+            reservationContext = new ReservationContext(firebaseClient);
+            roomContext = new RoomContext(firebaseClient);
+            userContext = new UserContext(firebaseClient);
         }
 
         // Constructor with dependency injection (recommended)

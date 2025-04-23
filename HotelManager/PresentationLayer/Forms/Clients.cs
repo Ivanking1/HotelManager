@@ -1,13 +1,18 @@
 ﻿
 
-using ServiceLayer;
-
 namespace PresentationLayer
 {
     public partial class ClientsForm : Form
     {
         private readonly ClientManager clientManager;
         private List<Client> allClients = new List<Client>();
+        public ClientsForm(IFirebaseClient firebaseClient)
+        {
+            clientManager = new ClientManager(firebaseClient);
+            InitializeComponent();
+            ConfigureMenuPermissions();
+            LoadClientsAsync();
+        }
         public ClientsForm()
         {
             clientManager = new ClientManager();
@@ -208,19 +213,19 @@ namespace PresentationLayer
         {
             if (dgvClients.CurrentRow?.DataBoundItem is Client selectedClient)
             {
-                //this.Hide();
-                //FormsContext.AddNewClientForm.UpdateClientInForm(selectedClient);
-                //FormsContext.AddNewClientForm.Show();
+                this.Hide();
+                FormsContext.AddNewClientForm.UpdateClientInForm(selectedClient);
+                FormsContext.AddNewClientForm.Show();
             }
         }
         private void bnNewClient_Click(object sender, EventArgs e)
         {
             this.Hide();
+            //FormsContext.AddNewClientForm.ReturnFormToNormal();
             FormsContext.AddNewClientForm?.Show();
         }
 
         #region generate random client
-        #endregion
         public static Client GenerateRandomClient()
         {
             var random = new Random();
@@ -253,5 +258,7 @@ namespace PresentationLayer
             await clientManager.CreateAsync(randomClient);
             LoadClientsAsync(); // Refresh grid
         }
+        #endregion
+
     }
 }

@@ -1,9 +1,5 @@
 ﻿
 
-using ServiceLayer;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-
 namespace PresentationLayer
 {
     public partial class AddNewUserForm : Form
@@ -11,6 +7,17 @@ namespace PresentationLayer
         private readonly UserManager userManager;
         private User? selectedUser;
 
+        public AddNewUserForm(IFirebaseClient firebaseClient)
+        {
+            userManager = new UserManager(firebaseClient);
+            InitializeComponent();
+            InitializePlaceholders();
+            LoadUserRoles();
+            bnAddUser.Visible = true;
+            bnAddUser.Enabled = true;
+            bnUpdateUser.Visible = false;
+            bnUpdateUser.Enabled = false;
+        }
         public AddNewUserForm()
         {
             userManager = new UserManager();
@@ -19,8 +26,8 @@ namespace PresentationLayer
             LoadUserRoles();
             bnAddUser.Visible = true;
             bnAddUser.Enabled = true;
-            bnUpdUser.Visible = false;
-            bnUpdUser.Enabled = false;
+            bnUpdateUser.Visible = false;
+            bnUpdateUser.Enabled = false;
         }
 
         public void ReturnFormToNormal()// must add the edditing logic
@@ -29,8 +36,8 @@ namespace PresentationLayer
             LoadUserRoles();
             bnAddUser.Visible = true;
             bnAddUser.Enabled = true;
-            bnUpdUser.Visible = false;
-            bnUpdUser.Enabled = false;
+            bnUpdateUser.Visible = false;
+            bnUpdateUser.Enabled = false;
         }
         public void UpdateUserInForm(User selectedUser)// must add the edditing logic
         {
@@ -38,8 +45,8 @@ namespace PresentationLayer
             RefreshUIData();
             bnAddUser.Visible = false;
             bnAddUser.Enabled = false;
-            bnUpdUser.Visible = true;
-            bnUpdUser.Enabled = true;
+            bnUpdateUser.Visible = true;
+            bnUpdateUser.Enabled = true;
         }
         public void RefreshUIData()
         {
@@ -185,7 +192,7 @@ namespace PresentationLayer
                 MessageBox.Show("Please fill in all required fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
+            
             Role role = (Role)Enum.Parse(typeof(Role), roleString);
 
             try
@@ -222,7 +229,7 @@ namespace PresentationLayer
             FormsContext.UsersForm?.Show();
         }
 
-        private async void bnUpdUser_Click(object sender, EventArgs e)
+        private async void bnUpdateUser_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
             string? password = null;
@@ -251,7 +258,9 @@ namespace PresentationLayer
             }
 
             Role role = (Role)Enum.Parse(typeof(Role), roleString);
-            User newUser = new User(selectedUser.Id,
+            try
+            {
+                User updatedUser = new User(selectedUser.Id,
                 username,
                 password,
                 firstName,
@@ -265,9 +274,7 @@ namespace PresentationLayer
                 null,
                 role);
 
-            try
-            {
-                await userManager.UpdateAsync(newUser);
+                await userManager.UpdateAsync(updatedUser);
                 MessageBox.Show("User updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
                 this.Hide();

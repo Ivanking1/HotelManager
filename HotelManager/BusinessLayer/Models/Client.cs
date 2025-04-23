@@ -27,6 +27,7 @@ namespace BusinessLayer
         public int Age { get; private set; }
             
         public string FullName => $"{FirstName} {LastName}";
+        public string DisplayInfo => $"{FullName} (Age: {Age})";
 
         // Default constructor that auto-generates the Id
         public Client() : this(Guid.NewGuid(), string.Empty, string.Empty, null, null, 0) { }

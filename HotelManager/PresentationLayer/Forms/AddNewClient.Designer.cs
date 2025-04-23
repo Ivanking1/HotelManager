@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            components = new Container();
             lbTitle = new Label();
             bnAddClient = new Button();
             txtFirstName = new TextBox();
@@ -43,7 +43,8 @@
             lbAge = new Label();
             lbPhoneNumber = new Label();
             lbEmail = new Label();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
+            bnUpdateClient = new Button();
+            ((ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // lbTitle
@@ -61,11 +62,11 @@
             // 
             bnAddClient.BackColor = Color.Teal;
             bnAddClient.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnAddClient.Location = new Point(485, 585);
+            bnAddClient.Location = new Point(469, 572);
             bnAddClient.Name = "bnAddClient";
-            bnAddClient.Size = new Size(344, 70);
+            bnAddClient.Size = new Size(360, 136);
             bnAddClient.TabIndex = 1;
-            bnAddClient.Text = "Добави гост";
+            bnAddClient.Text = "Добави\n гост";
             bnAddClient.UseVisualStyleBackColor = false;
             bnAddClient.Click += bnAddClient_Click;
             // 
@@ -176,11 +177,24 @@
             lbEmail.TabIndex = 18;
             lbEmail.Text = "Имейл:";
             // 
+            // bnUpdateClient
+            // 
+            bnUpdateClient.BackColor = Color.Teal;
+            bnUpdateClient.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bnUpdateClient.Location = new Point(469, 572);
+            bnUpdateClient.Name = "bnUpdateClient";
+            bnUpdateClient.Size = new Size(360, 136);
+            bnUpdateClient.TabIndex = 1;
+            bnUpdateClient.Text = "Редактирай\n гост";
+            bnUpdateClient.UseVisualStyleBackColor = false;
+            bnUpdateClient.Click += bnUpdateClient_Click;
+            // 
             // AddNewClientForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1280, 720);
+            Controls.Add(bnUpdateClient);
             Controls.Add(lbEmail);
             Controls.Add(lbPhoneNumber);
             Controls.Add(lbAge);
@@ -197,7 +211,7 @@
             Name = "AddNewClientForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelManager";
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
+            ((ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -218,5 +232,6 @@
         private Label lbPhoneNumber;
         private Label lbAge;
         private Label lbLastName;
+        private Button bnUpdateClient;
     }
 }

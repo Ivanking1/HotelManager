@@ -1,5 +1,7 @@
 ﻿
 using DataLayer;
+using FireSharp.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace ServiceLayer
@@ -7,9 +9,14 @@ namespace ServiceLayer
     public class ClientManager
     {
         private readonly ClientContext clientContext;
+
         public ClientManager()//constructor without parameters
         {
             clientContext = new ClientContext();
+        }
+        public ClientManager(IFirebaseClient firebaseClient)
+        {
+            clientContext = new ClientContext(firebaseClient);
         }
         
         public async Task CreateAsync(Client client)

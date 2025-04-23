@@ -1,20 +1,62 @@
 ﻿
 
-using ServiceLayer;
-
 namespace PresentationLayer
 {
     public partial class AddNewRoomForm : Form
     {
         private readonly RoomManager roomManager;
+        private Room? selectedRoom;
+        public AddNewRoomForm(IFirebaseClient firebaseClient)
+        {
+            roomManager = new RoomManager(firebaseClient);
+            InitializeComponent();
+            LoadRoomTypes();
+            InitializePlaceholders();
+            bnAddRoom.Visible = true;
+            bnAddRoom.Enabled = true;
+            bnUpdateRoom.Visible = false;
+            bnUpdateRoom.Enabled = false;
+        }
         public AddNewRoomForm()
         {
             roomManager = new RoomManager();
             InitializeComponent();
             LoadRoomTypes();
             InitializePlaceholders();
+            bnAddRoom.Visible = true;
+            bnAddRoom.Enabled = true;
+            bnUpdateRoom.Visible = false;
+            bnUpdateRoom.Enabled = false;
         }
-        
+        public void ReturnFormToNormal()// must add the edditing logic
+        {
+            InitializePlaceholders();
+            LoadRoomTypes();
+            bnAddRoom.Visible = true;
+            bnAddRoom.Enabled = true;
+            bnUpdateRoom.Visible = false;
+            bnUpdateRoom.Enabled = false;
+        }
+        public void UpdateRoomInForm(Room selectedRoom)// must add the edditing logic
+        {
+            this.selectedRoom = selectedRoom;
+            RefreshUIData();
+            bnAddRoom.Visible = false;
+            bnAddRoom.Enabled = false;
+            bnUpdateRoom.Visible = true;
+            bnUpdateRoom.Enabled = true;
+        }
+        public void RefreshUIData()
+        {
+            if (selectedRoom != null)
+            {
+                txtRoomNumber.Text = selectedRoom.RoomNumber.ToString();
+                cmbRoomType.SelectedItem = selectedRoom.RoomType;
+                txtChildPrice.Text = selectedRoom.ChildPrice.ToString();
+                txtAdultPrice.Text = selectedRoom.AdultPrice.ToString();
+            }
+        }
+
         #region placeholders
         private void InitializePlaceholders()
         {
@@ -140,6 +182,57 @@ namespace PresentationLayer
         {
             this.Hide();
             FormsContext.RoomsForm?.Show();
+        }
+
+        private async void bnUpdateRoom_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(txtRoomNumber.Text, out int roomNumber))
+            {
+                MessageBox.Show("Invalid Room Number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!decimal.TryParse(txtAdultPrice.Text, out decimal adultPrice) ||
+             !decimal.TryParse(txtChildPrice.Text, out decimal childPrice))
+            {
+                MessageBox.Show("Invalid price input!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (cmbRoomType.SelectedIndex == 0) // Prevent placeholder selection
+            {
+                MessageBox.Show("Please select a valid Room Type!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (adultPrice < 0 || childPrice < 0)
+            {
+                MessageBox.Show("Invalid prices!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (roomNumber < 0)
+            {
+                MessageBox.Show("Invalid room number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            RoomEnum roomType = (RoomEnum)Enum.Parse(typeof(RoomEnum), cmbRoomType.SelectedItem.ToString());
+
+            Room newRoom = new Room(selectedRoom.Id, roomNumber, roomType, true, adultPrice, childPrice);
+
+
+            try
+            {
+                await roomManager.UpdateAsync(newRoom);
+                MessageBox.Show("Room edited successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.Hide();
+                FormsContext.RoomsForm?.Show();
+                ReturnFormToNormal();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

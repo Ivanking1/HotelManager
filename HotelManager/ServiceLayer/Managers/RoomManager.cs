@@ -1,6 +1,7 @@
 ﻿
 
 using DataLayer;
+using FireSharp.Interfaces;
 using System.Linq;
 
 namespace ServiceLayer
@@ -12,9 +13,9 @@ namespace ServiceLayer
         {
             roomContext = new RoomContext();
         }
-        public RoomManager(RoomContext roomContext)
+        public RoomManager(IFirebaseClient firebaseClient)
         {
-            this.roomContext = roomContext ?? throw new ArgumentNullException(nameof(roomContext));
+            roomContext = new RoomContext(firebaseClient);
         }
 
         public async Task CreateAsync(Room room)
