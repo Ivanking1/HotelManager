@@ -275,16 +275,10 @@ namespace PresentationLayer
             int floor = random.Next(1, 4);
             int roomNumber = fixedRoomNumber ?? (floor * 100 + random.Next(1, 30));
 
-            // More sophisticated availability (penthouse is rarely available)
-            bool isAvailable = roomType == RoomEnum.Penthouse
-                ? random.Next(4) == 0  // 25% chance
-                : random.Next(10) < 8;  // 80% chance
-
             return new Room(
                 Guid.NewGuid(),
                 roomNumber,
                 roomType,
-                isAvailable,
                 Math.Round(adultPrice, 2),
                 Math.Round(childPrice, 2)
             );

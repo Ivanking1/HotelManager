@@ -59,8 +59,7 @@ namespace DataLayer
                 Id = room.Id,
                 RoomNumber = room.RoomNumber,  
                 Capacity = room.Capacity,      
-                RoomType = room.RoomType,       
-                IsAvailable = room.IsAvailable,
+                RoomType = room.RoomType, 
                 AdultPrice = room.AdultPrice,   
                 ChildPrice = room.ChildPrice   
             };
@@ -73,7 +72,6 @@ namespace DataLayer
                 firebaseRoom.Id,
                 firebaseRoom.RoomNumber,
                 firebaseRoom.RoomType,
-                firebaseRoom.IsAvailable,
                 firebaseRoom.AdultPrice,
                 firebaseRoom.ChildPrice
             );

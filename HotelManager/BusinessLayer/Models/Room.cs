@@ -17,38 +17,30 @@ namespace BusinessLayer
         public RoomEnum RoomType { get; private set; }
 
         [Required]
-        public bool IsAvailable { get; private set; }
-
-        [Required]
         [Range(0, double.MaxValue, ErrorMessage = "Price must be a positive value.")]
         public decimal AdultPrice { get; private set; }
 
         [Required]
         [Range(0, double.MaxValue, ErrorMessage = "Price must be a positive value.")]
         public decimal ChildPrice { get; private set; }
-
         
         public string RoomInfo => $"{RoomNumber} - {RoomType} (Max: {Capacity})";
 
-
-
-        public Room() : this(Guid.NewGuid(), 0, RoomEnum.SingleRoom, true, decimal.Zero, decimal.Zero) { }
+        public Room() : this(Guid.NewGuid(), 0, RoomEnum.SingleRoom, decimal.Zero, decimal.Zero) { }
 
         public Room(Guid id)
         {
-            if (id == Guid.Empty)
-                throw new ArgumentException("Id cannot be empty.", nameof(id));
             Id = id;
         }
 
-        public Room(Guid id, int roomNumber, RoomEnum roomType, bool isAvailable, decimal adultPrice, decimal childPrice)
+        public Room(Guid id, int roomNumber, RoomEnum roomType, decimal adultPrice, decimal childPrice)
         {
             Id = id == Guid.Empty ? Guid.NewGuid() : id;
 
-            SetRoomDetails(roomNumber, roomType, isAvailable, adultPrice, childPrice);
+            SetRoomDetails(roomNumber, roomType, adultPrice, childPrice);
         }
 
-        private void SetRoomDetails(int roomNumber, RoomEnum roomType, bool isAvailable, decimal adultPrice, decimal childPrice)
+        private void SetRoomDetails(int roomNumber, RoomEnum roomType, decimal adultPrice, decimal childPrice)
         {
             //Ensure room number is positive
             if (roomNumber < 1)
@@ -65,7 +57,6 @@ namespace BusinessLayer
             //Assign correct capacity based on room type
             Capacity = GetRoomCapacity(roomType);
 
-            IsAvailable = isAvailable;
 
             //Validate prices
             if (adultPrice < 0 || adultPrice > 10_000)  // Assuming no room should cost more than $10,000 per night
@@ -98,9 +89,9 @@ namespace BusinessLayer
             }
         }
 
-        public void UpdateRoom(int roomNumber, RoomEnum roomType, bool isAvailable, decimal adultPrice, decimal childPrice)
+        public void UpdateRoom(int roomNumber, RoomEnum roomType, decimal adultPrice, decimal childPrice)
         {
-            SetRoomDetails(roomNumber, roomType, isAvailable, adultPrice, childPrice);
+            SetRoomDetails(roomNumber, roomType, adultPrice, childPrice);
         }
 
     }

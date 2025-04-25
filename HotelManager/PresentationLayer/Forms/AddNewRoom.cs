@@ -161,7 +161,7 @@ namespace PresentationLayer
 
             RoomEnum roomType = (RoomEnum)Enum.Parse(typeof(RoomEnum), cmbRoomType.SelectedItem.ToString());
 
-            Room newRoom = new Room(Guid.Empty, roomNumber, roomType, true, adultPrice, childPrice);
+            Room newRoom = new Room(Guid.Empty, roomNumber, roomType, adultPrice, childPrice);
 
 
             try
@@ -217,7 +217,7 @@ namespace PresentationLayer
 
             RoomEnum roomType = (RoomEnum)Enum.Parse(typeof(RoomEnum), cmbRoomType.SelectedItem.ToString());
 
-            Room newRoom = new Room(selectedRoom.Id, roomNumber, roomType, true, adultPrice, childPrice);
+            Room newRoom = new Room(selectedRoom.Id, roomNumber, roomType, adultPrice, childPrice);
 
 
             try
