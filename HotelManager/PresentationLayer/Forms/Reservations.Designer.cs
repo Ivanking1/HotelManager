@@ -112,7 +112,6 @@
             dgvReservations.RowHeadersWidth = 51;
             dgvReservations.Size = new Size(774, 581);
             dgvReservations.TabIndex = 2;
-            dgvReservations.AutoGenerateColumns = false;
             // 
             // bnDeleteReservation
             // 
@@ -149,7 +148,7 @@
             bnNewReservation.RightToLeft = RightToLeft.No;
             bnNewReservation.Size = new Size(335, 119);
             bnNewReservation.TabIndex = 8;
-            bnNewReservation.Text = "Добави нов\n резервация";
+            bnNewReservation.Text = "Добави нова\n резервация";
             bnNewReservation.UseVisualStyleBackColor = false;
             bnNewReservation.Click += bnNewReservation_Click;
             // 

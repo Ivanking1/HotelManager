@@ -139,7 +139,7 @@
             bnNewRoom.RightToLeft = RightToLeft.No;
             bnNewRoom.Size = new Size(335, 119);
             bnNewRoom.TabIndex = 8;
-            bnNewRoom.Text = "Добави нов\n стая";
+            bnNewRoom.Text = "Добави нова\n стая";
             bnNewRoom.UseVisualStyleBackColor = false;
             bnNewRoom.Click += bnNewRoom_Click;
             // 
@@ -151,7 +151,6 @@
             dgvRooms.RowHeadersWidth = 51;
             dgvRooms.Size = new Size(774, 581);
             dgvRooms.TabIndex = 2;
-            dgvRooms.AutoGenerateColumns = false;
             // 
             // lbTitle
             // 
