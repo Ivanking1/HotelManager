@@ -35,10 +35,11 @@
             roomsToolStripMenuItem = new ToolStripMenuItem();
             usersToolStripMenuItem = new ToolStripMenuItem();
             logOutToolStripMenuItem = new ToolStripMenuItem();
+            lbTitle = new Label();
+            pictureBox1 = new PictureBox();
             navigationBarMenuStrip.SuspendLayout();
+            ((ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
-
-            #region navigation design
             // 
             // navigationBarMenuStrip
             // 
@@ -56,6 +57,7 @@
             // homeToolStripMenuItem
             // 
             homeToolStripMenuItem.BackColor = Color.Teal;
+            homeToolStripMenuItem.ForeColor = SystemColors.ActiveCaptionText;
             homeToolStripMenuItem.Name = "homeToolStripMenuItem";
             homeToolStripMenuItem.Size = new Size(131, 41);
             homeToolStripMenuItem.Text = "Начало";
@@ -63,6 +65,7 @@
             // 
             // reservationsToolStripMenuItem
             // 
+            reservationsToolStripMenuItem.ForeColor = SystemColors.ActiveCaptionText;
             reservationsToolStripMenuItem.Name = "reservationsToolStripMenuItem";
             reservationsToolStripMenuItem.Size = new Size(190, 41);
             reservationsToolStripMenuItem.Text = "Резервации";
@@ -96,15 +99,35 @@
             logOutToolStripMenuItem.Size = new Size(290, 41);
             logOutToolStripMenuItem.Text = "Излизане от акаунт";
             logOutToolStripMenuItem.Click += logOutToolStripMenuItem_Click;
-            #endregion
-
+            // 
+            // lbTitle
+            // 
+            lbTitle.AutoSize = true;
+            lbTitle.Font = new Font("Segoe UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbTitle.Location = new Point(326, 88);
+            lbTitle.Name = "lbTitle";
+            lbTitle.Size = new Size(588, 106);
+            lbTitle.TabIndex = 2;
+            lbTitle.Text = "HotelManager";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.HotelManagerLogo1;
+            pictureBox1.Location = new Point(448, 233);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(358, 254);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 3;
+            pictureBox1.TabStop = false;
             // 
             // HomeForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
+            BackColor = Color.Gainsboro;
             ClientSize = new Size(1280, 720);
+            Controls.Add(pictureBox1);
+            Controls.Add(lbTitle);
             Controls.Add(navigationBarMenuStrip);
             MainMenuStrip = navigationBarMenuStrip;
             Name = "HomeForm";
@@ -112,6 +135,7 @@
             Text = "HotelManager";
             navigationBarMenuStrip.ResumeLayout(false);
             navigationBarMenuStrip.PerformLayout();
+            ((ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -125,5 +149,7 @@
         private ToolStripMenuItem roomsToolStripMenuItem;
         private ToolStripMenuItem usersToolStripMenuItem;
         private ToolStripMenuItem logOutToolStripMenuItem;
+        private Label lbTitle;
+        private PictureBox pictureBox1;
     }
 }

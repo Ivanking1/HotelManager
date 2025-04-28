@@ -44,7 +44,7 @@
             lbTitle = new Label();
             bnEndEmployment = new Button();
             navigationBarMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
+            ((ISupportInitialize)dgvUsers).BeginInit();
             SuspendLayout();
             // 
             // navigationBarMenuStrip
@@ -107,6 +107,7 @@
             // dgvUsers
             // 
             dgvUsers.AllowUserToAddRows = false;
+            dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvUsers.Location = new Point(26, 127);
             dgvUsers.MultiSelect = false;
@@ -116,7 +117,6 @@
             dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvUsers.Size = new Size(817, 581);
             dgvUsers.TabIndex = 2;
-            dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvUsers.AutoGenerateColumns = false;
             // 
             // bnDeleteUser
@@ -204,6 +204,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Gainsboro;
             ClientSize = new Size(1280, 720);
             Controls.Add(bnEndEmployment);
             Controls.Add(lbTitle);
@@ -221,7 +222,7 @@
             Shown += UsersForm_Shown;
             navigationBarMenuStrip.ResumeLayout(false);
             navigationBarMenuStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
+            ((ISupportInitialize)dgvUsers).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

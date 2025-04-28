@@ -53,17 +53,18 @@
             bnUsersView = new Button();
             bnUpdateUser = new Button();
             chkIsActive = new CheckBox();
+            lbTitleEdit = new Label();
             SuspendLayout();
             // 
             // lbTitle
             // 
             lbTitle.AutoSize = true;
             lbTitle.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbTitle.Location = new Point(389, 31);
+            lbTitle.Location = new Point(425, 30);
             lbTitle.Name = "lbTitle";
-            lbTitle.Size = new Size(508, 81);
+            lbTitle.Size = new Size(450, 81);
             lbTitle.TabIndex = 0;
-            lbTitle.Text = "Нов потребител";
+            lbTitle.Text = "Нов служител";
             // 
             // bnAddUser
             // 
@@ -74,7 +75,7 @@
             bnAddUser.RightToLeft = RightToLeft.No;
             bnAddUser.Size = new Size(512, 80);
             bnAddUser.TabIndex = 1;
-            bnAddUser.Text = "Добави потребител";
+            bnAddUser.Text = "Добави служител";
             bnAddUser.UseVisualStyleBackColor = false;
             bnAddUser.Click += bnAddUser_Click;
             // 
@@ -268,7 +269,7 @@
             bnUsersView.RightToLeft = RightToLeft.No;
             bnUsersView.Size = new Size(300, 105);
             bnUsersView.TabIndex = 32;
-            bnUsersView.Text = "База даннни\n с клиенти";
+            bnUsersView.Text = "База даннни\n със служители";
             bnUsersView.UseVisualStyleBackColor = false;
             bnUsersView.Click += bnUsersView_Click;
             // 
@@ -276,12 +277,12 @@
             // 
             bnUpdateUser.BackColor = Color.Teal;
             bnUpdateUser.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bnUpdateUser.Location = new Point(399, 591);
+            bnUpdateUser.Location = new Point(399, 554);
             bnUpdateUser.Name = "bnUpdateUser";
             bnUpdateUser.RightToLeft = RightToLeft.No;
-            bnUpdateUser.Size = new Size(512, 80);
+            bnUpdateUser.Size = new Size(512, 155);
             bnUpdateUser.TabIndex = 33;
-            bnUpdateUser.Text = "Редактирай потребител";
+            bnUpdateUser.Text = "Редактирай служител";
             bnUpdateUser.UseVisualStyleBackColor = false;
             bnUpdateUser.Click += bnUpdateUser_Click;
             // 
@@ -296,11 +297,23 @@
             chkIsActive.Text = "Активен";
             chkIsActive.UseVisualStyleBackColor = true;
             // 
+            // lbTitleEdit
+            // 
+            lbTitleEdit.AutoSize = true;
+            lbTitleEdit.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbTitleEdit.Location = new Point(295, 30);
+            lbTitleEdit.Name = "lbTitleEdit";
+            lbTitleEdit.Size = new Size(673, 81);
+            lbTitleEdit.TabIndex = 35;
+            lbTitleEdit.Text = "Редактирай служител";
+            // 
             // AddNewUserForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Gainsboro;
             ClientSize = new Size(1280, 720);
+            Controls.Add(lbTitleEdit);
             Controls.Add(chkIsActive);
             Controls.Add(bnUpdateUser);
             Controls.Add(bnUsersView);
@@ -361,5 +374,6 @@
         private Button bnUsersView;
         private Button bnUpdateUser;
         private CheckBox chkIsActive;
+        private Label lbTitleEdit;
     }
 }

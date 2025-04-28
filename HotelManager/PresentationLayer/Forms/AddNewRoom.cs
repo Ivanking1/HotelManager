@@ -16,6 +16,8 @@ namespace PresentationLayer
             bnAddRoom.Enabled = true;
             bnUpdateRoom.Visible = false;
             bnUpdateRoom.Enabled = false;
+            lbTitle.Visible = true;
+            lbTitleEdit.Visible = false;
         }
         public AddNewRoomForm()
         {
@@ -27,15 +29,19 @@ namespace PresentationLayer
             bnAddRoom.Enabled = true;
             bnUpdateRoom.Visible = false;
             bnUpdateRoom.Enabled = false;
+            lbTitle.Visible = true;
+            lbTitleEdit.Visible = false;
         }
         public void ReturnFormToNormal()// must add the edditing logic
         {
-            InitializePlaceholders();
             LoadRoomTypes();
+            InitializePlaceholders();
             bnAddRoom.Visible = true;
             bnAddRoom.Enabled = true;
             bnUpdateRoom.Visible = false;
             bnUpdateRoom.Enabled = false;
+            lbTitle.Visible = true;
+            lbTitleEdit.Visible = false;
         }
         public void UpdateRoomInForm(Room selectedRoom)// must add the edditing logic
         {
@@ -45,6 +51,8 @@ namespace PresentationLayer
             bnAddRoom.Enabled = false;
             bnUpdateRoom.Visible = true;
             bnUpdateRoom.Enabled = true;
+            lbTitle.Visible = false;
+            lbTitleEdit.Visible = true;
         }
         public void RefreshUIData()
         {

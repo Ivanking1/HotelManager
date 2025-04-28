@@ -17,6 +17,8 @@ namespace PresentationLayer
             bnAddClient.Enabled = true;
             bnUpdateClient.Visible = false;
             bnUpdateClient.Enabled = false;
+            lbTitle.Visible = true;
+            lbTitleEdit.Visible = false;
         }
         public AddNewClientForm()
         {
@@ -27,6 +29,8 @@ namespace PresentationLayer
             bnAddClient.Enabled = true;
             bnUpdateClient.Visible = false;
             bnUpdateClient.Enabled = false;
+            lbTitle.Visible = true;
+            lbTitleEdit.Visible = false;
         }
 
         public void ReturnFormToNormal()// must add the edditing logic
@@ -36,6 +40,8 @@ namespace PresentationLayer
             bnAddClient.Enabled = true;
             bnUpdateClient.Visible = false;
             bnUpdateClient.Enabled = false;
+            lbTitle.Visible = true;
+            lbTitleEdit.Visible = false;
         }
         public void UpdateClientInForm(Client selectedClient)// must add the edditing logic
         {
@@ -45,6 +51,8 @@ namespace PresentationLayer
             bnAddClient.Enabled = false;
             bnUpdateClient.Visible = true;
             bnUpdateClient.Enabled = true;
+            lbTitle.Visible = false;
+            lbTitleEdit.Visible = true;
         }
         public void RefreshUIData()
         {
@@ -92,7 +100,7 @@ namespace PresentationLayer
             {
                 textBox.Text = placeholder;
                 textBox.ForeColor = Color.Gray;
-                if (isAge) { ValidateAge(); }
+                if (isAge) { }
             }
         }
 
@@ -102,7 +110,7 @@ namespace PresentationLayer
             {
                 textBox.Text = "";
                 textBox.ForeColor = Color.Black;
-                if (isAge) { ValidateAge(); }
+                if (isAge) { }
             }
         }
         #endregion

@@ -21,7 +21,9 @@ namespace ServiceLayer
         public async Task CreateAsync(User user)
         {
             if (user == null)
+            {
                 throw new ArgumentNullException(nameof(user), "User cannot be null.");
+            }
 
             await EnsureUniqueUserAsync(user);
 

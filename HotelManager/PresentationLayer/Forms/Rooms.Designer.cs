@@ -192,12 +192,14 @@
             bnGenerateRoom.TabIndex = 9;
             bnGenerateRoom.Text = "Generate room";
             bnGenerateRoom.UseVisualStyleBackColor = false;
+            bnGenerateRoom.Visible = false;
             bnGenerateRoom.Click += bnGenerateRoom_Click;
             // 
             // RoomsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Gainsboro;
             ClientSize = new Size(1280, 720);
             Controls.Add(bnGenerateRoom);
             Controls.Add(cmbSort);

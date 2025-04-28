@@ -44,6 +44,7 @@
             lbPhoneNumber = new Label();
             lbEmail = new Label();
             bnUpdateClient = new Button();
+            lbTitleEdit = new Label();
             ((ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
@@ -52,11 +53,12 @@
             lbTitle.Anchor = AnchorStyles.None;
             lbTitle.AutoSize = true;
             lbTitle.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbTitle.Location = new Point(485, 59);
+            lbTitle.Location = new Point(460, 84);
             lbTitle.Name = "lbTitle";
             lbTitle.Size = new Size(287, 81);
             lbTitle.TabIndex = 0;
             lbTitle.Text = "Нов гост";
+            lbTitle.TextAlign = ContentAlignment.TopCenter;
             // 
             // bnAddClient
             // 
@@ -123,7 +125,7 @@
             bnClientsView.RightToLeft = RightToLeft.No;
             bnClientsView.Size = new Size(300, 105);
             bnClientsView.TabIndex = 13;
-            bnClientsView.Text = "База даннни\n с клиенти";
+            bnClientsView.Text = "База даннни\n с гости";
             bnClientsView.UseVisualStyleBackColor = false;
             bnClientsView.Click += bnClientsView_Click;
             // 
@@ -189,11 +191,25 @@
             bnUpdateClient.UseVisualStyleBackColor = false;
             bnUpdateClient.Click += bnUpdateClient_Click;
             // 
+            // lbTitleEdit
+            // 
+            lbTitleEdit.Anchor = AnchorStyles.None;
+            lbTitleEdit.AutoSize = true;
+            lbTitleEdit.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbTitleEdit.Location = new Point(390, 84);
+            lbTitleEdit.Name = "lbTitleEdit";
+            lbTitleEdit.Size = new Size(510, 81);
+            lbTitleEdit.TabIndex = 19;
+            lbTitleEdit.Text = "Редактирай гост";
+            lbTitleEdit.TextAlign = ContentAlignment.TopCenter;
+            // 
             // AddNewClientForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Gainsboro;
             ClientSize = new Size(1280, 720);
+            Controls.Add(lbTitleEdit);
             Controls.Add(bnUpdateClient);
             Controls.Add(lbEmail);
             Controls.Add(lbPhoneNumber);
@@ -233,5 +249,6 @@
         private Label lbAge;
         private Label lbLastName;
         private Button bnUpdateClient;
+        private Label lbTitleEdit;
     }
 }

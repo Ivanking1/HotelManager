@@ -46,6 +46,7 @@
             bnUpdateReservation = new Button();
             bnSearch = new Button();
             txtSearch = new TextBox();
+            lbTitleEdit = new Label();
             SuspendLayout();
             // 
             // lbTitle
@@ -78,7 +79,7 @@
             clbClients.Name = "clbClients";
             clbClients.Size = new Size(542, 202);
             clbClients.TabIndex = 12;
-            clbClients.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbClients_ItemCheck);//
+            clbClients.ItemCheck += clbClients_ItemCheck;
             // 
             // cmbMealPlan
             // 
@@ -88,7 +89,7 @@
             cmbMealPlan.Name = "cmbMealPlan";
             cmbMealPlan.Size = new Size(347, 39);
             cmbMealPlan.TabIndex = 14;
-            cmbMealPlan.SelectedIndexChanged += new System.EventHandler(this.cmbMealPlan_SelectedIndexChanged);//
+            cmbMealPlan.SelectedIndexChanged += cmbMealPlan_SelectedIndexChanged;
             // 
             // dtpStartDate
             // 
@@ -96,7 +97,7 @@
             dtpStartDate.Name = "dtpStartDate";
             dtpStartDate.Size = new Size(347, 27);
             dtpStartDate.TabIndex = 15;
-            dtpStartDate.ValueChanged += new System.EventHandler(this.dtpStartDate_ValueChanged);//
+            dtpStartDate.ValueChanged += dtpStartDate_ValueChanged;
             // 
             // dtpEndDate
             // 
@@ -104,7 +105,7 @@
             dtpEndDate.Name = "dtpEndDate";
             dtpEndDate.Size = new Size(347, 27);
             dtpEndDate.TabIndex = 16;
-            dtpEndDate.ValueChanged += new System.EventHandler(this.dtpEndDate_ValueChanged);
+            dtpEndDate.ValueChanged += dtpEndDate_ValueChanged;
             // 
             // lbTotalPrice
             // 
@@ -174,7 +175,7 @@
             cmbRoom.Name = "cmbRoom";
             cmbRoom.Size = new Size(396, 39);
             cmbRoom.TabIndex = 23;
-            cmbRoom.SelectedIndexChanged += new System.EventHandler(this.cmbRoom_SelectedIndexChanged);//
+            cmbRoom.SelectedIndexChanged += cmbRoom_SelectedIndexChanged;
             // 
             // txtTotalPrice
             // 
@@ -194,7 +195,7 @@
             bnReservationsView.RightToLeft = RightToLeft.No;
             bnReservationsView.Size = new Size(300, 105);
             bnReservationsView.TabIndex = 25;
-            bnReservationsView.Text = "База даннни\n с клиенти";
+            bnReservationsView.Text = "База даннни\n с резервации";
             bnReservationsView.UseVisualStyleBackColor = false;
             bnReservationsView.Click += bnReservationsView_Click;
             // 
@@ -218,7 +219,7 @@
             bnSearch.TabIndex = 26;
             bnSearch.Text = "Търси";
             bnSearch.UseVisualStyleBackColor = true;
-            bnSearch.Click += new System.EventHandler(this.btnSearchClients_Click);//
+            bnSearch.Click += btnSearchClients_Click;
             // 
             // txtSearch
             // 
@@ -226,13 +227,25 @@
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(144, 27);
             txtSearch.TabIndex = 27;
-            txtSearch.TextChanged += new System.EventHandler(this.txtSearchClients_TextChanged);//
+            txtSearch.TextChanged += txtSearchClients_TextChanged;
+            // 
+            // lbTitleEdit
+            // 
+            lbTitleEdit.AutoSize = true;
+            lbTitleEdit.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbTitleEdit.Location = new Point(269, 57);
+            lbTitleEdit.Name = "lbTitleEdit";
+            lbTitleEdit.Size = new Size(738, 81);
+            lbTitleEdit.TabIndex = 28;
+            lbTitleEdit.Text = "Редактирай резервация";
             // 
             // AddNewReservationForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Gainsboro;
             ClientSize = new Size(1280, 720);
+            Controls.Add(lbTitleEdit);
             Controls.Add(txtSearch);
             Controls.Add(bnSearch);
             Controls.Add(bnUpdateReservation);
@@ -280,5 +293,6 @@
         private Button bnUpdateReservation;
         private Button bnSearch;
         private TextBox txtSearch;
+        private Label lbTitleEdit;
     }
 }

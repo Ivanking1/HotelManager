@@ -12,7 +12,7 @@ namespace PresentationLayer
         #region navigation bar
         private void ConfigureMenuPermissions()
         {
-            if(FormsContext.LoggedInUser == null)//not neccesarry may remove later
+            if (FormsContext.LoggedInUser == null)//not neccesarry may remove later
             {
                 throw new ArgumentException("not logged in");
             }
@@ -92,6 +92,7 @@ namespace PresentationLayer
             this.Close();
         }
         #endregion
+
 
         
     }

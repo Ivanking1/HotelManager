@@ -221,7 +221,7 @@ namespace PresentationLayer
         private void bnNewClient_Click(object sender, EventArgs e)
         {
             this.Hide();
-            //FormsContext.AddNewClientForm.ReturnFormToNormal();
+            FormsContext.AddNewClientForm.ReturnFormToNormal();
             FormsContext.AddNewClientForm?.Show();
         }
 

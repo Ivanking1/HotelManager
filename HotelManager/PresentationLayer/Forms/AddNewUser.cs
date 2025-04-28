@@ -1,5 +1,4 @@
 ﻿
-
 namespace PresentationLayer
 {
     public partial class AddNewUserForm : Form
@@ -17,6 +16,8 @@ namespace PresentationLayer
             bnAddUser.Enabled = true;
             bnUpdateUser.Visible = false;
             bnUpdateUser.Enabled = false;
+            lbTitle.Visible = true;
+            lbTitleEdit.Visible = false;
         }
         public AddNewUserForm()
         {
@@ -28,6 +29,8 @@ namespace PresentationLayer
             bnAddUser.Enabled = true;
             bnUpdateUser.Visible = false;
             bnUpdateUser.Enabled = false;
+            lbTitle.Visible = true;
+            lbTitleEdit.Visible = false;
         }
 
         public void ReturnFormToNormal()// must add the edditing logic
@@ -38,6 +41,8 @@ namespace PresentationLayer
             bnAddUser.Enabled = true;
             bnUpdateUser.Visible = false;
             bnUpdateUser.Enabled = false;
+            lbTitle.Visible = true;
+            lbTitleEdit.Visible = false;
         }
         public void UpdateUserInForm(User selectedUser)// must add the edditing logic
         {
@@ -47,19 +52,20 @@ namespace PresentationLayer
             bnAddUser.Enabled = false;
             bnUpdateUser.Visible = true;
             bnUpdateUser.Enabled = true;
+            lbTitle.Visible = false;
+            lbTitleEdit.Visible = true;
         }
         public void RefreshUIData()
         {
             if (selectedUser != null)
             {
-                txtUsername.Text = selectedUser.UserName;
-                txtPassword.Text = selectedUser.Password;
+                txtUsername.Text = selectedUser.UserName.ToString();
                
-                txtFirstName.Text = selectedUser.Password;
-                txtSecondName.Text = selectedUser.Password;
-                txtLastName.Text = selectedUser.Password;
-                txtPhoneNumber.Text = selectedUser.Password;
-                txtEmail.Text = selectedUser.Password;
+                txtFirstName.Text = selectedUser.FirstName.ToString();
+                txtSecondName.Text = selectedUser.SecondName.ToString();
+                txtLastName.Text = selectedUser.LastName.ToString();
+                txtPhoneNumber.Text = selectedUser.PhoneNumber.ToString();
+                txtEmail.Text = selectedUser.Email.ToString();
                 dtpDateOfBirth.Value = selectedUser.DateOfBirth;
                 cmbUserRole.SelectedItem = selectedUser.Role;
                 chkIsActive.Checked = selectedUser.IsActive;
@@ -197,22 +203,13 @@ namespace PresentationLayer
 
             try
             {
-                User newUser = new User(Guid.NewGuid(),
-                                        username,
-                                        password,  //hashing the password
-                                        firstName,
-                                        secondName,
-                                        lastName,
-                                        dateOfBirth,
-                                        phoneNumber,
-                                        email,
-                                        startOfEmployment,
-                                        true,
-                                        null,
-                                        role);
+                User newUser = new User(Guid.NewGuid(), username, password, firstName, 
+                    secondName, lastName, dateOfBirth, phoneNumber, email, 
+                    startOfEmployment, true, null, role);
 
                 await userManager.CreateAsync(newUser);
-                MessageBox.Show("User added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("User added successfully!", "Success", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 this.Hide();
                 FormsContext.UsersForm?.Show();

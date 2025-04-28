@@ -112,6 +112,7 @@
             dgvReservations.RowHeadersWidth = 51;
             dgvReservations.Size = new Size(774, 581);
             dgvReservations.TabIndex = 2;
+            dgvReservations.AutoGenerateColumns = false;
             // 
             // bnDeleteReservation
             // 
@@ -191,12 +192,14 @@
             bnGenerateReservation.TabIndex = 9;
             bnGenerateReservation.Text = "Generate reservation";
             bnGenerateReservation.UseVisualStyleBackColor = false;
+            bnGenerateReservation.Visible = false;
             bnGenerateReservation.Click += bnGenerateReservation_Click;
             // 
             // ReservationsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Gainsboro;
             ClientSize = new Size(1280, 720);
             Controls.Add(bnGenerateReservation);
             Controls.Add(cmbSort);

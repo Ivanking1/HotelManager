@@ -192,12 +192,14 @@
             bnGenerateClient.TabIndex = 9;
             bnGenerateClient.Text = "Generate client";
             bnGenerateClient.UseVisualStyleBackColor = false;
+            bnGenerateClient.Visible = false;
             bnGenerateClient.Click += bnGenerateClient_Click;
             // 
             // ClientsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Gainsboro;
             ClientSize = new Size(1280, 720);
             Controls.Add(bnGenerateClient);
             Controls.Add(cmbSort);

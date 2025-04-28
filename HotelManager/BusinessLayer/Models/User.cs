@@ -134,6 +134,7 @@ namespace BusinessLayer
             if (endOfEmployment.HasValue && endOfEmployment <= startOfEmployment)
                 throw new ArgumentException("End of employment must be after the start of employment.");
 
+            Password = password;
             StartOfEmployment = startOfEmployment;
             EndOfEmployment = endOfEmployment;
             IsActive = isActive;

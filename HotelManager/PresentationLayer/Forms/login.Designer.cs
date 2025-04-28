@@ -39,7 +39,7 @@
             // 
             // lbTitleLogin
             // 
-            lbTitleLogin.Anchor = AnchorStyles.None;//may add to all elements
+            lbTitleLogin.Anchor = AnchorStyles.None;
             lbTitleLogin.AutoSize = true;
             lbTitleLogin.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbTitleLogin.Location = new Point(81, 51);
@@ -99,7 +99,7 @@
             // 
             // bnPasswordVisibility
             // 
-            bnPasswordVisibility.BackColor = SystemColors.Control;
+            bnPasswordVisibility.BackColor = Color.Transparent;
             bnPasswordVisibility.BackgroundImageLayout = ImageLayout.Stretch;
             bnPasswordVisibility.Cursor = Cursors.Hand;
             bnPasswordVisibility.FlatAppearance.BorderSize = 0;
@@ -117,6 +117,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Gainsboro;
             ClientSize = new Size(598, 590);
             Controls.Add(bnPasswordVisibility);
             Controls.Add(lbPassword);

@@ -196,6 +196,12 @@ namespace PresentationLayer
                     });
                 }
             }
+
+            dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvUsers.AllowUserToAddRows = false;
+            dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvUsers.MultiSelect = false;
+            dgvUsers.ReadOnly = true;
         }
 
         private void UsersForm_Shown(object sender, EventArgs e)

@@ -79,22 +79,22 @@ namespace DataLayer
             };
         }
 
-        private User ToDomainUser(FirebaseUser user)
+        private User ToDomainUser(FirebaseUser firebaseUser)
         {
             return new User(
-                user.Id,
-                user.UserName,
-                user.Password,
-                user.FirstName,
-                user.SecondName,
-                user.LastName,
-                user.DateOfBirth,
-                user.PhoneNumber,
-                user.Email,
-                user.StartOfEmployment,
-                user.IsActive,
-                user.EndOfEmployment,
-                user.Role
+                firebaseUser.Id,
+                firebaseUser.UserName,
+                firebaseUser.Password,
+                firebaseUser.FirstName,
+                firebaseUser.SecondName,
+                firebaseUser.LastName,
+                firebaseUser.DateOfBirth,
+                firebaseUser.PhoneNumber,
+                firebaseUser.Email,
+                firebaseUser.StartOfEmployment,
+                firebaseUser.IsActive,
+                firebaseUser.EndOfEmployment,
+                firebaseUser.Role
             );
         }
     }

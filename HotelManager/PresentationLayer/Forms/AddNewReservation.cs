@@ -23,7 +23,10 @@ namespace PresentationLayer
             bnAddReservation.Enabled = true;
             bnUpdateReservation.Visible = false;
             bnUpdateReservation.Enabled = false;
+            lbTitle.Visible = true;
+            lbTitleEdit.Visible = false;
             LoadInitialDataAsync();
+            LoadMealTypes();
         }
         public AddNewReservationForm()
         {
@@ -38,12 +41,16 @@ namespace PresentationLayer
             bnAddReservation.Enabled = true;
             bnUpdateReservation.Visible = false;
             bnUpdateReservation.Enabled = false;
+            lbTitle.Visible = true;
+            lbTitleEdit.Visible = false;
             LoadInitialDataAsync();
+            LoadMealTypes();
         }
 
         #region switchind bethween editing and adding mode
         public void ReturnFormToNormal()
         {
+            selectedReservation = null;
             // Reset form to default state
             dtpStartDate.Value = DateTime.Today;
             dtpEndDate.Value = DateTime.Today.AddDays(1);
@@ -51,6 +58,11 @@ namespace PresentationLayer
             //cmbRoom.SelectedIndex = 0;
             txtTotalPrice.Text = string.Empty;
             txtSearch.Text = string.Empty;
+            for (int i = 0; i < clbClients.Items.Count; i++)
+            {
+                clbClients.SetItemChecked(i, false); // Uncheck each item
+            }
+
             clbClients.ClearSelected();
 
             // Reset button states
@@ -58,21 +70,27 @@ namespace PresentationLayer
             bnAddReservation.Enabled = true;
             bnUpdateReservation.Visible = false;
             bnUpdateReservation.Enabled = false;
+            lbTitle.Visible = true;
+            lbTitleEdit.Visible = false;
 
             selectedReservation = null;
         }
         public void UpdateReservationInForm(Reservation reservation)
         {
             this.selectedReservation = reservation;
-            RefreshReservationData();
+            cmbRoom.Visible = true;
 
             // Switch to edit mode
             bnAddReservation.Visible = false;
             bnAddReservation.Enabled = false;
             bnUpdateReservation.Visible = true;
             bnUpdateReservation.Enabled = true;
+            lbTitle.Visible = false;
+            lbTitleEdit.Visible = true;
+
+            RefreshReservationData();
         }
-        private void RefreshReservationData()
+        private async void RefreshReservationData()
         {
             if (selectedReservation != null)
             {
@@ -83,15 +101,16 @@ namespace PresentationLayer
                 // Set meal plan
                 cmbMealPlan.SelectedItem = selectedReservation.MealPlan;
 
-                // Select the room
-                foreach (var item in cmbRoom.Items)
+                var clients = await Task.Run(async () =>
                 {
-                    if (item is Room room && room.Id == selectedReservation.RoomId)
-                    {
-                        cmbRoom.SelectedItem = item;
-                        break;
-                    }
-                }
+                    Debug.WriteLine("[AddNewReservation] Starting client fetch on background thread");
+                    return await clientManager.ReadAllAsync().ConfigureAwait(false);
+                }).ConfigureAwait(true); // Return to UI context
+
+                
+
+                allClients = clients?.ToList() ?? new List<Client>();
+                UpdateClientsListBox("");
 
                 // Select the clients
                 for (int i = 0; i < clbClients.Items.Count; i++)
@@ -100,6 +119,18 @@ namespace PresentationLayer
                         selectedReservation.Guests.Any(g => g.Id == client.Id))
                     {
                         clbClients.SetItemChecked(i, true);
+                    }
+                }
+
+                UpdateRoomComboBoxVisibility();
+
+                // Select the room
+                foreach (var item in cmbRoom.Items)
+                {
+                    if (item is Room room && room.Id == selectedReservation.RoomId)
+                    {
+                        cmbRoom.SelectedItem = item;
+                        break;
                     }
                 }
 
@@ -112,15 +143,16 @@ namespace PresentationLayer
 
         private void AddNewReservationForm_Shown(object sender, EventArgs e)
         {
-            LoadInitialDataAsync();
+            if(selectedReservation == null)
+            {
+                LoadInitialDataAsync();
+            }
         }
         private async void LoadInitialDataAsync()
         {
             try
             {
                 Debug.WriteLine("[AddNewReservation] Starting LoadInitialDataAsync");
-
-                LoadMealTypes(); // Keep synchronous
 
                 // Force a new context for the async operation
                 var clients = await Task.Run(async () =>
@@ -134,8 +166,11 @@ namespace PresentationLayer
                 allClients = clients?.ToList() ?? new List<Client>();
                 UpdateClientsListBox("");
 
-                dtpStartDate.Value = DateTime.Today;
-                dtpStartDate.Value = DateTime.Today.AddDays(1);
+                if(selectedReservation == null)
+                {
+                    dtpStartDate.Value = DateTime.Today;
+                    dtpStartDate.Value = DateTime.Today.AddDays(1);
+                }
             }
             catch (Exception ex)
             {
@@ -261,21 +296,7 @@ namespace PresentationLayer
                 string? mealPlanString = cmbMealPlan.SelectedItem.ToString();
                 MealsEnum mealPlan = (MealsEnum)Enum.Parse(typeof(MealsEnum), mealPlanString);
                 var currentUser = FormsContext.LoggedInUser;
-                //int totalNights = (dtpEndDate.Value - dtpStartDate.Value).Days;
-                //int adults = guests.Count(g => g.Age >= 18);
-                //int children = guests.Count(g => g.Age < 18);
-
-                //// Calculate room price
-                //decimal basePrice = (selectedRoom.AdultPrice * adults + selectedRoom.ChildPrice * children) * totalNights;
-
-                //// Calculate meal plan price
-                //decimal mealPlanPrice = mealPlan switch
-                //{
-                //    MealsEnum.OnlyBreakfast => (adults * 15 + children * 10) * totalNights,
-                //    MealsEnum.ThreeMeals => (adults * 30 + children * 20) * totalNights,
-                //    MealsEnum.AllInclusive => (adults * 50 + children * 35) * totalNights,
-                //    _ => 0
-                //};
+                
                 var reservation = new Reservation(
                     Guid.NewGuid(),
                     selectedRoom,
@@ -433,6 +454,7 @@ namespace PresentationLayer
         private void bnReservationsView_Click(object sender, EventArgs e)
         {
             this.Hide();
+            ReturnFormToNormal();
             FormsContext.ReservationsForm?.Show();
         }
 

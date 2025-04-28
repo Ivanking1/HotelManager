@@ -41,6 +41,7 @@
             lbPrices = new Label();
             bnRoomsView = new Button();
             bnUpdateRoom = new Button();
+            lbTitleEdit = new Label();
             SuspendLayout();
             // 
             // txtRoomNumber
@@ -158,7 +159,7 @@
             bnRoomsView.RightToLeft = RightToLeft.No;
             bnRoomsView.Size = new Size(300, 105);
             bnRoomsView.TabIndex = 24;
-            bnRoomsView.Text = "База даннни\n с клиенти";
+            bnRoomsView.Text = "База даннни\n със стаи";
             bnRoomsView.UseVisualStyleBackColor = false;
             bnRoomsView.Click += bnRoomsView_Click;
             // 
@@ -175,11 +176,23 @@
             bnUpdateRoom.UseVisualStyleBackColor = false;
             bnUpdateRoom.Click += bnUpdateRoom_Click;
             // 
+            // lbTitleEdit
+            // 
+            lbTitleEdit.AutoSize = true;
+            lbTitleEdit.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbTitleEdit.Location = new Point(382, 54);
+            lbTitleEdit.Name = "lbTitleEdit";
+            lbTitleEdit.Size = new Size(515, 81);
+            lbTitleEdit.TabIndex = 25;
+            lbTitleEdit.Text = "Редактирай стая";
+            // 
             // AddNewRoomForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Gainsboro;
             ClientSize = new Size(1280, 720);
+            Controls.Add(lbTitleEdit);
             Controls.Add(bnUpdateRoom);
             Controls.Add(bnRoomsView);
             Controls.Add(lbPrices);
@@ -217,5 +230,6 @@
         private Label lbPrices;
         private Button bnRoomsView;
         private Button bnUpdateRoom;
+        private Label lbTitleEdit;
     }
 }

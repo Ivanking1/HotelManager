@@ -272,8 +272,8 @@ namespace PresentationLayer
             if (dgvReservations.CurrentRow?.DataBoundItem is Reservation selectedReservation)
             {
                 this.Hide();
-                FormsContext.AddNewReservationForm.UpdateReservationInForm(selectedReservation);
                 FormsContext.AddNewReservationForm.Show();
+                FormsContext.AddNewReservationForm.UpdateReservationInForm(selectedReservation);
             }
         }
 
