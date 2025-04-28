@@ -12,6 +12,7 @@ namespace PresentationLayer
             InitializeComponent();
             ConfigureMenuPermissions();
             LoadRoomsAsync();
+            dgvRooms.AutoGenerateColumns = false;
         }
         public RoomsForm()
         {
@@ -19,6 +20,7 @@ namespace PresentationLayer
             InitializeComponent();
             ConfigureMenuPermissions();
             LoadRoomsAsync();
+            dgvRooms.AutoGenerateColumns = false;
         }
 
 

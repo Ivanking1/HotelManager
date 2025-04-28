@@ -151,6 +151,7 @@
             dgvRooms.RowHeadersWidth = 51;
             dgvRooms.Size = new Size(774, 581);
             dgvRooms.TabIndex = 2;
+            dgvRooms.AutoGenerateColumns = false;
             // 
             // lbTitle
             // 

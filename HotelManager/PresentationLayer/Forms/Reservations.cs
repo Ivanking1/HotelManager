@@ -18,6 +18,7 @@ namespace PresentationLayer
             InitializeComponent();
             ConfigureMenuPermissions();
             LoadReservationsAsync();
+            dgvReservations.AutoGenerateColumns = false;
         }
         public ReservationsForm()
         {
@@ -28,6 +29,7 @@ namespace PresentationLayer
             InitializeComponent();
             ConfigureMenuPermissions();
             LoadReservationsAsync();
+            dgvReservations.AutoGenerateColumns = false;
         }
 
 

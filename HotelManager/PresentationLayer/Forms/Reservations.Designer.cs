@@ -112,6 +112,7 @@
             dgvReservations.RowHeadersWidth = 51;
             dgvReservations.Size = new Size(774, 581);
             dgvReservations.TabIndex = 2;
+            dgvReservations.AutoGenerateColumns = false;
             // 
             // bnDeleteReservation
             // 

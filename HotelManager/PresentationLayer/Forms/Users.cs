@@ -13,6 +13,7 @@ namespace PresentationLayer
             InitializeComponent();
             ConfigureMenuPermissions();
             LoadUsersAsync();
+            dgvUsers.AutoGenerateColumns = false;
         }
         public UsersForm()
         {
@@ -20,6 +21,7 @@ namespace PresentationLayer
             InitializeComponent();
             ConfigureMenuPermissions();
             LoadUsersAsync();
+            dgvUsers.AutoGenerateColumns = false;
         }
 
 
