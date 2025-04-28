@@ -10,7 +10,6 @@ namespace PresentationLayer
         private List<Client> allClients = new List<Client>();
         private List<Room> allRooms = new List<Room>();
         private Reservation? selectedReservation;
-        private bool isDiabled = false;
         public AddNewReservationForm(IFirebaseClient firebaseClient)
         {
             reservationManager = new ReservationManager(firebaseClient);
@@ -49,7 +48,7 @@ namespace PresentationLayer
         }
 
         #region switchind bethween editing and adding mode
-        public void ReturnFormToNormal()// returns form to adding mode
+        public void ReturnFormToNormal()
         {
             selectedReservation = null;
             // Reset form to default state
@@ -76,9 +75,8 @@ namespace PresentationLayer
 
             selectedReservation = null;
         }
-        public async Task UpdateReservationInForm(Reservation reservation)// the form switches to editing mode
+        public void UpdateReservationInForm(Reservation reservation)
         {
-            isDiabled = true;
             this.selectedReservation = reservation;
             cmbRoom.Visible = true;
 
@@ -90,26 +88,9 @@ namespace PresentationLayer
             lbTitle.Visible = false;
             lbTitleEdit.Visible = true;
 
-            await RefreshReservationData();
-
-            UpdateRoomComboBoxVisibility();
-
-            // Select the room
-            //foreach (var item in cmbRoom.Items)
-            //{
-            //    if (item is Room room && room.Id == selectedReservation.RoomId)
-            //    {
-            //        cmbRoom.SelectedItem = item;
-            //        break;
-            //    }
-            //}
-            //cmbRoom.SelectedIndex = 1;
-
-            // Calculate and show price
-            CalculatePrice();
-            isDiabled = false;
+            RefreshReservationData();
         }
-        private async Task RefreshReservationData()
+        private async void RefreshReservationData()
         {
             if (selectedReservation != null)
             {
@@ -126,6 +107,8 @@ namespace PresentationLayer
                     return await clientManager.ReadAllAsync().ConfigureAwait(false);
                 }).ConfigureAwait(true); // Return to UI context
 
+                
+
                 allClients = clients?.ToList() ?? new List<Client>();
                 UpdateClientsListBox("");
 
@@ -138,6 +121,21 @@ namespace PresentationLayer
                         clbClients.SetItemChecked(i, true);
                     }
                 }
+
+                UpdateRoomComboBoxVisibility();
+
+                // Select the room
+                foreach (var item in cmbRoom.Items)
+                {
+                    if (item is Room room && room.Id == selectedReservation.RoomId)
+                    {
+                        cmbRoom.SelectedItem = item;
+                        break;
+                    }
+                }
+
+                // Calculate and show price
+                CalculatePrice();
             }
         }
         #endregion
@@ -228,11 +226,6 @@ namespace PresentationLayer
                 cmbRoom.Items.Clear();
                 cmbRoom.Items.Add("Select Room");
 
-                if(selectedReservation != null)
-                {
-                    cmbRoom.Items.Add(selectedReservation.ReservedRoom);
-                }
-
                 // Add each room with proper display text
                 foreach (var room in availableRooms)
                 {
@@ -241,16 +234,7 @@ namespace PresentationLayer
 
                 cmbRoom.DisplayMember = "RoomInfo";
                 cmbRoom.ValueMember = "Id";
-
-                if (selectedReservation == null)
-                {cmbRoom.SelectedIndex = 0;}
-                else if(selectedReservation.MealPlan.Equals(cmbMealPlan.SelectedItem) && 
-                    dtpStartDate.Value == selectedReservation.StartingDate && 
-                    dtpEndDate.Value == selectedReservation.EndingDate && 
-                    clbClients.CheckedItems.Count <= selectedReservation.ReservedRoom.Capacity && 
-                    clbClients.CheckedItems.Count > 0)
-                {cmbRoom.SelectedIndex = 1;}
-
+                cmbRoom.SelectedIndex = 0;
                 cmbRoom.ForeColor = Color.Black;
             }
             catch (Exception ex)
@@ -346,20 +330,14 @@ namespace PresentationLayer
         private void dtpStartDate_ValueChanged(object sender, EventArgs e)
         {
             dtpEndDate.MinDate = dtpStartDate.Value.AddDays(1);
-            if(isDiabled == false)
-            {
-                UpdateRoomComboBoxVisibility();
-                CalculatePrice();
-            }
+            UpdateRoomComboBoxVisibility();
+            CalculatePrice();
         }
 
         private void dtpEndDate_ValueChanged(object sender, EventArgs e)
         {
-            if (isDiabled == false)
-            {
-                UpdateRoomComboBoxVisibility();
-                CalculatePrice();
-            }
+            UpdateRoomComboBoxVisibility();
+            CalculatePrice();
         }
 
         private void cmbRoom_SelectedIndexChanged(object sender, EventArgs e)
@@ -380,10 +358,7 @@ namespace PresentationLayer
             if (cmbMealPlan.SelectedIndex > 0)
             {
                 cmbMealPlan.ForeColor = Color.Black;
-                if (isDiabled == false)
-                {
-                    UpdateRoomComboBoxVisibility();
-                }
+                UpdateRoomComboBoxVisibility();
             }
             else
             {
@@ -398,11 +373,8 @@ namespace PresentationLayer
             //    UpdateRoomComboBoxVisibility();
             //    CalculatePrice();
             //});
-            if (isDiabled == false)
-            {
-                UpdateRoomComboBoxVisibility();
-                CalculatePrice();
-            }
+            UpdateRoomComboBoxVisibility();
+            CalculatePrice();
         }
 
         private void btnSearchClients_Click(object sender, EventArgs e)
@@ -520,8 +492,7 @@ namespace PresentationLayer
 
                 // Get selected values
                 var selectedRoom = (Room)cmbRoom.SelectedItem;
-                string? mealPlanString = cmbMealPlan.SelectedItem.ToString();
-                MealsEnum mealPlan = (MealsEnum)Enum.Parse(typeof(MealsEnum), mealPlanString);
+                var mealPlan = (MealsEnum)((dynamic)cmbMealPlan.SelectedItem).Value;
                 var currentUser = FormsContext.LoggedInUser;
                 DateTime startDate = dtpStartDate.Value;
                 DateTime endDate = dtpEndDate.Value;
