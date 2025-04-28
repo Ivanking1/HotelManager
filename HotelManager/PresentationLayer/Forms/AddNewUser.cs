@@ -33,7 +33,7 @@ namespace PresentationLayer
             lbTitleEdit.Visible = false;
         }
 
-        public void ReturnFormToNormal()// must add the edditing logic
+        public void ReturnFormToNormal()// returns form to adding mode
         {
             InitializePlaceholders();
             LoadUserRoles();
@@ -44,7 +44,7 @@ namespace PresentationLayer
             lbTitle.Visible = true;
             lbTitleEdit.Visible = false;
         }
-        public void UpdateUserInForm(User selectedUser)// must add the edditing logic
+        public void UpdateUserInForm(User selectedUser)// the form switches to editing mode
         {
             this.selectedUser = selectedUser;
             RefreshUIData();
@@ -245,7 +245,7 @@ namespace PresentationLayer
             string? roleString = cmbUserRole.SelectedItem.ToString();
             DateTime? endOfEmployment;
 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) ||
+            if (string.IsNullOrEmpty(username) ||
                 string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(secondName) ||
                 string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(phoneNumber) ||
                 string.IsNullOrEmpty(email) || roleString == null)
@@ -255,6 +255,10 @@ namespace PresentationLayer
             }
 
             Role role = (Role)Enum.Parse(typeof(Role), roleString);
+            if(password == null || password.Length == 0)
+            {
+                password = selectedUser.Password;
+            }
             try
             {
                 User updatedUser = new User(selectedUser.Id,

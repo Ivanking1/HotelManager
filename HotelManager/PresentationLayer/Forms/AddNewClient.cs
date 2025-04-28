@@ -33,7 +33,7 @@ namespace PresentationLayer
             lbTitleEdit.Visible = false;
         }
 
-        public void ReturnFormToNormal()// must add the edditing logic
+        public void ReturnFormToNormal()// returns form to adding mode
         {
             InitializePlaceholders();
             bnAddClient.Visible = true;
@@ -43,7 +43,7 @@ namespace PresentationLayer
             lbTitle.Visible = true;
             lbTitleEdit.Visible = false;
         }
-        public void UpdateClientInForm(Client selectedClient)// must add the edditing logic
+        public void UpdateClientInForm(Client selectedClient)// the form switches to editing mode
         {
             this.selectedClient = selectedClient;
             RefreshUIData();

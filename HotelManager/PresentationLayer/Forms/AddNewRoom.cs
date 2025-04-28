@@ -32,7 +32,7 @@ namespace PresentationLayer
             lbTitle.Visible = true;
             lbTitleEdit.Visible = false;
         }
-        public void ReturnFormToNormal()// must add the edditing logic
+        public void ReturnFormToNormal()// returns form to adding mode
         {
             LoadRoomTypes();
             InitializePlaceholders();
@@ -43,7 +43,7 @@ namespace PresentationLayer
             lbTitle.Visible = true;
             lbTitleEdit.Visible = false;
         }
-        public void UpdateRoomInForm(Room selectedRoom)// must add the edditing logic
+        public void UpdateRoomInForm(Room selectedRoom)// the form switches to editing mode
         {
             this.selectedRoom = selectedRoom;
             RefreshUIData();
